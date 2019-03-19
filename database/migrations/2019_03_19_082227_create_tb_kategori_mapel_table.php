@@ -14,7 +14,8 @@ class CreateTbKategoriMapelTable extends Migration
     public function up()
     {
         Schema::create('tb_kategori_mapel', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->string('id_kategori', 5)->primary();
+            $table->string('kategori_mapel', 20);
             $table->timestamps();
         });
     }

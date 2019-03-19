@@ -14,7 +14,8 @@ class CreateTbDetailNilaiTable extends Migration
     public function up()
     {
         Schema::create('tb_detail_nilai', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->string('id_detail', 5)->primary();
+            $table->string('jenis_nilai', 20);
             $table->timestamps();
         });
     }

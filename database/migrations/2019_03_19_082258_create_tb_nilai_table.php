@@ -14,7 +14,14 @@ class CreateTbNilaiTable extends Migration
     public function up()
     {
         Schema::create('tb_nilai', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->string('id_nilai', 10)->primary();
+            $table->string('nis', 10)->index();
+            $table->foreign('nis')->references('nis')->on('tb_siswa');
+            $table->string('id_ampu', 5)->index();
+            $table->foreign('id_ampu')->references('id_ampu')->on('tb_ampu_mapel');
+            $table->string('id_detail', 5)->index();
+            $table->foreign('id_detail')->references('id_detail')->on('tb_detail_nilai');
+            $table->integer('nilai', false, true)->length(3);
             $table->timestamps();
         });
     }

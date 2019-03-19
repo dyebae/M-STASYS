@@ -14,7 +14,8 @@ class CreateTbMapelTable extends Migration
     public function up()
     {
         Schema::create('tb_mapel', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->string('id_mapel', 5)->primary();
+            $table->string('nama_mapel', 20);
             $table->timestamps();
         });
     }
