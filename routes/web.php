@@ -11,9 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
 Route::get('/dashboard', 'DashboardController@dashboard')->name('dashboard');
 Route::get('/data_siswa', 'DashboardController@datasiswa')->name('data_siswa');
 Route::get('/data_guru', 'DashboardController@dataguru')->name('data_guru');
