@@ -6,17 +6,17 @@ use Illuminate\Notifications\Notifiable;
 // use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Guru extends Authenticatable
+class AdminOP extends Authenticatable
 {
     use Notifiable;
 
-    protected $table = 'tb_guru';
+    protected $table = 'tb_admin_op';
 
     protected $fillable = [
-        'nip','walikelas','nama','tempat_lahir','tgl_lahir','alamat','agama','password','jenis_kelamin','status','foto'
+        'username','nama','tempat_lahir','tgl_lahir','alamat','agama','password','jenis_kelamin','status','foto'
     ];
 
-    protected $primaryKey = 'nip';
+    protected $primaryKey = 'username';
 
     public $incrementing = false;
 
@@ -27,10 +27,6 @@ class Guru extends Authenticatable
     public function setPasswordAttribute($value)
     {
       $this->attributes['password'] = bcrypt($value);
-    }
-
-    public function ampu_mapel(){
-        return $this->hasMany('App\AmpuMapel', 'nip');
     }
 
 }
