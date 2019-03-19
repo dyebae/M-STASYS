@@ -53,11 +53,12 @@
 						<h2 class="title text-uppercase text-bold m-none"><i class="fa fa-user mr-xs"></i> Sign In</h2>
 					</div>
 					<div class="panel-body">
-						<form action="{{ route('dashboard') }}" method="get">
+						<form action="{{ route('login_procces') }}" method="POST">
+						{{ csrf_field() }}
 							<div class="form-group mb-lg">
 								<label>Username</label>
 								<div class="input-group input-group-icon">
-									<input type="text" class="form-control input-lg" />
+									<input name="username" type="text" class="form-control input-lg" />
 									<span class="input-group-addon">
 										<span class="icon icon-lg">
 											<i class="fa fa-user"></i>
@@ -72,7 +73,7 @@
 									<!-- <a href="pages-recover-password.html" class="pull-right">Lost Password?</a> -->
 								</div>
 								<div class="input-group input-group-icon">
-									<input type="password" class="form-control input-lg" />
+									<input name="password" type="password" class="form-control input-lg" />
 									<span class="input-group-addon">
 										<span class="icon icon-lg">
 											<i class="fa fa-lock"></i>
@@ -84,7 +85,7 @@
               <div class="form-group mb-lg">
 								<label>Level User</label>
 								<div class="input-group input-group-icon">
-                  <select class="form-control input-mb-md" data-plugin-multiselect id="ms_example1">
+                  <select name="level" class="form-control input-mb-md" data-plugin-multiselect id="ms_example1">
                     <option value="admin" selected>Admin</option>
                     <option value="kepala_sekolah">Kepala Sekolah</option>
                     <option value="guru">Guru</option>
