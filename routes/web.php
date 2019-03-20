@@ -21,3 +21,6 @@ Route::get('/data_kelas', 'DashboardController@datakelas')->name('data_kelas');
 
 Route::get('/', 'LoginController@index')->name('login');
 Route::post('/login_procces', 'LoginController@process')->name('login_procces');
+
+//API GURU
+Route::post('/apiLoginGuru', 'GuruController@apiLogin');
