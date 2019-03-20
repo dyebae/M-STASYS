@@ -41,11 +41,62 @@ return [
             'provider' => 'users',
         ],
 
+        //custom Guards
+        'siswa' => [
+            'driver' => 'session',
+            'provider' => 'siswa',
+        ],
+
+        'guru' => [
+            'driver' => 'session',
+            'provider' => 'guru',
+        ],
+
+        'kepsek' => [
+            'driver' => 'session',
+            'provider' => 'kepsek',
+        ],
+
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admin',
+        ],
+
+        //end custom
+
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
             'hash' => false,
         ],
+
+        //custom api
+
+        'apiSiswa' => [
+            'driver' => 'token',
+            'provider' => 'siswa',
+            'hash' => false,
+        ],
+
+        'apiGuru' => [
+            'driver' => 'token',
+            'provider' => 'guru',
+            'hash' => false,
+        ],
+
+        'apiKepsek' => [
+            'driver' => 'token',
+            'provider' => 'kepsek',
+            'hash' => false,
+        ],
+
+        'apiAdmin' => [
+            'driver' => 'token',
+            'provider' => 'admin',
+            'hash' => false,
+        ],
+
+        //end custom
     ],
 
     /*
@@ -69,6 +120,27 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
+        ],
+
+        //custom provider
+        'siswa' => [
+            'driver' => 'eloquent',
+            'model' => App\Siswa::class,
+        ],
+
+        'guru' => [
+            'driver' => 'eloquent',
+            'model' => App\Guru::class,
+        ],
+
+        'kepsek' => [
+            'driver' => 'eloquent',
+            'model' => App\Kepsek::class,
+        ],
+
+        'admin' => [
+            'driver' => 'eloquent',
+            'model' => App\AdminOP::class,
         ],
 
         // 'users' => [

@@ -22,7 +22,6 @@ class CreateTbAdminOpTable extends Migration
             $table->string('agama', 20);
             $table->string('password', 20);
             $table->string('jenis_kelamin', 10);
-            $table->string('status', 20);
             $table->string('foto');
             $table->timestamps();
         });
