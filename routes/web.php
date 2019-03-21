@@ -11,16 +11,22 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+//all
+Route::get('/', 'LoginController@index')->name('login');
+Route::post('/login', 'LoginController@login')->name('login_procces');
+
+//Admin
 Route::get('/dashboard', 'DashboardController@dashboard')->name('dashboard');
 Route::get('/data_siswa', 'DashboardController@datasiswa')->name('data_siswa');
 Route::get('/data_guru', 'DashboardController@dataguru')->name('data_guru');
 Route::get('/data_kelas', 'DashboardController@datakelas')->name('data_kelas');
 
-Route::get('/', 'LoginController@index')->name('login');
-Route::post('/login_procces', 'LoginController@process')->name('login_procces');
-
 //API GURU
 Route::post('/apiLoginGuru', 'GuruController@apiLogin');
+
+//API SISWA
+Route::post('/apiLoginSiswa', 'SiswaController@apiLogin');

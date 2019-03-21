@@ -56,9 +56,9 @@
 						<form action="{{ route('login_procces') }}" method="POST">
 						{{ csrf_field() }}
 							<div class="form-group mb-lg">
-								<label>Username</label>
+								<label>ID [ Username / NIP / NIS ]</label>
 								<div class="input-group input-group-icon">
-									<input name="username" type="text" class="form-control input-lg" />
+									<input name="id" type="text" class="form-control input-lg" />
 									<span class="input-group-addon">
 										<span class="icon icon-lg">
 											<i class="fa fa-user"></i>
