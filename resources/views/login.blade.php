@@ -43,7 +43,7 @@
 		<!-- start: page -->
 		<section class="body-sign">
 			<div class="center-sign">
-
+			
             <a href="{{ route('login') }}" class="logo pull-left" style="margin-top:5px;text-decoration:none;">
               <img src="assets/images/logoSma.png" height="55" alt="logo" /> <b style="font-size:17px">&nbsp; S M A N &nbsp; 1 &nbsp; J A M B L A N G</b></h4>
             </a>
@@ -53,6 +53,16 @@
 						<h2 class="title text-uppercase text-bold m-none"><i class="fa fa-user mr-xs"></i> Sign In</h2>
 					</div>
 					<div class="panel-body">
+					@if ($message = Session::get('info'))
+						<div class="alert alert-info alert-block" data-dismiss="alert">
+							<strong>{{ $message }}</strong>
+						</div>
+					@endif
+					@if ($message = Session::get('alert'))
+						<div class="alert alert-danger alert-block" data-dismiss="alert">
+							<strong>{{ $message }}</strong>
+						</div>
+					@endif
 						<form action="{{ route('login_procces') }}" method="POST">
 						{{ csrf_field() }}
 							<div class="form-group mb-lg">
@@ -122,7 +132,7 @@
 							</div>
 
 							<p class="text-center">Don't have an account yet? <a href="pages-signup.html">Sign Up!</a> -->
-
+						
 						</form>
 					</div>
 				</div>
