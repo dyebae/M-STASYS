@@ -8,6 +8,15 @@ use Illuminate\Support\Facades\Validator;
 
 class GuruController extends Controller
 {
+	public function index(){
+		if(\Session::get('logged_in')){}else
+		{
+			return redirect('/')->with(['alert' => 'Akses ditolak']);
+		}
+		$data['active'] = 'data_guru';
+		$data['judul'] = 'Data Guru | M - STASYS';
+		return view('admin.dataguru', $data);
+	}
 
     // ------------ API GURU ----------------------- ///
     public function apiLogin(Request $request){

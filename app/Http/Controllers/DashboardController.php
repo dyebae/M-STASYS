@@ -6,17 +6,13 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    public function dashboard(){
-      return view('admin.dashboard');
+	public function index(){
+		if(\Session::get('logged_in')){}else
+		{
+			return redirect('/')->with(['alert' => 'Akses ditolak']);
+		}
+		$data['active'] = '';
+		$data['judul'] = 'Dashboard | M - STASYS';
+		return view('admin.dashboard', $data);
     }
-    public function datasiswa(){
-      return view('admin.datasiswa');
-    }
-    public function dataguru(){
-      return view('admin.dataguru');
-    }
-    public function datakelas(){
-      return view('admin.datakelas');
-    }
-
 }

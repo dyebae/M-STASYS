@@ -53,12 +53,22 @@
 						<h2 class="title text-uppercase text-bold m-none"><i class="fa fa-user mr-xs"></i> Sign In</h2>
 					</div>
 					<div class="panel-body">
+					@if ($message = Session::get('info'))
+						<div class="alert alert-info alert-block" data-dismiss="alert">
+							<strong>{{ $message }}</strong>
+						</div>
+					@endif
+					@if ($message = Session::get('alert'))
+						<div class="alert alert-danger alert-block" data-dismiss="alert">
+							<strong>{{ $message }}</strong>
+						</div>
+					@endif
 						<form action="{{ route('login_procces') }}" method="POST">
 						{{ csrf_field() }}
 							<div class="form-group mb-lg">
-								<label>ID [ Username / NIP / NIS ]</label>
+								<label>Username</label>
 								<div class="input-group input-group-icon">
-									<input name="id" type="text" class="form-control input-lg" />
+									<input name="username" type="text" class="form-control input-lg" />
 									<span class="input-group-addon">
 										<span class="icon icon-lg">
 											<i class="fa fa-user"></i>
