@@ -11,6 +11,7 @@
 |
 */
 
+//<<<<<<< HEAD
 Route::get('/', function () {
     return view('welcome');
 });
@@ -21,6 +22,7 @@ Route::get('/data_kelas', 'KelasController@index')->name('data_kelas');
 Route::get('/ampu_mapel', 'AmpuMapelController@index')->name('ampu_mapel');
 Route::get('/mapel', 'MapelController@index')->name('mapel');
 Route::get('/kategori_mapel', 'KategoriMapelController@index')->name('kategori_mapel');
+Route::get('/nilai_siswa', 'NilaiController@index')->name('nilai_siswa');
 
 
 Route::get('/', 'LoginController@index')->name('login');
@@ -28,5 +30,24 @@ Route::get('/profile', 'LoginController@profile')->name('profile');
 Route::get('/logout', 'LoginController@logout')->name('logout');
 Route::post('/login_procces', 'LoginController@process')->name('login_procces');
 
+//=======
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+//all
+Route::get('/', 'LoginController@index')->name('login');
+Route::post('/login', 'LoginController@login')->name('login_procces');
+
+//Admin
+//Route::get('/dashboard', 'DashboardController@dashboard')->name('dashboard');
+//Route::get('/data_siswa', 'DashboardController@datasiswa')->name('data_siswa');
+//Route::get('/data_guru', 'DashboardController@dataguru')->name('data_guru');
+//Route::get('/data_kelas', 'DashboardController@datakelas')->name('data_kelas');
+
+//>>>>>>> c5bbca3042deb0c3b098ef159d4cdb19f5d689f5
 //API GURU
 Route::post('/apiLoginGuru', 'GuruController@apiLogin');
+
+//API SISWA
+Route::post('/apiLoginSiswa', 'SiswaController@apiLogin');

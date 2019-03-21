@@ -195,14 +195,14 @@
 											</li>
 										</ul>
 									</li>
-									<li class="nav-parent">
+									<li class="nav-parent<?php echo $active == 'nilai_siswa' ? ' nav-active':''; ?>">
 										<a>
 											<i class="fas fa-book" aria-hidden="true"></i>
 											<span>Nilai</span>
 										</a>
 										<ul class="nav nav-children">
 											<li <?php echo $active == 'nilai_siswa' ? 'class="nav-active"':''; ?>>
-												<a href="#">
+												<a href="{{ route('nilai_siswa') }}">
 													Nilai Siswa
 												</a>
 											</li>

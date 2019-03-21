@@ -15,6 +15,7 @@ class LoginController extends Controller
 		}
 		return view('login');
     }
+//<<<<<<< HEAD
 	
 	public function process(Request $req){
 		$auth = auth()->guard($req->level);
@@ -44,4 +45,41 @@ class LoginController extends Controller
 		$data['judul'] = 'Profil | M - STASYS';
 		return view('admin.dashboard', $data);
     }
+///=======
+
+  	public function login(Request $request){
+      if($request->level == 'admin'){
+          $auth = auth()->guard('admin');
+
+          $credentials = [
+              'username' => $request->id,
+              'password' => $request->password,
+          ];
+
+          $validator = Validator::make($request->all(), [
+              'id' => 'required|string|alpha_dash',
+              'password' => 'required|string|min:6|max:20|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/',
+          ]);
+
+          if( $validator->fails() ){
+              return response()->json([
+                'error'   => 2,
+                'message' => $validator->messages(),
+              ], 200);
+          }else{
+              if( $auth->attempt($credentials) ){
+                  return response()->json([
+                      'error'   => 0,
+                      'message' => 'Login Success'
+                  ], 200);
+              }else{
+                  return response()->json([
+                      'error'   => 1,
+                      'message' => 'Wrong username or Password'
+                  ], 200);
+              }
+          }
+      }
+  	}
+//>>>>>>> c5bbca3042deb0c3b098ef159d4cdb19f5d689f5
 }
