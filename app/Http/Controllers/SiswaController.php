@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Validator;
 
 class SiswaController extends Controller
 {
-  
+
     // ------------ API GURU ----------------------- ///
     public function apiLogin(Request $request){
         $auth = auth()->guard('siswa');
@@ -25,18 +25,18 @@ class SiswaController extends Controller
         if( $validator->fails() ){
             return response()->json([
               'error'   => 2,
-              'message' => $validator->messages(),
+              'message' => $validator->messages()->all(),
             ], 200);
         }else{
             if( $auth->attempt($credentials) ){
                 return response()->json([
                     'error'   => 0,
-                    'message' => 'Login Success'
+                    'message' => ['Login Success'],
                 ], 200);
             }else{
                 return response()->json([
                     'error'   => 1,
-                    'message' => 'Wrong nis or Password'
+                    'message' => ['Wrong nis or Password'],
                 ], 200);
             }
         }

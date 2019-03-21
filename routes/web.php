@@ -27,6 +27,7 @@ Route::get('/data_kelas', 'DashboardController@datakelas')->name('data_kelas');
 
 //API GURU
 Route::post('/apiLoginGuru', 'GuruController@apiLogin');
+Route::get('/apiDataGuru/{nip}', 'GuruController@apiAllData');
 
 //API SISWA
 Route::post('/apiLoginSiswa', 'SiswaController@apiLogin');

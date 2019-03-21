@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -25,21 +26,27 @@ class GuruController extends Controller
           if( $validator->fails() ){
               return response()->json([
                 'error'   => 2,
-                'message' => $validator->messages(),
+                'message' => $validator->messages()->all(),
               ], 200);
           }else{
               if( $auth->attempt($credentials) ){
                   return response()->json([
                       'error'   => 0,
-                      'message' => 'Login Success'
+                      'message' => ['Login Success'],
                   ], 200);
               }else{
                   return response()->json([
                       'error'   => 1,
-                      'message' => 'Wrong nip or Password'
+                      'message' => ['Wrong nip or Password'],
                   ], 200);
               }
           }
+    }
+
+    public function apiAllData($nip){
+        $data = DB::table('tb_guru')->where('nip', $nip)->first();
+
+        return json_encode($data);
     }
 
 }

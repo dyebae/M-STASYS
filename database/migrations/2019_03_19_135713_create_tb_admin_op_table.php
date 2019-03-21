@@ -20,7 +20,7 @@ class CreateTbAdminOpTable extends Migration
             $table->date('tgl_lahir');
             $table->string('alamat');
             $table->string('agama', 20);
-            $table->string('password', 20);
+            $table->string('password', 100);
             $table->string('jenis_kelamin', 10);
             $table->string('foto');
             $table->timestamps();
