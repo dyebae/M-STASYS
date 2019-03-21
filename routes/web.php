@@ -36,8 +36,8 @@ Route::post('/login_procces', 'LoginController@process')->name('login_procces');
 // });
 
 //all
-Route::get('/', 'LoginController@index')->name('login');
-Route::post('/login', 'LoginController@login')->name('login_procces');
+//Route::get('/', 'LoginController@index')->name('login');
+//Route::post('/login', 'LoginController@login')->name('login_procces');
 
 //Admin
 //Route::get('/dashboard', 'DashboardController@dashboard')->name('dashboard');
