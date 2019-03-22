@@ -11,6 +11,10 @@ class DashboardController extends Controller
 		{
 			return redirect('/')->with(['alert' => 'Akses ditolak']);
 		}
+		$data['sumSiswa'] = \App\Siswa::count();
+		$data['sumGuru'] = \App\Guru::count();
+		$data['sumKelas'] = \App\Kelas::count();
+		$data['sumMapel'] = \App\Mapel::count();
 		$data['active'] = '';
 		$data['judul'] = 'Dashboard | M - STASYS';
 		return view('admin.dashboard', $data);

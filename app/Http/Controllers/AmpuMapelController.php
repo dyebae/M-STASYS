@@ -13,6 +13,7 @@ class AmpuMapelController extends Controller
 		}
 		$data['active'] = 'ampu_mapel';
 		$data['judul'] = 'Ampu Mapel | M - STASYS';
-		return view('admin.dashboard', $data);
+		//return view('admin.dashboard', $data);
+		print_r($data);
     }
 }

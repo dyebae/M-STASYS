@@ -11,8 +11,10 @@ class KategoriMapelController extends Controller
 			{
 				return redirect('/')->with(['alert' => 'Akses ditolak']);
 			}
+		$data['kategori'] = \App\KategoriMapel::all();
 		$data['active'] = 'kategori_mapel';
 		$data['judul'] = 'Kategori Mata Pelajaran | M - STASYS';
-		return view('admin.dashboard', $data);
+		return view('admin.ktmapel', $data);
+		//print_r($data);
 	}
 }

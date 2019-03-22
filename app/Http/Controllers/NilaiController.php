@@ -13,6 +13,7 @@ class NilaiController extends Controller
 		}
 		$data['active'] = 'nilai_siswa';
 		$data['judul'] = 'Nilai Siswa | M - STASYS';
-		return view('admin.dashboard', $data);
+		//return view('admin.dashboard', $data);
+		print_r($data);
 	}
 }

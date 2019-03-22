@@ -2,7 +2,7 @@
 @section('content')
 <section role="main" class="content-body">
         <header class="page-header">
-          <h2>Data Guru</h2>
+          <h2>Data Mata Pelajaran</h2>
 
           <div class="right-wrapper pull-right">
             <ol class="breadcrumbs">
@@ -11,8 +11,8 @@
                   <i class="fa fa-home"></i>
                 </a>
               </li>
-              <li><span>Guru</span></li>
-              <li><span>Data Guru</span></li>
+              <li><span>Mata Pelajaran</span></li>
+              <li><span>Data Mata Pelajaran</span></li>
             </ol>
 
             <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
@@ -25,7 +25,7 @@
               <div class="panel-actions">
                 <a href="#" class="fa fa-caret-down"></a>
               </div>
-              <h2 class="panel-title">Data Guru</h2>
+              <h2 class="panel-title">Data Mata Pelajaran</h2>
             </header>
             <div class="panel-body">
               <div class="row">
@@ -40,20 +40,18 @@
                 <thead>
                   <tr>
                     <th>No</th>
-                    <th>NIP</th>
-                    <th>Nama</th>
-                    <th>Alamat</th>
-                    <th>Actions</th>
+                    <th>ID</th>
+                    <th>Mata Pelajaran</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
 				<?php $no = 1; ?>
-				@foreach($guru as $r)
+				@foreach($mapel as $r)
                   <tr>
                     <td>{{ $no++ }}</td>
-                    <td>{{ $r->nip }}</td>
-                    <td>{{ $r->nama }}</td>
-                    <td>{{ $r->alamat }}</td>
+                    <td>{{ $r->id_mapel }}</td>
+                    <td>{{ $r->nama_mapel }}</td>
                     <td class="actions">
                       <a href="#" class="on-default"><i class="fas fa-info"></i></a>
                       <a href="#" class="on-default"><i class="fas fa-edit"></i></a>
