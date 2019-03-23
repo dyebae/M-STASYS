@@ -28,12 +28,12 @@
               <h2 class="panel-title">{{ $judul }}</h2>
             </header>
             <div class="panel-body">
-			<form action="{{ route('data-siswa.store', 'store') }}" method="post" role="form" enctype="multipart/form-data">
+			<form action="{{ route('data-siswa.'.$url, $url) }}" method="post" role="form" enctype="multipart/form-data">
 			{{ csrf_field() }}
 				<table class="table table-striped table-bordered table-hover no-footer">
 					<tr>
 						<td colspan="2" align="center">
-							<img src="{{ URL::asset('assets/images/students/'.$foto) }}" id="image-preview" alt="image preview" width="40%" />
+							<img src="{{ URL::asset('assets/images/students/'.$siswa->foto) }}" id="image-preview" alt="image preview" width="40%" />
 							<br/>
 							<div class="file-field">
 								<div class="btn btn-primary btn-sm float-left">

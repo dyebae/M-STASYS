@@ -71,7 +71,7 @@
                     <td class="actions">
                       <a href="#" class="on-default" data-toggle="modal" data-target="#detailData"><i class="fas fa-info"></i></a>
                       <a href="{{ route('update_data_siswa', ['nis'=>$r->nis]) }}" class="on-default"><i class="fas fa-edit"></i></a>
-                      <a href="#" class="on-default" data-toggle="modal" data-target="#deleteData"><i class="fas fa-trash-alt"></i></a>
+                      <a href="#" class="on-default" data-toggle="modal" data-target="#deleteData" data-nis = "{{ $r->nis }}"><i class="fas fa-trash-alt"></i></a>
                     </td>
                   </tr>
 				  @endforeach
@@ -79,42 +79,6 @@
               </table>
             </div>
           </section>
-		  <div id="addData" class="modal fade" role="dialog">
-				  <div class="modal-dialog">
-				    <!-- Modal content-->
-				    <div class="modal-content">
-				      <div class="modal-header">
-				        <button type="button" class="close" data-dismiss="modal">&times;</button>
-				        <h4 class="modal-title"><span class="fas fa-user-plus"></span> Add Data Siswa</h4>
-				      </div>
-				      <div class="modal-body">
-				        <form id="modal-form-add" action="#" method="post" role="form">
-				          {{ csrf_field() }}
-				          <div class="form-group has-primary">
-				            <label for="id_prodi" class="form-control-label">NIS</label>
-				            <input type="text" id="inputNIS" name="nis" class="form-control" required/>
-				            <span class="text-warning" ></span>
-				          </div>
-				          <div class="form-group has-primary">
-				            <label for="nama_prodi" class="form-control-label">Nama Lengkap</label>
-				            <input type="text" id="inputNama" name="nama" class="form-control" required />
-				          </div>
-				          <div class="form-group has-primary">
-				            <label for="kelas" class="form-control-label">Kelas</label>
-				            <select name="kelas" class="form-control">
-												<option value="">XI MIPA 1</option>
-				            </select>
-				          </div>
-				      </div>
-				      <div class="modal-footer">
-				        <button type="submit" class=" btn btn-primary"><span class="fas fa-plus-circle"></span> Submit</button>
-				        <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="fas fa-times-circle"></span> Close</button>
-				      </div>
-				      </form>
-				    </div>
-				  </div>
-				</div>
-				
 				<!-- Modal Delete Data-->
 				<div id="deleteData" class="modal fade" role="dialog">
 				  <div class="modal-dialog">
@@ -124,11 +88,11 @@
 				        <button type="button" class="close" data-dismiss="modal">&times;</button>
 				        <h4 class="modal-title text-center"><span class="fas fa-check"></span> Delete Confirmation</h4>
 				      </div>
-				        <form id="modal-form-delete" method="post" action="#">
+				        <form id="modal-form-delete" method="post" action="{{ route('data-siswa.destroy', 'destroy') }}">
 				            {{ method_field('delete') }}
 				            {{ csrf_field() }}
 				      <div class="modal-body">
-				            <input type="hidden" name="nis" id="nis" value="">
+				            <input type="hidden" name="nis" id="nis" value="" />
 				            <p><center>Are you sure you want to delete this ?</center></p>
 				      </div>
 				      <div class="modal-footer">
@@ -139,4 +103,13 @@
 				    </div>
 				  </div>
 				</div>
+				
+				<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+				<script type="text/javascript">
+				$(document).ready(function(){
+						$('#deleteData').on('show.bs.modal', function (event) {
+							$(this).find('.modal-body #nis').val($(event.relatedTarget).data('nis'))
+						  });
+				});
+				</script>
 		  @endsection
