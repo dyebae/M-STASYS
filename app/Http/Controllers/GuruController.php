@@ -15,7 +15,7 @@ class GuruController extends Controller
 		}
 		$data['guru'] = \App\Guru::all();
 		$data['active'] = 'data_guru';
-		$data['judul'] = 'Data Guru | M - STASYS';
+		$data['judul'] = 'Data Guru';
 		return view('admin.dataguru', $data);
 	}
 

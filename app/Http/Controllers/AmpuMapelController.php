@@ -12,7 +12,7 @@ class AmpuMapelController extends Controller
 			return redirect('/')->with(['alert' => 'Akses ditolak']);
 		}
 		$data['active'] = 'ampu_mapel';
-		$data['judul'] = 'Ampu Mapel | M - STASYS';
+		$data['judul'] = 'Ampu Mapel';
 		//return view('admin.dashboard', $data);
 		print_r($data);
     }

@@ -16,7 +16,7 @@ class DashboardController extends Controller
 		$data['sumKelas'] = \App\Kelas::count();
 		$data['sumMapel'] = \App\Mapel::count();
 		$data['active'] = '';
-		$data['judul'] = 'Dashboard | M - STASYS';
+		$data['judul'] = 'Dashboard';
 		return view('admin.dashboard', $data);
     }
 }

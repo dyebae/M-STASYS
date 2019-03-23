@@ -2,7 +2,7 @@
 @section('content')
 <section role="main" class="content-body">
         <header class="page-header">
-          <h2>Data Siswa</h2>
+          <h2>{{ $judul }}</h2>
 
           <div class="right-wrapper pull-right">
             <ol class="breadcrumbs">
@@ -12,7 +12,7 @@
                 </a>
               </li>
               <li><span>Siswa</span></li>
-              <li><span>Data Siswa</span></li>
+              <li><span>{{ $judul }}</span></li>
             </ol>
 
             <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
@@ -25,14 +25,28 @@
               <div class="panel-actions">
                 <a href="#" class="fa fa-caret-down"></a>
               </div>
-              <h2 class="panel-title">Data Siswa</h2>
+              <h2 class="panel-title">{{ $judul }}</h2>
             </header>
+					@if ($message = Session::get('info'))
+						<div class="alert alert-info alert-block" data-dismiss="alert">
+							<strong>{{ $message }}</strong>
+						</div>
+					@endif
+					@if ($message = Session::get('alert'))
+						<div class="alert alert-danger alert-block" data-dismiss="alert">
+							<strong>
+							@foreach($message as $r)
+								{{ $r }}<br>
+							@endforeach
+							</strong>
+						</div>
+					@endif
             <div class="panel-body">
               <div class="row">
                 <div class="col-sm-6">
                   <div class="mb-md">
                     <!-- <button class="btn btn-primary">Add <i class="fas fa-plus"></i></button> -->
-										<a class="modal-with-form btn btn-primary" data-toggle="modal" data-target="#addData">Add <i class="fas fa-plus"></i></a>
+										<a href="{{ route('add_data_siswa') }}" class="btn btn-primary">Add <i class="fas fa-plus"></i></a>
                     <button class="btn btn-default">Print <i class="fas fa-print"></i></button>
                   </div>
                 </div>
@@ -49,7 +63,6 @@
                 </thead>
                 <tbody>
 				@foreach($siswa as $r)
-				
                   <tr>
                     <td>{{ ++$no }}</td>
                     <td>{{ $r->nis }}</td>
@@ -57,7 +70,7 @@
                     <td>{{ $r->kelas->tingkat." ".$r->kelas->jurusan." ".$r->kelas->rombel }}</td>
                     <td class="actions">
                       <a href="#" class="on-default" data-toggle="modal" data-target="#detailData"><i class="fas fa-info"></i></a>
-                      <a href="#" class="on-default" data-toggle="modal" data-target="#editData"><i class="fas fa-edit"></i></a>
+                      <a href="{{ route('update_data_siswa', ['nis'=>$r->nis]) }}" class="on-default"><i class="fas fa-edit"></i></a>
                       <a href="#" class="on-default" data-toggle="modal" data-target="#deleteData"><i class="fas fa-trash-alt"></i></a>
                     </td>
                   </tr>
@@ -101,45 +114,7 @@
 				    </div>
 				  </div>
 				</div>
-
-				<!-- Modal Edit Data-->
-			  <div id="editData" class="modal fade" role="dialog">
-			    <div class="modal-dialog">
-			      <!-- Modal content-->
-			      <div class="modal-content">
-			        <div class="modal-header">
-			          <button type="button" class="close" data-dismiss="modal">&times;</button>
-			          <h4 class="modal-title"><span class="fas fa-edit"></span> Edit Data</h4>
-			        </div>
-			          <form id="modal-form-edit" method="post" action="#">
-			              {{ method_field('patch') }}
-			              {{ csrf_field() }}
-					        <div class="modal-body">
-					              <input type="hidden" name="nis" id="cat_nis" value="">
-					            <div class="form-group has-primary">
-					              <label for="nis" class="form-control-label">NIS</label>
-					              <input type="text" id="nis" name="nis" class="form-control"  required />
-					            </div>
-					            <div class="form-group has-primary">
-					              <label for="nama_prodi" class="form-control-label">Nama Lengkap</label>
-					              <input type="text" id="nama" name="nama" class="form-control"  required />
-					            </div>
-					            <div class="form-group has-primary">
-					              <label for="kelas" class="form-control-label">Kelas</label>
-					              <select id="kelas" name="kelas" class="form-control">
-					                	<option value="">XI MIPA 1</option>
-					              </select>
-					            </div>
-					        </div>
-					        <div class="modal-footer">
-					          <button type="submit" class="btn btn-warning" id="btnEdit"><span class="fas fa-edit"></span> Edit</button>
-					          <button type="button" class="btn btn-info" data-dismiss="modal"><span class="fas fa-times-circle"></span> Close</button>
-					        </div>
-				        </form>
-			      </div>
-			    </div>
-			  </div>
-
+				
 				<!-- Modal Delete Data-->
 				<div id="deleteData" class="modal fade" role="dialog">
 				  <div class="modal-dialog">
@@ -161,38 +136,6 @@
 				        <button type="button" class="btn btn-info" data-dismiss="modal"><span class="fas fa-times-circle"></span> No, Cancel</button>
 				      </div>
 				      </form>
-				    </div>
-				  </div>
-				</div>
-
-				<!-- Modal Detail Data-->
-				<div id="detailData" class="modal fade" role="dialog">
-				  <div class="modal-dialog">
-				    <!-- Modal content-->
-				    <div class="modal-content">
-				      <div class="modal-header">
-				        <button type="button" class="close" data-dismiss="modal">&times;</button>
-				        <h4 class="modal-title"> <span class="fas fa-info-circle">  </span> Detail Data</h4>
-				      </div>
-				      <div class="modal-body">
-				           <table class="table table-striped table-bordered table-hover no-footer">
-				               <tr>
-				                   <th>NIS</th>
-				                   <td id="nis">1705013</td>
-				               </tr>
-				               <tr>
-				                   <th>Nama Lengkap</th>
-				                   <td id="nama">Raden Saleh</td>
-				               </tr>
-				               <tr>
-				                   <th>Kelas</th>
-				                   <td id="kelas">XI MIPA</td>
-				               </tr>
-				           </table>
-				      </div>
-				      <div class="modal-footer">
-				        <button type="button" class="btn btn-info" data-dismiss="modal"><span class="fas fa-times-circle"></span> Close</button>
-				      </div>
 				    </div>
 				  </div>
 				</div>

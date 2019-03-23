@@ -23,6 +23,12 @@ class LoginController extends Controller
 						'password' => $req->password,
 					];
 			$auth = auth()->guard($req->level);
+		}elseif($req->level == 'siswa'){
+			$credentials = [
+						'nis' => $req->username,
+						'password' => $req->password,
+					];
+			$auth = auth()->guard($req->level);
 		}else{
 			$credentials = [
 						'nip' => $req->username,
@@ -48,7 +54,7 @@ class LoginController extends Controller
 			return redirect('/')->with(['alert' => 'Akses ditolak']);
 		}
 		$data['active'] = 'profile';
-		$data['judul'] = 'Profil | M - STASYS';
+		$data['judul'] = 'Profil';
 		//return view('admin.dashboard', $data);
 		print_r($data);
     }

@@ -11,7 +11,6 @@
                   <i class="fa fa-home"></i>
                 </a>
               </li>
-              <li><span>Mata Pelajaran</span></li>
               <li><span>{{ $judul }}</span></li>
             </ol>
 
@@ -41,29 +40,26 @@
                   <tr>
                     <th>No</th>
                     <th>ID</th>
-                    <th>Mata Pelajaran</th>
-                    <th>Action</th>
+                    <th>Semester</th>
+                    <th>Tahun Pelajaran</th>
+                    <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
-				<?php $no = 1; ?>
-				@foreach($mapel as $r)
+				@foreach($semester as $key => $r)
                   <tr>
-                    <td>{{ $no++ }}</td>
-                    <td>{{ $r->id_mapel }}</td>
-                    <td>{{ $r->nama_mapel }}</td>
+                    <td>{{ ++$key }}</td>
+                    <td>{{ $r->id_semester }}</td>
+                    <td>{{ $r->semester }}</td>
+                    <td>{{ $r->thn_ajaran }}</td>
                     <td class="actions">
-                      <a href="#" class="on-default"><i class="fas fa-info"></i></a>
                       <a href="#" class="on-default"><i class="fas fa-edit"></i></a>
                       <a href="#" class="on-default"><i class="fas fa-trash-alt"></i></a>
                     </td>
                   </tr>
-				@endforeach
+                @endforeach
                 </tbody>
               </table>
             </div>
           </section>
-        <!-- end: page -->
-
-      </section>
-@endsection
+		  @endsection

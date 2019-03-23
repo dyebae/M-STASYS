@@ -12,7 +12,7 @@ class NilaiController extends Controller
 			return redirect('/')->with(['alert' => 'Akses ditolak']);
 		}
 		$data['active'] = 'nilai_siswa';
-		$data['judul'] = 'Nilai Siswa | M - STASYS';
+		$data['judul'] = 'Nilai Siswa';
 		//return view('admin.dashboard', $data);
 		print_r($data);
 	}

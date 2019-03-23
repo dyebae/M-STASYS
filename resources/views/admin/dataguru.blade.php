@@ -2,7 +2,7 @@
 @section('content')
 <section role="main" class="content-body">
         <header class="page-header">
-          <h2>Data Guru</h2>
+          <h2>{{ $judul }}</h2>
 
           <div class="right-wrapper pull-right">
             <ol class="breadcrumbs">
@@ -12,7 +12,7 @@
                 </a>
               </li>
               <li><span>Guru</span></li>
-              <li><span>Data Guru</span></li>
+              <li><span>{{ $judul }}</span></li>
             </ol>
 
             <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
@@ -25,7 +25,7 @@
               <div class="panel-actions">
                 <a href="#" class="fa fa-caret-down"></a>
               </div>
-              <h2 class="panel-title">Data Guru</h2>
+              <h2 class="panel-title">{{ $judul }}</h2>
             </header>
             <div class="panel-body">
               <div class="row">

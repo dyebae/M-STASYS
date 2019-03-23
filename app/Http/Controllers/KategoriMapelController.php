@@ -13,7 +13,7 @@ class KategoriMapelController extends Controller
 			}
 		$data['kategori'] = \App\KategoriMapel::all();
 		$data['active'] = 'kategori_mapel';
-		$data['judul'] = 'Kategori Mata Pelajaran | M - STASYS';
+		$data['judul'] = 'Kategori Mata Pelajaran';
 		return view('admin.ktmapel', $data);
 		//print_r($data);
 	}
