@@ -21,6 +21,7 @@ Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 Route::get('/data_siswa', 'SiswaController@index')->name('data_siswa');
 Route::get('/data_siswa/add', 'SiswaController@add')->name('add_data_siswa');
 Route::get('/data_siswa/update/{nis}', 'SiswaController@update_view')->name('update_data_siswa');
+Route::get('/data_siswa/view/{nis}', 'SiswaController@view')->name('view_data_siswa');
 Route::get('/data_guru', 'GuruController@index')->name('data_guru');
 Route::get('/data_kelas', 'KelasController@index')->name('data_kelas');
 Route::get('/ampu_mapel', 'AmpuMapelController@index')->name('ampu_mapel');

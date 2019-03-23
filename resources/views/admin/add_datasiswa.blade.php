@@ -29,6 +29,7 @@
             </header>
             <div class="panel-body">
 			<form action="{{ route('data-siswa.'.$url, $url) }}" method="post" role="form" enctype="multipart/form-data">
+			{{ method_field('put') }}
 			{{ csrf_field() }}
 				<table class="table table-striped table-bordered table-hover no-footer">
 					<tr>
@@ -44,64 +45,64 @@
 					</tr>
 					<tr>
 						<th>NIS</th>
-						<td> <input type="number" name="nis" class="form-control" required/> </td>
+						<td> <input type="number" value = "{{ $siswa->nis }}" name="nis" class="form-control" required/> </td>
 					</tr>
 					<tr>
 						<th>NISN</th>
-						<td> <input type="number" name="nisn" class="form-control" required/></td>
+						<td> <input type="number" value = "{{ $siswa->nisn }}" name="nisn" class="form-control" required/></td>
 					</tr>
 					<tr>
 						<th>No. Ijazah SLTP</th>
-						<td> <input type="text" name="no_ijasah_smp" class="form-control" required/></td>
+						<td> <input type="text" name="no_ijasah_smp"  value = "{{ $siswa->no_ijasah_smp }}" class="form-control" required/></td>
 					</tr>
 					<tr>
 						<th>No. Ujian Nasional</th>
-						<td> <input type="text" name="no_un" class="form-control" required/></td>
+						<td> <input type="text" name="no_un" value = "{{ $siswa->no_un }}" class="form-control" required/></td>
 					</tr>
 					<tr>
 						<th>Kelas</th>
 						<td>
 							<select name="id_kelas" class="form-control">
 								@foreach($kelas as $r)
-								<option value="{{ $r->id_kelas }}">{{ $r->tingkat." ".$r->jurusan." ".$r->rombel }}</option>
+								<option {{ $siswa->id_kelas == $r->id_kelas ? "selected":"" }} value="{{ $r->id_kelas }}">{{ $r->tingkat." ".$r->jurusan." ".$r->rombel }}</option>
 								@endforeach
 							</select>
 						</td>
 					</tr>
 					<tr>
 						<th>Nama</th>
-						<td><input type="text" name="nama" class="form-control" required/></td>
+						<td><input type="text" value = "{{ $siswa->nama }}" name="nama" class="form-control" required/></td>
 					</tr>
 					<tr>
 						<th>Tempat Lahir</th>
-						<td><input type="text" name="tempat_lahir" class="form-control" required/></td>
+						<td><input type="text" value = "{{ $siswa->tempat_lahir }}" name="tempat_lahir" class="form-control" required/></td>
 					</tr>
 					<tr>
 						<th>Tanggal Lahir</th>
-						<td><input type="date" name="tgl_lahir" class="form-control" required/></td>
+						<td><input type="date" name="tgl_lahir" value = "{{ $siswa->tgl_lahir }}" class="form-control" required/></td>
 					</tr>
 					<tr>
 						<th>Alamat</th>
-						<td><textarea name="alamat" rows="10" class="form-control" required></textarea></td>
+						<td><textarea name="alamat" rows="10" class="form-control" required>{{ $siswa->alamat }}</textarea></td>
 					</tr>
 					<tr>
 						<th>Agama</th>
-						<td><input type="text" name="agama" class="form-control" required/></td>
+						<td><input type="text" name="agama" value = "{{ $siswa->agama }}" class="form-control" required/></td>
 					</tr>
 					<tr>
 						<th>Password</th>
-						<td><input type="password" name="password" class="form-control" required/></td>
+						<td><input type="password" name="password" class="form-control" {{ $pass }}/></td>
 					</tr>
 					<tr>
 						<th>Jenis Kelamin</th>
 						<td>
-							<input type="radio" name="jenis_kelamin" value="Laki-Laki">Laki-Laki &nbsp; 
-							<input type="radio" name="jenis_kelamin" value="Perempuan">Perempuan				
+							<input type="radio" {{ $siswa->jenis_kelamin == "Laki-Laki" ? "checked":"" }} name="jenis_kelamin" value="Laki-Laki">Laki-Laki &nbsp; 
+							<input type="radio" {{ $siswa->jenis_kelamin == "Perempuan" ? "checked":"" }} name="jenis_kelamin" value="Perempuan">Perempuan				
 						</td>
 					</tr>
 					<tr>
 						<td colspan="2" align="center">
-						<input type="submit" class="btn btn-primary" value="Tambah" />
+						<input type="submit" class="btn btn-primary" value="{{ $button }}" />
 						<a href="{{ route('data_siswa') }}" class="btn btn-default">Batal</a>
 						</td>
 					</tr>
