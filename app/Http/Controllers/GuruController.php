@@ -13,8 +13,9 @@ class GuruController extends Controller
 		{
 			return redirect('/')->with(['alert' => 'Akses ditolak']);
 		}
+		$data['guru'] = \App\Guru::all();
 		$data['active'] = 'data_guru';
-		$data['judul'] = 'Data Guru | M - STASYS';
+		$data['judul'] = 'Data Guru';
 		return view('admin.dataguru', $data);
 	}
 

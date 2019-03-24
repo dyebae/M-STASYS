@@ -11,8 +11,9 @@ class MapelController extends Controller
 		{
 			return redirect('/')->with(['alert' => 'Akses ditolak']);
 		}
+		$data['mapel'] = \App\Mapel::all();
 		$data['active'] = 'mapel';
-		$data['judul'] = 'Mata Pelajaran | M - STASYS';
-		return view('admin.dashboard', $data);
+		$data['judul'] = 'Mata Pelajaran';
+		return view('admin.datamapel', $data);
 	}
 }

@@ -2,7 +2,7 @@
 @section('content')
 <section role="main" class="content-body">
 					<header class="page-header">
-						<h2>Dashboard</h2>
+						<h2>{{ $judul }}</h2>
 						<div class="right-wrapper pull-right">
 							<ol class="breadcrumbs">
 								<li>
@@ -10,7 +10,7 @@
 										<i class="fa fa-home"></i>
 									</a>
 								</li>
-								<li><span>Dashboard</span></li>
+								<li><span>{{ $judul }}</span></li>
 							</ol>
 
 							<a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
@@ -62,12 +62,12 @@
 													<div class="summary">
 														<h4 class="title">Siswa</h4>
 														<div class="info">
-															<strong class="amount">0</strong>
+															<strong class="amount">{{ $sumSiswa }}</strong>
 															<span class="text-primary">orang</span>
 														</div>
 													</div>
 													<div class="summary-footer">
-														<a href="#" class="text-muted text-uppercase">View All</a>
+														<a href="{{ route('data_siswa') }}" class="text-muted text-uppercase">View All</a>
 													</div>
 												</div>
 											</div>
@@ -87,12 +87,12 @@
 													<div class="summary">
 														<h4 class="title">Guru dan Walikelas</h4>
 														<div class="info">
-															<strong class="amount">0</strong>
+															<strong class="amount">{{ $sumGuru }}</strong>
 															<span class="text-primary">orang</span>
 														</div>
 													</div>
 													<div class="summary-footer">
-														<a href="#" class="text-muted text-uppercase">View All</a>
+														<a href="{{ route('data_guru') }}" class="text-muted text-uppercase">View All</a>
 													</div>
 												</div>
 											</div>
@@ -112,11 +112,11 @@
 													<div class="summary">
 														<h4 class="title">Kelas</h4>
 														<div class="info">
-															<strong class="amount">0</strong>
+															<strong class="amount">{{ $sumKelas }}</strong>
 														</div>
 													</div>
 													<div class="summary-footer">
-														<a href="#" class="text-muted text-uppercase">View All</a>
+														<a href="{{ route('data_kelas') }}" class="text-muted text-uppercase">View All</a>
 													</div>
 												</div>
 											</div>
@@ -136,11 +136,11 @@
 													<div class="summary">
 														<h4 class="title">Mata Pelajaran</h4>
 														<div class="info">
-															<strong class="amount">0</strong>
+															<strong class="amount">{{ $sumMapel }}</strong>
 														</div>
 													</div>
 													<div class="summary-footer">
-														<a href="#" class="text-muted text-uppercase">View All</a>
+														<a href="{{ route('mapel') }}" class="text-muted text-uppercase">View All</a>
 													</div>
 												</div>
 											</div>

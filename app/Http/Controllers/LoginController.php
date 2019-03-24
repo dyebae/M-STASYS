@@ -17,19 +17,31 @@ class LoginController extends Controller
     }
 
 	public function process(Request $req){
-			$auth = auth()->guard($req->level);
-
+		if($req->level == 'admin'){
 			$credentials = [
 						'username' => $req->username,
 						'password' => $req->password,
 					];
-
-			if($auth->attempt($credentials)){
-				$req->session()->put('logged_in', $req->level);
-				return redirect('/dashboard')->with(['info' => 'Selamat Datang']);
-			}else{
-				return redirect('/')->with(['alert' => 'Username atau Password Salah']);
-			}
+			$auth = auth()->guard($req->level);
+		}elseif($req->level == 'siswa'){
+			$credentials = [
+						'nis' => $req->username,
+						'password' => $req->password,
+					];
+			$auth = auth()->guard($req->level);
+		}else{
+			$credentials = [
+						'nip' => $req->username,
+						'password' => $req->password,
+					];
+			$auth = auth()->guard($req->level);
+		}
+		if($auth->attempt($credentials)){
+			$req->session()->put('logged_in', $req->level);
+			return redirect('/dashboard')->with(['info' => 'Selamat Datang '.ucwords($req->level)]);
+		}else{
+			return redirect('/')->with(['alert' => 'Username atau Password Salah']);
+		}
 	}
 
 	public function logout(){
@@ -42,8 +54,9 @@ class LoginController extends Controller
 			return redirect('/')->with(['alert' => 'Akses ditolak']);
 		}
 		$data['active'] = 'profile';
-		$data['judul'] = 'Profil | M - STASYS';
-		return view('admin.dashboard', $data);
+		$data['judul'] = 'Profil';
+		//return view('admin.dashboard', $data);
+		print_r($data);
     }
 
   	// public function login(Request $request){

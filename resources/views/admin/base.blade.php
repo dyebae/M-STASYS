@@ -5,13 +5,13 @@
 		<!-- Basic -->
 		<meta charset="UTF-8">
 
-		<title>{{ $judul }}</title>
+		<title>{{ $judul }} | M-STASYS</title>
 		<!-- <meta name="keywords" content="HTML5 Admin Template" />
 		<meta name="description" content="JSOFT Admin - Responsive HTML5 Template">
 		<meta name="author" content="JSOFT.net"> -->
 
 		<!-- icon -->
-		<link rel="icon" href="assets/images/logoSma.png">
+		<link rel="icon" href="{{ URL::asset('assets/images/logoSma.png') }}">
 
 		<!-- Mobile Metas -->
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -20,30 +20,30 @@
 		<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
 
 		<!-- Vendor CSS -->
-		<link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.css" />
-		<link rel="stylesheet" href="assets/vendor/font-awesome/css/font-awesome.css" />
-		<link rel="stylesheet" href="assets/vendor/magnific-popup/magnific-popup.css" />
-		<link rel="stylesheet" href="assets/vendor/bootstrap-datepicker/css/datepicker3.css" />
+		<link rel="stylesheet" href="{{ URL::asset('assets/vendor/bootstrap/css/bootstrap.css') }}" />
+		<link rel="stylesheet" href="{{ URL::asset('assets/vendor/font-awesome/css/font-awesome.css') }}" />
+		<link rel="stylesheet" href="{{ URL::asset('assets/vendor/magnific-popup/magnific-popup.css') }}" />
+		<link rel="stylesheet" href="{{ URL::asset('assets/vendor/bootstrap-datepicker/css/datepicker3.css') }}" />
 
 		<!-- fas fa icon -->
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
 		<!-- Specific Page Vendor CSS -->
-		<link rel="stylesheet" href="assets/vendor/jquery-ui/css/ui-lightness/jquery-ui-1.10.4.custom.css" />
-		<link rel="stylesheet" href="assets/vendor/bootstrap-multiselect/bootstrap-multiselect.css" />
-		<link rel="stylesheet" href="assets/vendor/morris/morris.css" />
+		<link rel="stylesheet" href="{{ URL::asset('assets/vendor/jquery-ui/css/ui-lightness/jquery-ui-1.10.4.custom.css') }}" />
+		<link rel="stylesheet" href="{{ URL::asset('assets/vendor/bootstrap-multiselect/bootstrap-multiselect.css') }}" />
+		<link rel="stylesheet" href="{{ URL::asset('assets/vendor/morris/morris.css') }}" />
 
 		<!-- Theme CSS -->
-		<link rel="stylesheet" href="assets/stylesheets/theme.css" />
+		<link rel="stylesheet" href="{{ URL::asset('assets/stylesheets/theme.css') }}" />
 
 		<!-- Skin CSS -->
-		<link rel="stylesheet" href="assets/stylesheets/skins/default.css" />
+		<link rel="stylesheet" href="{{ URL::asset('assets/stylesheets/skins/default.css') }}" />
 
 		<!-- Theme Custom CSS -->
-		<link rel="stylesheet" href="assets/stylesheets/theme-custom.css">
+		<link rel="stylesheet" href="{{ URL::asset('assets/stylesheets/theme-custom.css') }}">
 
 		<!-- Head Libs -->
-		<script src="assets/vendor/modernizr/modernizr.js"></script>
+		<script src="{{ URL::asset('assets/vendor/modernizr/modernizr.js') }}"></script>
 
 	</head>
 	<body>
@@ -53,7 +53,7 @@
 			<header class="header">
 				<div class="logo-container">
 					<a href="{{ route('dashboard') }}" class="logo">
-						<img src="assets/images/logoSma.png" height="37" alt="logo" />
+						<img src="{{ URL::asset('assets/images/logoSma.png') }}" height="37" alt="logo" />
 					</a>
 					<h4 class="logo" style="margin-top:17px;"><b>S M A N &nbsp; 1 &nbsp; J A M B L A N G</b></h4>
 					<div class="visible-xs toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html" data-fire-event="sidebar-left-opened">
@@ -78,7 +78,7 @@
 					<div id="userbox" class="userbox">
 						<a href="#" data-toggle="dropdown">
 							<figure class="profile-picture">
-								<img src="assets/images/boy.png" alt="Joseph Doe" class="img-circle" data-lock-picture="assets/images/boy.png" />
+								<img src="{{ URL::asset('assets/images/boy.png') }}" alt="Joseph Doe" class="img-circle" data-lock-picture="assets/images/boy.png" />
 							</figure>
 							<div class="profile-info" data-lock-name="Admin" data-lock-email="admin@polindra.com">
 								<span class="name">Admin</span>
@@ -214,6 +214,12 @@
 											<span>Ampu Mapel</span>
 										</a>
 									</li>
+									<li <?php echo $active == 'semester' ? 'class="nav-active"':''; ?>>
+										<a href="{{ route('semester') }}">
+											<i class="fas fa-book" aria-hidden="true"></i>
+											<span>Semester</span>
+										</a>
+									</li>
 								</ul>
 							</nav>
 
@@ -299,13 +305,13 @@
 		</section>
 
 		<!-- Vendor -->
-		<script src="assets/vendor/jquery/jquery.js"></script>
-		<script src="assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
-		<script src="assets/vendor/bootstrap/js/bootstrap.js"></script>
-		<script src="assets/vendor/nanoscroller/nanoscroller.js"></script>
-		<script src="assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-		<script src="assets/vendor/magnific-popup/magnific-popup.js"></script>
-		<script src="assets/vendor/jquery-placeholder/jquery.placeholder.js"></script>
+		<script src="{{ URL::asset('assets/vendor/jquery/jquery.js') }}"></script>
+		<script src="{{ URL::asset('assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js') }}"></script>
+		<script src="{{ URL::asset('assets/vendor/bootstrap/js/bootstrap.js') }}"></script>
+		<script src="{{ URL::asset('assets/vendor/nanoscroller/nanoscroller.js') }}"></script>
+		<script src="{{ URL::asset('assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
+		<script src="{{ URL::asset('assets/vendor/magnific-popup/magnific-popup.js') }}"></script>
+		<script src="{{ URL::asset('assets/vendor/jquery-placeholder/jquery.placeholder.js') }}"></script>
 
 		<!-- Specific Page Vendor -->
 		<!-- <script src="assets/vendor/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
@@ -335,13 +341,13 @@
 		<script src="assets/vendor/jqvmap/maps/continents/jquery.vmap.south-america.js"></script> -->
 
 		<!-- Theme Base, Components and Settings -->
-		<script src="assets/javascripts/theme.js"></script>
+		<script src="{{ URL::asset('assets/javascripts/theme.js') }}"></script>
 
 		<!-- Theme Custom -->
-		<script src="assets/javascripts/theme.custom.js"></script>
+		<script src="{{ URL::asset('assets/javascripts/theme.custom.js') }}"></script>
 
 		<!-- Theme Initialization Files -->
-		<script src="assets/javascripts/theme.init.js"></script>
+		<script src="{{ URL::asset('assets/javascripts/theme.init.js') }}"></script>
 
 
 		<!-- Examples -->

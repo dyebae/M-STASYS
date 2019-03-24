@@ -11,7 +11,7 @@
                   <i class="fa fa-home"></i>
                 </a>
               </li>
-              <li><span>Guru</span></li>
+              <li><span>Mata Pelajaran</span></li>
               <li><span>{{ $judul }}</span></li>
             </ol>
 
@@ -40,20 +40,18 @@
                 <thead>
                   <tr>
                     <th>No</th>
-                    <th>NIP</th>
-                    <th>Nama</th>
-                    <th>Alamat</th>
-                    <th>Actions</th>
+                    <th>ID</th>
+                    <th>Mata Pelajaran</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
 				<?php $no = 1; ?>
-				@foreach($guru as $r)
+				@foreach($mapel as $r)
                   <tr>
                     <td>{{ $no++ }}</td>
-                    <td>{{ $r->nip }}</td>
-                    <td>{{ $r->nama }}</td>
-                    <td>{{ $r->alamat }}</td>
+                    <td>{{ $r->id_mapel }}</td>
+                    <td>{{ $r->nama_mapel }}</td>
                     <td class="actions">
                       <a href="#" class="on-default"><i class="fas fa-info"></i></a>
                       <a href="#" class="on-default"><i class="fas fa-edit"></i></a>
