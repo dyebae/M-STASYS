@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -53,7 +54,12 @@ class SiswaController extends Controller
                 ], 200);
             }
         }
+    }
 
+    public function apiAllData($nis){
+        $data = DB::table('tb_siswa')->join('tb_kelas','tb_siswa.id_kelas', '=', 'tb_kelas.id_kelas')->where('nis', $nis)->first();
+
+        return json_encode($data);
     }
 
 }

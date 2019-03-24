@@ -37,3 +37,4 @@ Route::get('/apiDataGuru/{nip}', 'GuruController@apiAllData');
 
 //API SISWA
 Route::post('/apiLoginSiswa', 'SiswaController@apiLogin');
+Route::get('/apiDataSiswa/{nis}', 'SiswaController@apiAllData');
