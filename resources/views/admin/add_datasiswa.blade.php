@@ -28,9 +28,17 @@
               <h2 class="panel-title">{{ $judul }}</h2>
             </header>
             <div class="panel-body">
-			<form action="{{ route('data-siswa.'.$url, $url) }}" method="post" role="form" enctype="multipart/form-data">
-			{{ method_field('put') }}
-			{{ csrf_field() }}
+
+      @if($url = 'store')
+        <form id="form-add" action="{{ route('data-siswa.'.$url, $url) }}" method="post" role="form" enctype="multipart/form-data">
+        {{ method_field('post') }}
+        {{ csrf_field() }}
+      @else
+        <form action="{{ route('data-siswa.'.$url, $url) }}" method="put" role="form" enctype="multipart/form-data">
+        {{ method_field('put') }}
+        {{ csrf_field() }}
+      @endif
+
 				<table class="table table-striped table-bordered table-hover no-footer">
 					<tr>
 						<td colspan="2" align="center">
@@ -45,7 +53,7 @@
 					</tr>
 					<tr>
 						<th>NIS</th>
-						<td> <input type="number" value = "{{ $siswa->nis }}" name="nis" class="form-control" required/> </td>
+						<td> <input type="number" value = "{{ $siswa->nis }}" name="nis" class="form-control" required/></td>
 					</tr>
 					<tr>
 						<th>NISN</th>
@@ -91,33 +99,55 @@
 					</tr>
 					<tr>
 						<th>Password</th>
-						<td><input type="password" name="password" class="form-control" {{ $pass }}/></td>
+						<td><input type="password" name="password" class="form-control" {{ $pass }} required/></td>
 					</tr>
 					<tr>
 						<th>Jenis Kelamin</th>
 						<td>
-							<input type="radio" {{ $siswa->jenis_kelamin == "Laki-Laki" ? "checked":"" }} name="jenis_kelamin" value="Laki-Laki">Laki-Laki &nbsp; 
-							<input type="radio" {{ $siswa->jenis_kelamin == "Perempuan" ? "checked":"" }} name="jenis_kelamin" value="Perempuan">Perempuan				
+							<input type="radio" {{ $siswa->jenis_kelamin == "Laki-Laki" ? "checked":"" }} name="jenis_kelamin" value="Laki-Laki">Laki-Laki &nbsp;
+							<input type="radio" {{ $siswa->jenis_kelamin == "Perempuan" ? "checked":"" }} name="jenis_kelamin" value="Perempuan">Perempuan
 						</td>
 					</tr>
 					<tr>
 						<td colspan="2" align="center">
-						<input type="submit" class="btn btn-primary" value="{{ $button }}" />
+						<button type="submit" class="btn btn-primary">{{ $button }}</button>
 						<a href="{{ route('data_siswa') }}" class="btn btn-default">Batal</a>
 						</td>
 					</tr>
 				</table>
+      </form>
             </div>
           </section>
-		  <script> 
+		  <script>
 			  function previewImage() {
-				document.getElementById("image-preview").style.display = "block";
-				var oFReader = new FileReader();
-				 oFReader.readAsDataURL(document.getElementById("image-source").files[0]);
-			 
-				oFReader.onload = function(oFREvent) {
-				  document.getElementById("image-preview").src = oFREvent.target.result;
-				};
+  				document.getElementById("image-preview").style.display = "block";
+  				var oFReader = new FileReader();
+  				 oFReader.readAsDataURL(document.getElementById("image-source").files[0]);
+
+  				oFReader.onload = function(oFREvent) {
+  				  document.getElementById("image-preview").src = oFREvent.target.result;
+  				};
 			  };
 		  </script>
+      <script type="text/javascript">
+          $(document).ready(function (){
+
+            var formAdd    = $('#form-add');
+
+            formAdd.submit(function (e) {
+              e.preventDefault();
+
+              $.ajax({
+                  url: formAdd.attr('action'),
+                  type: formAdd.attr('method'),
+                  data: formAdd.serialize(),
+                  dataType: "json",
+                  success: function( res ){
+                    console.log(res);
+
+                  }
+                })
+            });
+          });
+      </script>
 		  @endsection

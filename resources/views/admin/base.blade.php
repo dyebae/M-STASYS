@@ -232,7 +232,7 @@
 				</aside>
 				<!-- end: sidebar -->
 				 @yield('content')
-				
+
 			</div>
 
 			<aside id="sidebar-right" class="sidebar-right">
