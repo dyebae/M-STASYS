@@ -143,12 +143,16 @@
 
             form.submit(function (e) {
               e.preventDefault();
+              var formData = new FormData(this);
 
               $.ajax({
                   url: form.attr('action'),
                   type: form.attr('method'),
-                  data: form.serialize(),
+                  data: formData,
                   dataType: "json",
+                  cache: false,
+                  contentType: false,
+                  processData: false,
                   success: function( res ){
 
                     if(res.foto == ''){ }else{

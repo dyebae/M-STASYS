@@ -247,7 +247,7 @@ class SiswaController extends Controller
 
 
 
-    // ------------ API GURU ----------------------- ///
+    // ------------ API SISWA ----------------------- ///
     public function apiLogin(Request $request){
         $auth = auth()->guard('siswa');
 
