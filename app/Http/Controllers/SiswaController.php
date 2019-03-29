@@ -15,7 +15,7 @@ class SiswaController extends Controller
 		{
 			return redirect('/')->with(['alert' => 'Akses ditolak']);
 		}
-		
+
 		$data['active'] = 'data_siswa';
 		$data['siswa'] = \App\Siswa::all();
 		$data['judul'] = 'Data Siswa';
@@ -98,18 +98,30 @@ class SiswaController extends Controller
 	}
 	public function store(Request $req){
 		$validator = Validator::make($req->all(), [
-			'foto'	=> 'max:2000|image|mimes:jpg,png,jpeg',
+			      'foto'	=> 'max:2000|mimes:jpg,png,jpeg',
             'nis'	=> 'required|digits:5|numeric|not_in:0|regex:/^([1-9][0-9]+)/',
             'nisn'	=> 'required|digits:5|numeric|not_in:0|regex:/^([1-9][0-9]+)/',
-            'nama'	=> 'required',
             'password' => 'required|string|min:6|max:20|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/',
         ]);
+<<<<<<< HEAD
 		//if(false){
 		if($validator->fails()){
+=======
+		if($validator->fails()){
+		//if($validator->fails()){
+>>>>>>> d14ec8bc951201e6b9f20041eb0b654fb4c1b49e
 			//print_r($validator->messages()->all());
-			return redirect('/data_siswa')->with(['alert'=>$validator->messages()->all()]);
+			// return redirect('/data_siswa/add')->with(['alert'=>$validator->messages()->all()]);
+      return response()->json([
+        'foto'     => $validator->messages()->first('foto'),
+        'nis'      => $validator->messages()->first('nis'),
+        'nisn'     => $validator->messages()->first('nisn'),
+        'password' => $validator->messages()->first('password'),
+        'info'   => '',
+        'status'   => '3'
+      ], 200);
 		}else{
-			if(Siswa::where('nis', $req->nisn)->count() == 0){
+			if(Siswa::where('nis', $req->nis)->count() == 0){
 				$uploadedFile = $req->file('foto');
 				$siswa = [
 					'nis' => $req->nis,
@@ -132,26 +144,62 @@ class SiswaController extends Controller
 				}
 				$create = Siswa::create($siswa);
 				if($create){
-					return redirect('/data_siswa')->with(['info' => 'Siswa Berhasil ditambahkan']);
+					// return redirect('/data_siswa')->with(['info' => 'Siswa Berhasil ditambahkan']);
+          return response()->json([
+              'foto'     => '',
+              'nis'      => '',
+              'nisn'     => '',
+              'password' => '',
+              'info'   => 'Siswa Berhasil ditambahkan',
+              'status' => '1'
+          ], 200);
 				}
-				return redirect('/data_siswa')->with(['alert' => ['Terjadi Kesalahan saat menambah data Siswa']]);
+				// return redirect('/data_siswa')->with(['alert' => ['Terjadi Kesalahan saat menambah data Siswa']]);
+        return response()->json([
+            'foto'     => '',
+            'nis'      => '',
+            'nisn'     => '',
+            'password' => '',
+            'info'   => 'Terjadi Kesalah saat menambah data Siswa',
+            'status' => '3'
+        ], 200);
 				print_r($siswa);
 			}
-			return redirect('/data_siswa')->with(['alert' => ['NISN Sudah terdaftar']]);
+			// return redirect('/data_siswa')->with(['alert' => ['NIS Sudah terdaftar']]);
+      return response()->json([
+          'foto'     => '',
+          'nis'      => '',
+          'nisn'     => '',
+          'password' => '',
+          'info'   => 'NIS Sudah terdaftar',
+          'status' => '3'
+      ], 200);
 		}
 	}
 	public function update(Request $req){
-		$validator = Validator::make($req->all(), [
-			'foto'	=> 'max:2000|image|mimes:jpg,png,jpeg',
+    $validator = Validator::make($req->all(), [
+			      'foto'	=> 'max:2000|mimes:jpg,png,jpeg',
             'nis'	=> 'required|digits:5|numeric|not_in:0|regex:/^([1-9][0-9]+)/',
             'nisn'	=> 'required|digits:5|numeric|not_in:0|regex:/^([1-9][0-9]+)/',
-            'nama'	=> 'required',
             'password' => 'required|string|min:6|max:20|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/',
         ]);
+<<<<<<< HEAD
 		//if(false){
 		if($validator->fails()){
+=======
+		if($validator->fails()){
+		//if($validator->fails()){
+>>>>>>> d14ec8bc951201e6b9f20041eb0b654fb4c1b49e
 			//print_r($validator->messages()->all());
-			return redirect('/data_siswa')->with(['alert'=>$validator->messages()->all()]);
+			// return redirect('/data_siswa/add')->with(['alert'=>$validator->messages()->all()]);
+      return response()->json([
+        'foto'     => $validator->messages()->first('foto'),
+        'nis'      => $validator->messages()->first('nis'),
+        'nisn'     => $validator->messages()->first('nisn'),
+        'password' => $validator->messages()->first('password'),
+        'info'   => '',
+        'status'   => '3'
+      ], 200);
 		}else{
 				$uploadedFile = $req->file('foto');
 				$siswa = [
@@ -176,9 +224,25 @@ class SiswaController extends Controller
 				$update = Siswa::findOrFail($req->nis);
 				$update->update($siswa);
 				if($update){
-					return redirect('/data_siswa')->with(['info' => 'Siswa Berhasil diperbaharui']);
+					// return redirect('/data_siswa')->with(['info' => 'Siswa Berhasil diperbaharui']);
+          return response()->json([
+              'foto'     => '',
+              'nis'      => '',
+              'nisn'     => '',
+              'password' => '',
+              'info'   => 'Siswa Berhasil diperbaharui',
+              'status' => '2'
+          ], 200);
 				}
-				return redirect('/data_siswa')->with(['alert' => ['Terjadi Kesalahan saat memperbaharui data Siswa']]);
+				// return redirect('/data_siswa')->with(['alert' => ['Terjadi Kesalahan saat memperbaharui data Siswa']]);
+        return response()->json([
+            'foto'     => '',
+            'nis'      => '',
+            'nisn'     => '',
+            'password' => '',
+            'info'   => 'Terjadi Kesalah saat menambah data Siswa',
+            'status' => '3'
+        ], 200);
 		}
 	}
 	public function destroy(Request $req){
@@ -187,9 +251,17 @@ class SiswaController extends Controller
 		if($siswa){
 			return redirect('/data_siswa')->with(['info' => 'Siswa Berhasil dihapus']);
 		}
-		return redirect('/data_siswa')->with(['alert' => ['Terjadi Kesalahan saat menghapus data Siswa']]);
+		  return redirect('/data_siswa')->with(['alert' => ['Terjadi Kesalahan saat menghapus data Siswa']]);
 	}
+<<<<<<< HEAD
     // ------------ API SISWA ----------------------- ///
+=======
+
+
+
+
+    // ------------ API GURU ----------------------- ///
+>>>>>>> d14ec8bc951201e6b9f20041eb0b654fb4c1b49e
     public function apiLogin(Request $request){
         $auth = auth()->guard('siswa');
 

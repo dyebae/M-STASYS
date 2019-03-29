@@ -28,11 +28,20 @@
               <h2 class="panel-title">{{ $judul }}</h2>
             </header>
             <div class="panel-body">
+<<<<<<< HEAD
 			<form action="{{ route('data-siswa.'.$url, $url) }}" method="post" role="form" enctype="multipart/form-data">
 			@if($url == "update")
 				{{ method_field('put') }}
 			@endif
 			{{ csrf_field() }}
+=======
+
+        <form id="form" action="{{ route('data-siswa.'.$url, $url) }}" method="post" role="form" enctype="multipart/form-data">
+        @if($url == "update")
+          {{ method_field('put') }}
+        @endif
+        {{ csrf_field() }}
+>>>>>>> d14ec8bc951201e6b9f20041eb0b654fb4c1b49e
 				<table class="table table-striped table-bordered table-hover no-footer">
 					<tr>
 						<td colspan="2" align="center">
@@ -47,11 +56,15 @@
 					</tr>
 					<tr>
 						<th>NIS</th>
-						<td> <input type="number" value = "{{ $siswa->nis }}" name="nis" class="form-control" required/> </td>
+						<td> <input type="number" value = "{{ $siswa->nis }}" name="nis" class="form-control" required/>
+    						<!-- <div id="alertnis"></div> -->
+            </td>
 					</tr>
 					<tr>
 						<th>NISN</th>
-						<td> <input type="number" value = "{{ $siswa->nisn }}" name="nisn" class="form-control" required/></td>
+						<td> <input type="number" value = "{{ $siswa->nisn }}" name="nisn" class="form-control" required/>
+                <!-- <div id="alertnisn"></div> -->
+            </td>
 					</tr>
 					<tr>
 						<th>No. Ijazah SLTP</th>
@@ -93,22 +106,126 @@
 					</tr>
 					<tr>
 						<th>Password</th>
-						<td><input type="password" name="password" class="form-control" {{ $pass }}/></td>
+						<td><input type="password" name="password" class="form-control" {{ $pass }} required/>
+                <!-- <div id="alertpassword"></div> -->
+                <div class="alert alert-info alert-block" data-dismiss="alert">
+    							<strong>* Format [ Min 6 Char, A-Z, a-z, 1-9 ] example : contoH123</strong>
+    						</div>
+            </td>
 					</tr>
 					<tr>
 						<th>Jenis Kelamin</th>
 						<td>
-							<input type="radio" {{ $siswa->jenis_kelamin == "Laki-Laki" ? "checked":"" }} name="jenis_kelamin" value="Laki-Laki">Laki-Laki &nbsp; 
-							<input type="radio" {{ $siswa->jenis_kelamin == "Perempuan" ? "checked":"" }} name="jenis_kelamin" value="Perempuan">Perempuan				
+							<input type="radio" {{ $siswa->jenis_kelamin == "Laki-Laki" ? "checked":"" }} name="jenis_kelamin" value="Laki-Laki">Laki-Laki &nbsp;
+							<input type="radio" {{ $siswa->jenis_kelamin == "Perempuan" ? "checked":"" }} name="jenis_kelamin" value="Perempuan">Perempuan
 						</td>
 					</tr>
 					<tr>
 						<td colspan="2" align="center">
-						<input type="submit" class="btn btn-primary" value="{{ $button }}" />
+						<button type="submit" class="btn btn-primary">{{ $button }}</button>
 						<a href="{{ route('data_siswa') }}" class="btn btn-default">Batal</a>
 						</td>
 					</tr>
 				</table>
+      </form>
             </div>
           </section>
+<<<<<<< HEAD
 		  @endsection
+=======
+		  <script>
+			  function previewImage() {
+  				document.getElementById("image-preview").style.display = "block";
+  				var oFReader = new FileReader();
+  				 oFReader.readAsDataURL(document.getElementById("image-source").files[0]);
+
+  				oFReader.onload = function(oFREvent) {
+  				  document.getElementById("image-preview").src = oFREvent.target.result;
+  				};
+			  };
+		  </script>
+      <script type="text/javascript">
+          $(document).ready(function (){
+            var form    = $('#form');
+
+            var nis      = $('#alertnis');
+            var nisn     = $('#alertnisn');
+            var password = $('#alertpassword');
+
+            form.submit(function (e) {
+              e.preventDefault();
+
+              $.ajax({
+                  url: form.attr('action'),
+                  type: form.attr('method'),
+                  data: form.serialize(),
+                  dataType: "json",
+                  success: function( res ){
+
+                    if(res.foto == ''){ }else{
+                        new PNotify({
+													title: 'Failed',
+													text: res.foto,
+													type: 'warning',
+													icon: "fa fa-times",
+													delay:1500
+												})
+                    }
+
+                    if(res.nis == ''){ }else{
+                        new PNotify({
+													title: 'Failed',
+													text: res.nis,
+													type: 'warning',
+													icon: "fa fa-times",
+													delay:1500
+												})
+                    }
+
+                    if(res.nisn == ''){ }else{
+                        // nisn.append("<div class='alert alert-danger alert-block' data-dismiss='alert'><strong>"+res.nisn+"</strong></div>")
+                        //     $("#alertnisn").fadeTo(1000, 500).slideUp(500, function(){
+                        //     $("#alertnisn").alert('close');
+                        // });
+                        new PNotify({
+													title: 'Failed',
+													text: res.nisn,
+													type: 'warning',
+													icon: "fa fa-times",
+													delay:1800
+												})
+                    }
+
+                    if(res.password == ''){ }else{
+                        new PNotify({
+													title: 'Failed',
+													text: res.password,
+													type: 'warning',
+													icon: "fa fa-times",
+													delay:2100
+												})
+                    }
+
+                    if(res.status == '1'){ //add
+                        window.location.href = "{{ route('data_siswa') }}"
+                    }else if(res.status == '2'){ //update
+                        window.location.href = "{{ route('data_siswa') }}"
+                    }else{
+                        if(res.info == ''){ }else{
+                            new PNotify({
+                              title: 'Failed',
+                              text: res.info,
+                              type: 'error',
+                              icon: "fa fa-times",
+                              delay:2100
+                            })
+                        }
+                    }
+
+                  }
+                })
+            });
+          });
+      </script>
+		  @endsection
+>>>>>>> d14ec8bc951201e6b9f20041eb0b654fb4c1b49e
