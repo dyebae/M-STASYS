@@ -348,7 +348,17 @@
 
 		<!-- Theme Initialization Files -->
 		<script src="{{ URL::asset('assets/javascripts/theme.init.js') }}"></script>
-
+		<script> 
+			  function previewImage() {
+				document.getElementById("image-preview").style.display = "block";
+				var oFReader = new FileReader();
+				 oFReader.readAsDataURL(document.getElementById("image-source").files[0]);
+			 
+				oFReader.onload = function(oFREvent) {
+				  document.getElementById("image-preview").src = oFREvent.target.result;
+				};
+			  };
+		  </script>
 
 		<!-- Examples -->
 		<!-- <script src="assets/javascripts/dashboard/examples.dashboard.js"></script> -->

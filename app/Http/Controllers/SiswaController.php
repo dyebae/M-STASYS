@@ -104,8 +104,8 @@ class SiswaController extends Controller
             'nama'	=> 'required',
             'password' => 'required|string|min:6|max:20|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/',
         ]);
-		if(false){
-		//if($validator->fails()){
+		//if(false){
+		if($validator->fails()){
 			//print_r($validator->messages()->all());
 			return redirect('/data_siswa')->with(['alert'=>$validator->messages()->all()]);
 		}else{
@@ -148,8 +148,8 @@ class SiswaController extends Controller
             'nama'	=> 'required',
             'password' => 'required|string|min:6|max:20|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/',
         ]);
-		if(false){
-		//if($validator->fails()){
+		//if(false){
+		if($validator->fails()){
 			//print_r($validator->messages()->all());
 			return redirect('/data_siswa')->with(['alert'=>$validator->messages()->all()]);
 		}else{
@@ -189,7 +189,7 @@ class SiswaController extends Controller
 		}
 		return redirect('/data_siswa')->with(['alert' => ['Terjadi Kesalahan saat menghapus data Siswa']]);
 	}
-    // ------------ API GURU ----------------------- ///
+    // ------------ API SISWA ----------------------- ///
     public function apiLogin(Request $request){
         $auth = auth()->guard('siswa');
 

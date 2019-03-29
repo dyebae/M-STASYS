@@ -29,7 +29,9 @@
             </header>
             <div class="panel-body">
 			<form action="{{ route('data-siswa.'.$url, $url) }}" method="post" role="form" enctype="multipart/form-data">
-			{{ method_field('put') }}
+			@if($url == "update")
+				{{ method_field('put') }}
+			@endif
 			{{ csrf_field() }}
 				<table class="table table-striped table-bordered table-hover no-footer">
 					<tr>
@@ -57,7 +59,7 @@
 					</tr>
 					<tr>
 						<th>No. Ujian Nasional</th>
-						<td> <input type="text" name="no_un" value = "{{ $siswa->no_un }}" class="form-control" required/></td>
+						<td> <input type="text" name="no_un" value = "{{ $siswa->no_un }}" class="form-control"/></td>
 					</tr>
 					<tr>
 						<th>Kelas</th>
@@ -109,15 +111,4 @@
 				</table>
             </div>
           </section>
-		  <script> 
-			  function previewImage() {
-				document.getElementById("image-preview").style.display = "block";
-				var oFReader = new FileReader();
-				 oFReader.readAsDataURL(document.getElementById("image-source").files[0]);
-			 
-				oFReader.onload = function(oFREvent) {
-				  document.getElementById("image-preview").src = oFREvent.target.result;
-				};
-			  };
-		  </script>
 		  @endsection
