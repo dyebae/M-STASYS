@@ -28,20 +28,11 @@
               <h2 class="panel-title">{{ $judul }}</h2>
             </header>
             <div class="panel-body">
-<<<<<<< HEAD
-			<form action="{{ route('data-siswa.'.$url, $url) }}" method="post" role="form" enctype="multipart/form-data">
-			@if($url == "update")
-				{{ method_field('put') }}
-			@endif
-			{{ csrf_field() }}
-=======
-
-        <form id="form" action="{{ route('data-siswa.'.$url, $url) }}" method="post" role="form" enctype="multipart/form-data">
+			<form id="form" action="{{ route('data-siswa.'.$url, $url) }}" method="post" role="form" enctype="multipart/form-data">
         @if($url == "update")
           {{ method_field('put') }}
         @endif
         {{ csrf_field() }}
->>>>>>> d14ec8bc951201e6b9f20041eb0b654fb4c1b49e
 				<table class="table table-striped table-bordered table-hover no-footer">
 					<tr>
 						<td colspan="2" align="center">
@@ -106,11 +97,11 @@
 					</tr>
 					<tr>
 						<th>Password</th>
-						<td><input type="password" name="password" class="form-control" {{ $pass }} required/>
+						<td><input type="password" name="password" class="form-control" {{ $pass }} />
                 <!-- <div id="alertpassword"></div> -->
-                <div class="alert alert-info alert-block" data-dismiss="alert">
-    							<strong>* Format [ Min 6 Char, A-Z, a-z, 1-9 ] example : contoH123</strong>
-    						</div>
+                <div class="alert alert-info alert-block">
+    				<strong>* Format [ Min 6 Char, A-Z, a-z, 1-9 ] example : contoH123</strong>
+    			</div>
             </td>
 					</tr>
 					<tr>
@@ -130,9 +121,6 @@
       </form>
             </div>
           </section>
-<<<<<<< HEAD
-		  @endsection
-=======
 		  <script>
 			  function previewImage() {
   				document.getElementById("image-preview").style.display = "block";
@@ -154,11 +142,11 @@
 
             form.submit(function (e) {
               e.preventDefault();
-
+				var formdata = new FormData(this);
               $.ajax({
-                  url: form.attr('action'),
-                  type: form.attr('method'),
-                  data: form.serialize(),
+                  url: $(this).attr('action'),
+                  type: "POST",
+                  data: formdata,
                   dataType: "json",
                   success: function( res ){
 
@@ -228,4 +216,3 @@
           });
       </script>
 		  @endsection
->>>>>>> d14ec8bc951201e6b9f20041eb0b654fb4c1b49e

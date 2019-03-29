@@ -42,7 +42,7 @@ class SiswaController extends Controller
 					'foto' => 'no-image.gif',
 					'jenis_kelamin' => ''
 				]);
-		$data['pass'] = '';
+		$data['pass'] = 'required';
 		$data['button'] = "Tambah";
 		$data['url'] = 'store';
 		$data['kelas'] = Kelas::all();
@@ -98,18 +98,12 @@ class SiswaController extends Controller
 	}
 	public function store(Request $req){
 		$validator = Validator::make($req->all(), [
-			      'foto'	=> 'max:2000|mimes:jpg,png,jpeg',
-            'nis'	=> 'required|digits:5|numeric|not_in:0|regex:/^([1-9][0-9]+)/',
-            'nisn'	=> 'required|digits:5|numeric|not_in:0|regex:/^([1-9][0-9]+)/',
-            'password' => 'required|string|min:6|max:20|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/',
+					'foto'	=> 'max:2000|mimes:jpg,png,jpeg',
+					'nis'	=> 'required|digits:5|numeric|not_in:0|regex:/^([1-9][0-9]+)/',
+					'nisn'	=> 'required|digits:5|numeric|not_in:0|regex:/^([1-9][0-9]+)/',
+					'password' => 'required|string|min:6|max:20|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/',
         ]);
-<<<<<<< HEAD
-		//if(false){
 		if($validator->fails()){
-=======
-		if($validator->fails()){
-		//if($validator->fails()){
->>>>>>> d14ec8bc951201e6b9f20041eb0b654fb4c1b49e
 			//print_r($validator->messages()->all());
 			// return redirect('/data_siswa/add')->with(['alert'=>$validator->messages()->all()]);
       return response()->json([
@@ -181,15 +175,10 @@ class SiswaController extends Controller
 			      'foto'	=> 'max:2000|mimes:jpg,png,jpeg',
             'nis'	=> 'required|digits:5|numeric|not_in:0|regex:/^([1-9][0-9]+)/',
             'nisn'	=> 'required|digits:5|numeric|not_in:0|regex:/^([1-9][0-9]+)/',
-            'password' => 'required|string|min:6|max:20|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/',
+            'password' => 'string|min:6|max:20|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/',
         ]);
-<<<<<<< HEAD
-		//if(false){
-		if($validator->fails()){
-=======
 		if($validator->fails()){
 		//if($validator->fails()){
->>>>>>> d14ec8bc951201e6b9f20041eb0b654fb4c1b49e
 			//print_r($validator->messages()->all());
 			// return redirect('/data_siswa/add')->with(['alert'=>$validator->messages()->all()]);
       return response()->json([
@@ -253,15 +242,9 @@ class SiswaController extends Controller
 		}
 		  return redirect('/data_siswa')->with(['alert' => ['Terjadi Kesalahan saat menghapus data Siswa']]);
 	}
-<<<<<<< HEAD
     // ------------ API SISWA ----------------------- ///
-=======
-
-
-
 
     // ------------ API GURU ----------------------- ///
->>>>>>> d14ec8bc951201e6b9f20041eb0b654fb4c1b49e
     public function apiLogin(Request $request){
         $auth = auth()->guard('siswa');
 
