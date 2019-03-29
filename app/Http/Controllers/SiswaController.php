@@ -64,8 +64,6 @@ class SiswaController extends Controller
 		$data['active'] = 'data_siswa';
 		$data['judul'] = 'Edit Data Siswa';
 		return view('admin.add_datasiswa', $data);
-		//print_r($data);
-		//echo $data['siswa']->nis;
 	}
 	public function view($nis){
 		if(\Session::get('logged_in')){}else
@@ -93,8 +91,6 @@ class SiswaController extends Controller
 		$data['active'] = 'data_siswa';
 		$data['judul'] = 'Lihat Data Siswa';
 		return view('admin.view_datasiswa', $data);
-		//print_r($data);
-		//echo $data['siswa']->nis;
 	}
 	public function store(Request $req){
 		$validator = Validator::make($req->all(), [
@@ -104,9 +100,7 @@ class SiswaController extends Controller
 					'password' => 'required|string|min:6|max:20|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/',
         ]);
 		if($validator->fails()){
-			//print_r($validator->messages()->all());
-			// return redirect('/data_siswa/add')->with(['alert'=>$validator->messages()->all()]);
-      return response()->json([
+			return response()->json([
         'foto'     => $validator->messages()->first('foto'),
         'nis'      => $validator->messages()->first('nis'),
         'nisn'     => $validator->messages()->first('nisn'),
@@ -242,9 +236,6 @@ class SiswaController extends Controller
 		}
 		  return redirect('/data_siswa')->with(['alert' => ['Terjadi Kesalahan saat menghapus data Siswa']]);
 	}
-    // ------------ API SISWA ----------------------- ///
-
-    // ------------ API GURU ----------------------- ///
     public function apiLogin(Request $request){
         $auth = auth()->guard('siswa');
 

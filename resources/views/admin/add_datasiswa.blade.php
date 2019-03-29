@@ -28,7 +28,17 @@
               <h2 class="panel-title">{{ $judul }}</h2>
             </header>
             <div class="panel-body">
+<<<<<<< HEAD
 			<form id="form" action="{{ route('data-siswa.'.$url, $url) }}" method="post" role="form" enctype="multipart/form-data">
+=======
+			<form action="{{ route('data-siswa.'.$url, $url) }}" method="post" role="form" enctype="multipart/form-data">
+			@if($url == "update")
+				{{ method_field('put') }}
+			@endif
+			{{ csrf_field() }}
+
+        <form id="form" action="{{ route('data-siswa.'.$url, $url) }}" method="post" role="form" enctype="multipart/form-data">
+>>>>>>> c14d95d76351e6e59b0c10ddc863fd5f4bd8875e
         @if($url == "update")
           {{ method_field('put') }}
         @endif
@@ -121,6 +131,11 @@
       </form>
             </div>
           </section>
+<<<<<<< HEAD
+=======
+		  @endsection
+
+>>>>>>> c14d95d76351e6e59b0c10ddc863fd5f4bd8875e
 		  <script>
 			  function previewImage() {
   				document.getElementById("image-preview").style.display = "block";
@@ -142,12 +157,24 @@
 
             form.submit(function (e) {
               e.preventDefault();
+<<<<<<< HEAD
 				var formdata = new FormData(this);
               $.ajax({
                   url: $(this).attr('action'),
                   type: "POST",
                   data: formdata,
+=======
+              var formData = new FormData(this);
+
+              $.ajax({
+                  url: form.attr('action'),
+                  type: form.attr('method'),
+                  data: formData,
+>>>>>>> c14d95d76351e6e59b0c10ddc863fd5f4bd8875e
                   dataType: "json",
+                  cache: false,
+                  contentType: false,
+                  processData: false,
                   success: function( res ){
 
                     if(res.foto == ''){ }else{
