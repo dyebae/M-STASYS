@@ -29,16 +29,11 @@
             </header>
             <div class="panel-body">
 
-      @if($url = 'store')
-        <form id="form-add" action="{{ route('data-siswa.'.$url, $url) }}" method="post" role="form" enctype="multipart/form-data">
-        {{ method_field('post') }}
+        <form id="form" action="{{ route('data-siswa.'.$url, $url) }}" method="post" role="form" enctype="multipart/form-data">
+        @if($url == "update")
+          {{ method_field('put') }}
+        @endif
         {{ csrf_field() }}
-      @else
-        <form action="{{ route('data-siswa.'.$url, $url) }}" method="put" role="form" enctype="multipart/form-data">
-        {{ method_field('put') }}
-        {{ csrf_field() }}
-      @endif
-
 				<table class="table table-striped table-bordered table-hover no-footer">
 					<tr>
 						<td colspan="2" align="center">
@@ -53,11 +48,15 @@
 					</tr>
 					<tr>
 						<th>NIS</th>
-						<td> <input type="number" value = "{{ $siswa->nis }}" name="nis" class="form-control" required/></td>
+						<td> <input type="number" value = "{{ $siswa->nis }}" name="nis" class="form-control" required/>
+    						<!-- <div id="alertnis"></div> -->
+            </td>
 					</tr>
 					<tr>
 						<th>NISN</th>
-						<td> <input type="number" value = "{{ $siswa->nisn }}" name="nisn" class="form-control" required/></td>
+						<td> <input type="number" value = "{{ $siswa->nisn }}" name="nisn" class="form-control" required/>
+                <!-- <div id="alertnisn"></div> -->
+            </td>
 					</tr>
 					<tr>
 						<th>No. Ijazah SLTP</th>
@@ -99,7 +98,12 @@
 					</tr>
 					<tr>
 						<th>Password</th>
-						<td><input type="password" name="password" class="form-control" {{ $pass }} required/></td>
+						<td><input type="password" name="password" class="form-control" {{ $pass }} required/>
+                <!-- <div id="alertpassword"></div> -->
+                <div class="alert alert-info alert-block" data-dismiss="alert">
+    							<strong>* Format [ Min 6 Char, A-Z, a-z, 1-9 ] example : contoH123</strong>
+    						</div>
+            </td>
 					</tr>
 					<tr>
 						<th>Jenis Kelamin</th>
@@ -131,19 +135,81 @@
 		  </script>
       <script type="text/javascript">
           $(document).ready(function (){
+            var form    = $('#form');
 
-            var formAdd    = $('#form-add');
+            var nis      = $('#alertnis');
+            var nisn     = $('#alertnisn');
+            var password = $('#alertpassword');
 
-            formAdd.submit(function (e) {
+            form.submit(function (e) {
               e.preventDefault();
 
               $.ajax({
-                  url: formAdd.attr('action'),
-                  type: formAdd.attr('method'),
-                  data: formAdd.serialize(),
+                  url: form.attr('action'),
+                  type: form.attr('method'),
+                  data: form.serialize(),
                   dataType: "json",
                   success: function( res ){
-                    console.log(res);
+
+                    if(res.foto == ''){ }else{
+                        new PNotify({
+													title: 'Failed',
+													text: res.foto,
+													type: 'warning',
+													icon: "fa fa-times",
+													delay:1500
+												})
+                    }
+
+                    if(res.nis == ''){ }else{
+                        new PNotify({
+													title: 'Failed',
+													text: res.nis,
+													type: 'warning',
+													icon: "fa fa-times",
+													delay:1500
+												})
+                    }
+
+                    if(res.nisn == ''){ }else{
+                        // nisn.append("<div class='alert alert-danger alert-block' data-dismiss='alert'><strong>"+res.nisn+"</strong></div>")
+                        //     $("#alertnisn").fadeTo(1000, 500).slideUp(500, function(){
+                        //     $("#alertnisn").alert('close');
+                        // });
+                        new PNotify({
+													title: 'Failed',
+													text: res.nisn,
+													type: 'warning',
+													icon: "fa fa-times",
+													delay:1800
+												})
+                    }
+
+                    if(res.password == ''){ }else{
+                        new PNotify({
+													title: 'Failed',
+													text: res.password,
+													type: 'warning',
+													icon: "fa fa-times",
+													delay:2100
+												})
+                    }
+
+                    if(res.status == '1'){ //add
+                        window.location.href = "{{ route('data_siswa') }}"
+                    }else if(res.status == '2'){ //update
+                        window.location.href = "{{ route('data_siswa') }}"
+                    }else{
+                        if(res.info == ''){ }else{
+                            new PNotify({
+                              title: 'Failed',
+                              text: res.info,
+                              type: 'error',
+                              icon: "fa fa-times",
+                              delay:2100
+                            })
+                        }
+                    }
 
                   }
                 })

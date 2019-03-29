@@ -42,8 +42,14 @@
 		<!-- Theme Custom CSS -->
 		<link rel="stylesheet" href="{{ URL::asset('assets/stylesheets/theme-custom.css') }}">
 
+		<!-- p notify -->
+		<link rel="stylesheet" href="{{ URL::asset('assets/pnotify/pnotify.custom.css') }}" />
+
+
 		<!-- Head Libs -->
 		<script src="{{ URL::asset('assets/vendor/modernizr/modernizr.js') }}"></script>
+		<script src="{{ URL::asset('assets/vendor/jquery/jquery.js') }}"></script>
+		<script src="{{ URL::asset('assets/pnotify/pnotify.custom.js') }}"></script>
 
 	</head>
 	<body>
@@ -305,7 +311,6 @@
 		</section>
 
 		<!-- Vendor -->
-		<script src="{{ URL::asset('assets/vendor/jquery/jquery.js') }}"></script>
 		<script src="{{ URL::asset('assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js') }}"></script>
 		<script src="{{ URL::asset('assets/vendor/bootstrap/js/bootstrap.js') }}"></script>
 		<script src="{{ URL::asset('assets/vendor/nanoscroller/nanoscroller.js') }}"></script>
