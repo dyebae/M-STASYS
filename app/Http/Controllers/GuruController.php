@@ -5,20 +5,27 @@ namespace App\Http\Controllers;
 use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-
+use App\Guru;
+use App\Kelas;
 class GuruController extends Controller
 {
 	public function index(){
-		if(\Session::get('logged_in')){}else
-		{
+		if(!\Session::get('logged_in'))
 			return redirect('/')->with(['alert' => 'Akses ditolak']);
-		}
-		$data['guru'] = \App\Guru::all();
+		$data['kelas'] = Kelas::all();
+		$data['guru'] = Guru::all();
 		$data['active'] = 'data_guru';
 		$data['judul'] = 'Data Guru';
 		return view('admin.dataguru', $data);
 	}
-
+	public function destroy(Request $req){
+		$del = Guru::findOrFail($req->nip);
+		$del->delete();
+		if($del){
+			return redirect('/data_guru')->with(['info' => 'Data Guru Berhasil dihapus']);
+		}
+		return redirect('/data_guru')->with(['alert' => 'Terjadi kesalahan saat menghapus data guru']);
+	}
     // ------------ API GURU ----------------------- ///
     public function apiLogin(Request $request){
           $auth = auth()->guard('guru');

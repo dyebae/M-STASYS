@@ -28,6 +28,11 @@
               <h2 class="panel-title">{{ $judul }}</h2>
             </header>
             <div class="panel-body">
+			<form action="{{ route('data-siswa.'.$url, $url) }}" method="post" role="form" enctype="multipart/form-data">
+			@if($url == "update")
+				{{ method_field('put') }}
+			@endif
+			{{ csrf_field() }}
 
         <form id="form" action="{{ route('data-siswa.'.$url, $url) }}" method="post" role="form" enctype="multipart/form-data">
         @if($url == "update")
@@ -64,7 +69,7 @@
 					</tr>
 					<tr>
 						<th>No. Ujian Nasional</th>
-						<td> <input type="text" name="no_un" value = "{{ $siswa->no_un }}" class="form-control" required/></td>
+						<td> <input type="text" name="no_un" value = "{{ $siswa->no_un }}" class="form-control"/></td>
 					</tr>
 					<tr>
 						<th>Kelas</th>
@@ -122,6 +127,8 @@
       </form>
             </div>
           </section>
+		  @endsection
+
 		  <script>
 			  function previewImage() {
   				document.getElementById("image-preview").style.display = "block";
