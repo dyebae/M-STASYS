@@ -26,6 +26,11 @@ class GuruController extends Controller
 		}
 		return redirect('/data_guru')->with(['alert' => 'Terjadi kesalahan saat menghapus data guru']);
 	}
+	
+	public function store(Request $req){
+		echo "OK";
+		
+	}
     // ------------ API GURU ----------------------- ///
     public function apiLogin(Request $request){
           $auth = auth()->guard('guru');

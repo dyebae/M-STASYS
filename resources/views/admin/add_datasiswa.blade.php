@@ -28,17 +28,7 @@
               <h2 class="panel-title">{{ $judul }}</h2>
             </header>
             <div class="panel-body">
-<<<<<<< HEAD
 			<form id="form" action="{{ route('data-siswa.'.$url, $url) }}" method="post" role="form" enctype="multipart/form-data">
-=======
-			<form action="{{ route('data-siswa.'.$url, $url) }}" method="post" role="form" enctype="multipart/form-data">
-			@if($url == "update")
-				{{ method_field('put') }}
-			@endif
-			{{ csrf_field() }}
-
-        <form id="form" action="{{ route('data-siswa.'.$url, $url) }}" method="post" role="form" enctype="multipart/form-data">
->>>>>>> c14d95d76351e6e59b0c10ddc863fd5f4bd8875e
         @if($url == "update")
           {{ method_field('put') }}
         @endif
@@ -46,7 +36,7 @@
 				<table class="table table-striped table-bordered table-hover no-footer">
 					<tr>
 						<td colspan="2" align="center">
-							<img src="{{ URL::asset('assets/images/students/'.$siswa->foto) }}" id="image-preview" alt="image preview" width="40%" />
+							<img src="{{ URL::asset('assets/images/students/'.$siswa->foto) }}" id="image-preview" alt="image preview" width="20%" />
 							<br/>
 							<div class="file-field">
 								<div class="btn btn-primary btn-sm float-left">
@@ -59,13 +49,22 @@
 						<th>NIS</th>
 						<td> <input type="number" value = "{{ $siswa->nis }}" name="nis" class="form-control" required/>
     						<!-- <div id="alertnis"></div> -->
-            </td>
+						</td>
+					</tr>
+					<tr>
+					<th>Password</th>
+						<td><input type="password" name="password" class="form-control" {{ $pass }} />
+                <!-- <div id="alertpassword"></div> -->
+							<div class="alert alert-info alert-block">
+								<strong>* Format [ Min 6 Char, A-Z, a-z, 1-9 ] example : contoH123</strong>
+							</div>
+						</td>
 					</tr>
 					<tr>
 						<th>NISN</th>
 						<td> <input type="number" value = "{{ $siswa->nisn }}" name="nisn" class="form-control" required/>
                 <!-- <div id="alertnisn"></div> -->
-            </td>
+						</td>
 					</tr>
 					<tr>
 						<th>No. Ijazah SLTP</th>
@@ -74,16 +73,6 @@
 					<tr>
 						<th>No. Ujian Nasional</th>
 						<td> <input type="text" name="no_un" value = "{{ $siswa->no_un }}" class="form-control"/></td>
-					</tr>
-					<tr>
-						<th>Kelas</th>
-						<td>
-							<select name="id_kelas" class="form-control">
-								@foreach($kelas as $r)
-								<option {{ $siswa->id_kelas == $r->id_kelas ? "selected":"" }} value="{{ $r->id_kelas }}">{{ $r->tingkat." ".$r->jurusan." ".$r->rombel }}</option>
-								@endforeach
-							</select>
-						</td>
 					</tr>
 					<tr>
 						<th>Nama</th>
@@ -98,27 +87,28 @@
 						<td><input type="date" name="tgl_lahir" value = "{{ $siswa->tgl_lahir }}" class="form-control" required/></td>
 					</tr>
 					<tr>
-						<th>Alamat</th>
-						<td><textarea name="alamat" rows="10" class="form-control" required>{{ $siswa->alamat }}</textarea></td>
+						<th>Jenis Kelamin</th>
+						<td>
+							<input type="radio" {{ $siswa->jenis_kelamin == "Laki-Laki" ? "checked":"" }} name="jenis_kelamin" value="Laki-Laki">Laki-Laki &nbsp;
+							<input type="radio" {{ $siswa->jenis_kelamin == "Perempuan" ? "checked":"" }} name="jenis_kelamin" value="Perempuan">Perempuan
+						</td>
 					</tr>
 					<tr>
 						<th>Agama</th>
 						<td><input type="text" name="agama" value = "{{ $siswa->agama }}" class="form-control" required/></td>
 					</tr>
 					<tr>
-						<th>Password</th>
-						<td><input type="password" name="password" class="form-control" {{ $pass }} />
-                <!-- <div id="alertpassword"></div> -->
-                <div class="alert alert-info alert-block">
-    				<strong>* Format [ Min 6 Char, A-Z, a-z, 1-9 ] example : contoH123</strong>
-    			</div>
-            </td>
+						<th>Alamat</th>
+						<td><textarea name="alamat" rows="10" class="form-control" required>{{ $siswa->alamat }}</textarea></td>
 					</tr>
 					<tr>
-						<th>Jenis Kelamin</th>
+						<th>Kelas</th>
 						<td>
-							<input type="radio" {{ $siswa->jenis_kelamin == "Laki-Laki" ? "checked":"" }} name="jenis_kelamin" value="Laki-Laki">Laki-Laki &nbsp;
-							<input type="radio" {{ $siswa->jenis_kelamin == "Perempuan" ? "checked":"" }} name="jenis_kelamin" value="Perempuan">Perempuan
+							<select name="id_kelas" class="form-control">
+								@foreach($kelas as $r)
+								<option {{ $siswa->id_kelas == $r->id_kelas ? "selected":"" }} value="{{ $r->id_kelas }}">{{ $r->tingkat." ".$r->jurusan." ".$r->rombel }}</option>
+								@endforeach
+							</select>
 						</td>
 					</tr>
 					<tr>
@@ -131,12 +121,7 @@
       </form>
             </div>
           </section>
-<<<<<<< HEAD
-=======
-		  @endsection
-
->>>>>>> c14d95d76351e6e59b0c10ddc863fd5f4bd8875e
-		  <script>
+<script>
 			  function previewImage() {
   				document.getElementById("image-preview").style.display = "block";
   				var oFReader = new FileReader();
@@ -157,20 +142,12 @@
 
             form.submit(function (e) {
               e.preventDefault();
-<<<<<<< HEAD
-				var formdata = new FormData(this);
-              $.ajax({
-                  url: $(this).attr('action'),
-                  type: "POST",
-                  data: formdata,
-=======
               var formData = new FormData(this);
 
               $.ajax({
                   url: form.attr('action'),
                   type: form.attr('method'),
                   data: formData,
->>>>>>> c14d95d76351e6e59b0c10ddc863fd5f4bd8875e
                   dataType: "json",
                   cache: false,
                   contentType: false,
@@ -220,11 +197,29 @@
 													delay:2100
 												})
                     }
+					
+					if(res.jenis_kelamin == ''){ }else{
+                        new PNotify({
+													title: 'Failed',
+													text: 'The gender field is required.',
+													type: 'warning',
+													icon: "fa fa-times",
+													delay:2100
+												})
+                    }
 
                     if(res.status == '1'){ //add
+						new PNotify({
+                              title: 'Berhasil',
+                              text: res.info,
+                              type: 'success',
+                              icon: "fa fa-check",
+                              delay:2100
+                            })
                         window.location.href = "{{ route('data_siswa') }}"
+							 
                     }else if(res.status == '2'){ //update
-                        window.location.href = "{{ route('data_siswa') }}"
+                        //window.location.href = "{{ route('data_siswa') }}"
                     }else{
                         if(res.info == ''){ }else{
                             new PNotify({
