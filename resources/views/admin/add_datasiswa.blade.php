@@ -28,7 +28,11 @@
               <h2 class="panel-title">{{ $judul }}</h2>
             </header>
             <div class="panel-body">
+<<<<<<< HEAD
         <form id="form" action="{{ route('data-siswa.'.$url, $url) }}" method="post" role="form" enctype="multipart/form-data">
+=======
+			<form id="form" action="{{ route('data-siswa.'.$url, $url) }}" method="post" role="form" enctype="multipart/form-data">
+>>>>>>> 7df1a8d2b152c87e7de52cf0d3103fa08ded9e4d
         @if($url == "update")
           {{ method_field('put') }}
         @endif
@@ -36,7 +40,7 @@
 				<table class="table table-striped table-bordered table-hover no-footer">
 					<tr>
 						<td colspan="2" align="center">
-							<img src="{{ URL::asset('assets/images/students/'.$siswa->foto) }}" id="image-preview" alt="image preview" width="40%" />
+							<img src="{{ URL::asset('assets/images/students/'.$siswa->foto) }}" id="image-preview" alt="image preview" width="20%" />
 							<br/>
 							<div class="file-field">
 								<div class="btn btn-primary btn-sm float-left">
@@ -49,13 +53,22 @@
 						<th>NIS</th>
 						<td> <input type="number" value = "{{ $siswa->nis }}" name="nis" class="form-control" required/>
     						<!-- <div id="alertnis"></div> -->
-            </td>
+						</td>
+					</tr>
+					<tr>
+					<th>Password</th>
+						<td><input type="password" name="password" class="form-control" {{ $pass }} />
+                <!-- <div id="alertpassword"></div> -->
+							<div class="alert alert-info alert-block">
+								<strong>* Format [ Min 6 Char, A-Z, a-z, 1-9 ] example : contoH123</strong>
+							</div>
+						</td>
 					</tr>
 					<tr>
 						<th>NISN</th>
 						<td> <input type="number" value = "{{ $siswa->nisn }}" name="nisn" class="form-control" required/>
                 <!-- <div id="alertnisn"></div> -->
-            </td>
+						</td>
 					</tr>
 					<tr>
 						<th>No. Ijazah SLTP</th>
@@ -64,16 +77,6 @@
 					<tr>
 						<th>No. Ujian Nasional</th>
 						<td> <input type="text" name="no_un" value = "{{ $siswa->no_un }}" class="form-control"/></td>
-					</tr>
-					<tr>
-						<th>Kelas</th>
-						<td>
-							<select name="id_kelas" class="form-control">
-								@foreach($kelas as $r)
-								<option {{ $siswa->id_kelas == $r->id_kelas ? "selected":"" }} value="{{ $r->id_kelas }}">{{ $r->tingkat." ".$r->jurusan." ".$r->rombel }}</option>
-								@endforeach
-							</select>
-						</td>
 					</tr>
 					<tr>
 						<th>Nama</th>
@@ -88,27 +91,28 @@
 						<td><input type="date" name="tgl_lahir" value = "{{ $siswa->tgl_lahir }}" class="form-control" required/></td>
 					</tr>
 					<tr>
-						<th>Alamat</th>
-						<td><textarea name="alamat" rows="10" class="form-control" required>{{ $siswa->alamat }}</textarea></td>
+						<th>Jenis Kelamin</th>
+						<td>
+							<input type="radio" {{ $siswa->jenis_kelamin == "Laki-Laki" ? "checked":"" }} name="jenis_kelamin" value="Laki-Laki">Laki-Laki &nbsp;
+							<input type="radio" {{ $siswa->jenis_kelamin == "Perempuan" ? "checked":"" }} name="jenis_kelamin" value="Perempuan">Perempuan
+						</td>
 					</tr>
 					<tr>
 						<th>Agama</th>
 						<td><input type="text" name="agama" value = "{{ $siswa->agama }}" class="form-control" required/></td>
 					</tr>
 					<tr>
-						<th>Password</th>
-						<td><input type="password" name="password" class="form-control" {{ $pass }} required/>
-                <!-- <div id="alertpassword"></div> -->
-                <div class="alert alert-info alert-block" data-dismiss="alert">
-    							<strong>* Format [ Min 6 Char, A-Z, a-z, 1-9 ] example : contoH123</strong>
-    						</div>
-            </td>
+						<th>Alamat</th>
+						<td><textarea name="alamat" rows="10" class="form-control" required>{{ $siswa->alamat }}</textarea></td>
 					</tr>
 					<tr>
-						<th>Jenis Kelamin</th>
+						<th>Kelas</th>
 						<td>
-							<input type="radio" {{ $siswa->jenis_kelamin == "Laki-Laki" ? "checked":"" }} name="jenis_kelamin" value="Laki-Laki">Laki-Laki &nbsp;
-							<input type="radio" {{ $siswa->jenis_kelamin == "Perempuan" ? "checked":"" }} name="jenis_kelamin" value="Perempuan">Perempuan
+							<select name="id_kelas" class="form-control">
+								@foreach($kelas as $r)
+								<option {{ $siswa->id_kelas == $r->id_kelas ? "selected":"" }} value="{{ $r->id_kelas }}">{{ $r->tingkat." ".$r->jurusan." ".$r->rombel }}</option>
+								@endforeach
+							</select>
 						</td>
 					</tr>
 					<tr>
@@ -121,7 +125,11 @@
       </form>
             </div>
           </section>
+<<<<<<< HEAD
 		  <script>
+=======
+<script>
+>>>>>>> 7df1a8d2b152c87e7de52cf0d3103fa08ded9e4d
 			  function previewImage() {
   				document.getElementById("image-preview").style.display = "block";
   				var oFReader = new FileReader();
@@ -197,11 +205,29 @@
 													delay:2100
 												})
                     }
+					
+					if(res.jenis_kelamin == ''){ }else{
+                        new PNotify({
+													title: 'Failed',
+													text: 'The gender field is required.',
+													type: 'warning',
+													icon: "fa fa-times",
+													delay:2100
+												})
+                    }
 
                     if(res.status == '1'){ //add
+						new PNotify({
+                              title: 'Berhasil',
+                              text: res.info,
+                              type: 'success',
+                              icon: "fa fa-check",
+                              delay:2100
+                            })
                         window.location.href = "{{ route('data_siswa') }}"
+							 
                     }else if(res.status == '2'){ //update
-                        window.location.href = "{{ route('data_siswa') }}"
+                        //window.location.href = "{{ route('data_siswa') }}"
                     }else{
                         if(res.info == ''){ }else{
                             new PNotify({

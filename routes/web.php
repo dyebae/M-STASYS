@@ -38,7 +38,6 @@ Route::get('/profile', 'LoginController@profile')->name('profile');
 Route::get('/logout', 'LoginController@logout')->name('logout');
 Route::post('/login_procces', 'LoginController@process')->name('login_procces');
 
-
 //API GURU
 Route::post('/apiLoginGuru', 'GuruController@apiLogin');
 Route::get('/apiDataGuru/{nip}', 'GuruController@apiAllData');

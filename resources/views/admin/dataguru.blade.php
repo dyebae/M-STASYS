@@ -111,7 +111,7 @@
 				        <button type="button" class="close" data-dismiss="modal">&times;</button>
 				        <h4 class="modal-title text-center"><span class="fas fa-plus"></span>Tambah Data Guru</h4>
 				      </div>
-				        <form id="modal-form-delete" method="post" action="{{ route('data-guru.destroy', 'destroy') }}">
+				        <form id="modal-form-delete" method="post" action="{{ route('data-guru.store', 'store') }}">
 				            {{ csrf_field() }}
 				      <div class="modal-body">
 				        <table class="table table-striped table-bordered table-hover no-footer">

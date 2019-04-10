@@ -42,7 +42,7 @@ class SiswaController extends Controller
 					'foto' => 'no-image.gif',
 					'jenis_kelamin' => ''
 				]);
-		$data['pass'] = '';
+		$data['pass'] = 'required';
 		$data['button'] = "Tambah";
 		$data['url'] = 'store';
 		$data['kelas'] = Kelas::all();
@@ -64,8 +64,6 @@ class SiswaController extends Controller
 		$data['active'] = 'data_siswa';
 		$data['judul'] = 'Edit Data Siswa';
 		return view('admin.add_datasiswa', $data);
-		//print_r($data);
-		//echo $data['siswa']->nis;
 	}
 	public function view($nis){
 		if(\Session::get('logged_in')){}else
@@ -93,25 +91,22 @@ class SiswaController extends Controller
 		$data['active'] = 'data_siswa';
 		$data['judul'] = 'Lihat Data Siswa';
 		return view('admin.view_datasiswa', $data);
-		//print_r($data);
-		//echo $data['siswa']->nis;
 	}
 	public function store(Request $req){
 		$validator = Validator::make($req->all(), [
-			      'foto'	=> 'max:2000|mimes:jpg,png,jpeg',
-            'nis'	=> 'required|digits:5|numeric|not_in:0|regex:/^([1-9][0-9]+)/',
-            'nisn'	=> 'required|digits:5|numeric|not_in:0|regex:/^([1-9][0-9]+)/',
-            'password' => 'required|string|min:6|max:20|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/',
+					'foto'	=> 'max:2000|mimes:jpg,png,jpeg',
+					'nis'	=> 'required|digits:5|numeric|not_in:0|regex:/^([1-9][0-9]+)/',
+					'nisn'	=> 'required|digits:5|numeric|not_in:0|regex:/^([1-9][0-9]+)/',
+					'password' => 'required|string|min:6|max:20|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/',
+					'jenis_kelamin' => 'required',
         ]);
 		if($validator->fails()){
-		//if($validator->fails()){
-			//print_r($validator->messages()->all());
-			// return redirect('/data_siswa/add')->with(['alert'=>$validator->messages()->all()]);
-      return response()->json([
+			return response()->json([
         'foto'     => $validator->messages()->first('foto'),
         'nis'      => $validator->messages()->first('nis'),
         'nisn'     => $validator->messages()->first('nisn'),
         'password' => $validator->messages()->first('password'),
+		'jenis_kelamin' => $validator->messages()->first('jenis_kelamin'),
         'info'   => '',
         'status'   => '3'
       ], 200);
@@ -145,6 +140,7 @@ class SiswaController extends Controller
               'nis'      => '',
               'nisn'     => '',
               'password' => '',
+			  'jenis_kelamin' => '',
               'info'   => 'Siswa Berhasil ditambahkan',
               'status' => '1'
           ], 200);
@@ -155,6 +151,7 @@ class SiswaController extends Controller
             'nis'      => '',
             'nisn'     => '',
             'password' => '',
+			'jenis_kelamin' => '',
             'info'   => 'Terjadi Kesalah saat menambah data Siswa',
             'status' => '3'
         ], 200);
@@ -166,6 +163,7 @@ class SiswaController extends Controller
           'nis'      => '',
           'nisn'     => '',
           'password' => '',
+		  'jenis_kelamin' => '',
           'info'   => 'NIS Sudah terdaftar',
           'status' => '3'
       ], 200);
@@ -176,7 +174,8 @@ class SiswaController extends Controller
 			      'foto'	=> 'max:2000|mimes:jpg,png,jpeg',
             'nis'	=> 'required|digits:5|numeric|not_in:0|regex:/^([1-9][0-9]+)/',
             'nisn'	=> 'required|digits:5|numeric|not_in:0|regex:/^([1-9][0-9]+)/',
-            'password' => 'required|string|min:6|max:20|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/',
+            'password' => 'min:6|max:20|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/',
+			'jenis_kelamin' => 'required',
         ]);
 		if($validator->fails()){
 		//if($validator->fails()){
@@ -187,6 +186,7 @@ class SiswaController extends Controller
         'nis'      => $validator->messages()->first('nis'),
         'nisn'     => $validator->messages()->first('nisn'),
         'password' => $validator->messages()->first('password'),
+		'jenis_kelamin' => '',
         'info'   => '',
         'status'   => '3'
       ], 200);
@@ -220,6 +220,7 @@ class SiswaController extends Controller
               'nis'      => '',
               'nisn'     => '',
               'password' => '',
+			  'jenis_kelamin' => '',
               'info'   => 'Siswa Berhasil diperbaharui',
               'status' => '2'
           ], 200);
@@ -230,6 +231,7 @@ class SiswaController extends Controller
             'nis'      => '',
             'nisn'     => '',
             'password' => '',
+			'jenis_kelamin' => '',
             'info'   => 'Terjadi Kesalah saat menambah data Siswa',
             'status' => '3'
         ], 200);
@@ -243,11 +245,6 @@ class SiswaController extends Controller
 		}
 		  return redirect('/data_siswa')->with(['alert' => ['Terjadi Kesalahan saat menghapus data Siswa']]);
 	}
-
-
-
-    // ------------ API SISWA ----------------------- ///
-
     public function apiLogin(Request $request){
         $auth = auth()->guard('siswa');
 
