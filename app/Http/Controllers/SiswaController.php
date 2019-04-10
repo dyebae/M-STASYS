@@ -261,6 +261,7 @@ class SiswaController extends Controller
             'password' => 'required|string|min:6|max:20|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/',
         ]);
 
+        $nama = DB::table('tb_siswa')->where('nis', $request->nis)->value('nama');
         if( $validator->fails() ){
             return response()->json([
               'error'   => 2,
@@ -270,12 +271,12 @@ class SiswaController extends Controller
             if( $auth->attempt($credentials) ){
                 return response()->json([
                     'error'   => 0,
-                    'message' => ['Login Success'],
+                    'message' => ['Selamat Datang '.$nama.''],
                 ], 200);
             }else{
                 return response()->json([
                     'error'   => 1,
-                    'message' => ['Wrong nis or Password'],
+                    'message' => ['NIS atau Password Salah'],
                 ], 200);
             }
         }

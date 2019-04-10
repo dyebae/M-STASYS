@@ -40,6 +40,7 @@ class GuruController extends Controller
               'password'=> 'required|string|min:6|max:20|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/',
           ]);
 
+					$nama = DB::table('tb_guru')->where('nip', $request->nip)->value('nama');
           if( $validator->fails() ){
               return response()->json([
                 'error'   => 2,
@@ -49,12 +50,12 @@ class GuruController extends Controller
               if( $auth->attempt($credentials) ){
                   return response()->json([
                       'error'   => 0,
-                      'message' => ['Login Success'],
+                      'message' => ['Selamat Datang '.$nama.''],
                   ], 200);
               }else{
                   return response()->json([
                       'error'   => 1,
-                      'message' => ['Wrong nip or Password'],
+                      'message' => ['NIP atau Password Salah'],
                   ], 200);
               }
           }
