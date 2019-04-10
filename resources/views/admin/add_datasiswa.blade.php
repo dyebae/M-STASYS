@@ -28,11 +28,7 @@
               <h2 class="panel-title">{{ $judul }}</h2>
             </header>
             <div class="panel-body">
-<<<<<<< HEAD
         <form id="form" action="{{ route('data-siswa.'.$url, $url) }}" method="post" role="form" enctype="multipart/form-data">
-=======
-			<form id="form" action="{{ route('data-siswa.'.$url, $url) }}" method="post" role="form" enctype="multipart/form-data">
->>>>>>> 7df1a8d2b152c87e7de52cf0d3103fa08ded9e4d
         @if($url == "update")
           {{ method_field('put') }}
         @endif
@@ -125,11 +121,7 @@
       </form>
             </div>
           </section>
-<<<<<<< HEAD
 		  <script>
-=======
-<script>
->>>>>>> 7df1a8d2b152c87e7de52cf0d3103fa08ded9e4d
 			  function previewImage() {
   				document.getElementById("image-preview").style.display = "block";
   				var oFReader = new FileReader();
@@ -205,7 +197,7 @@
 													delay:2100
 												})
                     }
-					
+
 					if(res.jenis_kelamin == ''){ }else{
                         new PNotify({
 													title: 'Failed',
@@ -225,7 +217,7 @@
                               delay:2100
                             })
                         window.location.href = "{{ route('data_siswa') }}"
-							 
+
                     }else if(res.status == '2'){ //update
                         //window.location.href = "{{ route('data_siswa') }}"
                     }else{
