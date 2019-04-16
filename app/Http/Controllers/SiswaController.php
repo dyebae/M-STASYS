@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Validator;
 use App\Kelas;
 use App\Agama;
 use App\Siswa;
+use App\Nilai;
+use App\AmpuMapel;
 class SiswaController extends Controller
 {
 
@@ -284,6 +286,23 @@ class SiswaController extends Controller
 
     public function apiAllData($nis){
         $data = DB::table('tb_siswa')->join('tb_kelas','tb_siswa.id_kelas', '=', 'tb_kelas.id_kelas')->where('nis', $nis)->first();
+
+        return json_encode($data);
+    }
+
+    public function apiGetSiswa(Request $request){
+        // $data = DB::table('tb_siswa')
+        //         ->where('id_kelas', $id_kelas)
+        //         ->get();
+          $data = DB::table('tb_ampu_mapel')
+                  ->select('tb_siswa.nis as nis', 'tb_siswa.nisn as nisn', 'tb_siswa.nama as nama', 'tb_siswa.foto as foto')
+                  ->join('tb_siswa','tb_siswa.id_kelas', '=', 'tb_ampu_mapel.id_kelas')
+                  ->where('nip', $request->nip)
+                  ->where('id_mapel', $request->mapel)
+                  ->where('tb_ampu_mapel.id_kelas', $request->kelas)
+                  ->where('id_semester', $request->semester)
+                  ->groupBy('nis')
+                  ->get();
 
         return json_encode($data);
     }

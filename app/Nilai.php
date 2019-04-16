@@ -28,4 +28,8 @@ class Nilai extends Model
         return $this->belongsTo('App\DetailNilai', 'id_detail');
     }
 
+    public function mapel(){
+        return $this->belongsTo('App\Mapel', 'id_mapel');
+    }
+
 }
