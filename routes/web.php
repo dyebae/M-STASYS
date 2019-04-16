@@ -42,6 +42,19 @@ Route::post('/login_procces', 'LoginController@process')->name('login_procces');
 Route::post('/apiLoginGuru', 'GuruController@apiLogin');
 Route::get('/apiDataGuru/{nip}', 'GuruController@apiAllData');
 
+
 //API SISWA
 Route::post('/apiLoginSiswa', 'SiswaController@apiLogin');
 Route::get('/apiDataSiswa/{nis}', 'SiswaController@apiAllData');
+Route::post('/apiGetSiswa', 'SiswaController@apiGetSiswa');
+
+//API SEMESTER
+Route::get('/apiSemester', 'SemesterController@apiSemester');
+Route::post('/apiSemesterGuru', 'SemesterController@apiSemesterGuru');
+
+//API KELAS
+Route::post('/apiKelasGuru', 'KelasController@apiKelasGuru');
+
+//API MAPEL
+Route::post('/apiMapelGuru', 'MapelController@apiMapelGuru');
+Route::post('/apiSiswaMapel', 'MapelController@apiSiswaMapel');
