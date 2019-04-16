@@ -32,6 +32,9 @@ class Siswa extends Authenticatable
     public function kelas(){
         return $this->belongsTo('App\Kelas', 'id_kelas');
     }
+	public function agama(){
+        return $this->belongsTo('App\Agama', 'id_agama');
+    }
 
     public function nilai(){
         return $this->hasMany('App\Nilai', 'nis');

@@ -131,6 +131,10 @@
 						<td> <input type="number" name="nip" class="form-control" required/> </td>
 					</tr>
 					<tr>
+						<th>Password</th>
+						<td><input type="password" name="password" class="form-control" /></td>
+					</tr>
+					<tr>
 						<th>Wali Kelas</th>
 						<td>
 							<select name="id_kelas" class="form-control">
@@ -154,23 +158,19 @@
 						<td><input type="date" name="tgl_lahir" class="form-control" required/></td>
 					</tr>
 					<tr>
+						<th>Jenis Kelamin</th>
+						<td>
+							<input type="radio" name="jenis_kelamin" value="Laki-Laki">Laki-Laki &nbsp; 
+							<input type="radio" name="jenis_kelamin" value="Perempuan">Perempuan				
+						</td>
+					</tr>
+					<tr>
 						<th>Alamat</th>
 						<td><textarea name="alamat" rows="10" class="form-control" required ></textarea></td>
 					</tr>
 					<tr>
 						<th>Agama</th>
 						<td><input type="text" name="agama" class="form-control" required/></td>
-					</tr>
-					<tr>
-						<th>Password</th>
-						<td><input type="password" name="password" class="form-control" /></td>
-					</tr>
-					<tr>
-						<th>Jenis Kelamin</th>
-						<td>
-							<input type="radio" name="jenis_kelamin" value="Laki-Laki">Laki-Laki &nbsp; 
-							<input type="radio" name="jenis_kelamin" value="Perempuan">Perempuan				
-						</td>
 					</tr>
 				</table>
 				      </div>

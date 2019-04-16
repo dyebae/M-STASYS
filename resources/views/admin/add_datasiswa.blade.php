@@ -95,7 +95,14 @@
 					</tr>
 					<tr>
 						<th>Agama</th>
-						<td><input type="text" name="agama" value = "{{ $siswa->agama }}" class="form-control" required/></td>
+						<td>
+							<select name="agama" class="form-control">
+								<option value="">Pilih Agama</option>
+								@foreach($Agama as $r)
+									<option {{ $siswa->id_agama == $r->id_agama ? "selected":"" }} value="{{ $r->id_agama }}">{{ $r->agama }}</option>
+								@endforeach
+							</select>
+						</td>
 					</tr>
 					<tr>
 						<th>Alamat</th>

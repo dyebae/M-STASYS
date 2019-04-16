@@ -6,6 +6,7 @@ use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Kelas;
+use App\Agama;
 use App\Siswa;
 class SiswaController extends Controller
 {
@@ -38,7 +39,7 @@ class SiswaController extends Controller
 					'tempat_lahir' => '',
 					'tgl_lahir' => '',
 					'alamat' => '',
-					'agama' => '',
+					'id_agama' => '',
 					'foto' => 'no-image.gif',
 					'jenis_kelamin' => ''
 				]);
@@ -46,6 +47,7 @@ class SiswaController extends Controller
 		$data['button'] = "Tambah";
 		$data['url'] = 'store';
 		$data['kelas'] = Kelas::all();
+		$data['Agama'] = Agama::all();
 		$data['active'] = 'data_siswa';
 		$data['judul'] = 'Tambah Data Siswa';
 		$data['siswa'] = json_decode($siswa);
@@ -61,6 +63,7 @@ class SiswaController extends Controller
 		$data['url'] = 'update';
 		$data['siswa'] = Siswa::where('nis', $nis)->first();
 		$data['kelas'] = Kelas::all();
+		$data['Agama'] = Agama::all();
 		$data['active'] = 'data_siswa';
 		$data['judul'] = 'Edit Data Siswa';
 		return view('admin.add_datasiswa', $data);
@@ -123,7 +126,7 @@ class SiswaController extends Controller
 					'tempat_lahir' => $req->tempat_lahir,
 					'tgl_lahir' => $req->tgl_lahir,
 					'alamat' => $req->alamat,
-					'agama' => $req->agama,
+					'id_agama' => $req->agama,
 					'password' => $req->password,
 					'jenis_kelamin' => $req->jenis_kelamin
 				];
@@ -202,7 +205,7 @@ class SiswaController extends Controller
 					'tempat_lahir' => $req->tempat_lahir,
 					'tgl_lahir' => $req->tgl_lahir,
 					'alamat' => $req->alamat,
-					'agama' => $req->agama,
+					'id_agama' => $req->agama,
 					'jenis_kelamin' => $req->jenis_kelamin
 				];
 				if($uploadedFile != ""){
