@@ -6,6 +6,7 @@ use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Kelas;
+use App\Agama;
 use App\Siswa;
 use App\Nilai;
 use App\AmpuMapel;
@@ -40,14 +41,15 @@ class SiswaController extends Controller
 					'tempat_lahir' => '',
 					'tgl_lahir' => '',
 					'alamat' => '',
-					'agama' => '',
+					'id_agama' => '',
 					'foto' => 'no-image.gif',
 					'jenis_kelamin' => ''
 				]);
 		$data['pass'] = 'required';
-		$data['button'] = "Tambah";
+		$data['button'] = "Simpan";
 		$data['url'] = 'store';
 		$data['kelas'] = Kelas::all();
+		$data['Agama'] = Agama::all();
 		$data['active'] = 'data_siswa';
 		$data['judul'] = 'Tambah Data Siswa';
 		$data['siswa'] = json_decode($siswa);
@@ -63,6 +65,7 @@ class SiswaController extends Controller
 		$data['url'] = 'update';
 		$data['siswa'] = Siswa::where('nis', $nis)->first();
 		$data['kelas'] = Kelas::all();
+		$data['Agama'] = Agama::all();
 		$data['active'] = 'data_siswa';
 		$data['judul'] = 'Edit Data Siswa';
 		return view('admin.add_datasiswa', $data);
@@ -95,13 +98,14 @@ class SiswaController extends Controller
 		return view('admin.view_datasiswa', $data);
 	}
 	public function store(Request $req){
-		$validator = Validator::make($req->all(), [
+		$check = [
 					'foto'	=> 'max:2000|mimes:jpg,png,jpeg',
 					'nis'	=> 'required|digits:5|numeric|not_in:0|regex:/^([1-9][0-9]+)/',
 					'nisn'	=> 'required|digits:5|numeric|not_in:0|regex:/^([1-9][0-9]+)/',
-					'password' => 'required|string|min:6|max:20|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/',
+					'password' => 'string|min:6|max:20|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/',
 					'jenis_kelamin' => 'required',
-        ]);
+        ];
+		$validator = Validator::make($req->all(), $check);
 		if($validator->fails()){
 			return response()->json([
         'foto'     => $validator->messages()->first('foto'),
@@ -125,7 +129,7 @@ class SiswaController extends Controller
 					'tempat_lahir' => $req->tempat_lahir,
 					'tgl_lahir' => $req->tgl_lahir,
 					'alamat' => $req->alamat,
-					'agama' => $req->agama,
+					'id_agama' => $req->agama,
 					'password' => $req->password,
 					'jenis_kelamin' => $req->jenis_kelamin
 				];
@@ -172,13 +176,15 @@ class SiswaController extends Controller
 		}
 	}
 	public function update(Request $req){
-    $validator = Validator::make($req->all(), [
+		$check = [
 			      'foto'	=> 'max:2000|mimes:jpg,png,jpeg',
-            'nis'	=> 'required|digits:5|numeric|not_in:0|regex:/^([1-9][0-9]+)/',
-            'nisn'	=> 'required|digits:5|numeric|not_in:0|regex:/^([1-9][0-9]+)/',
-            'password' => 'min:6|max:20|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/',
-			'jenis_kelamin' => 'required',
-        ]);
+				  'nis'	=> 'required|digits:5|numeric|not_in:0|regex:/^([1-9][0-9]+)/',
+				  'nisn'	=> 'required|digits:5|numeric|not_in:0|regex:/^([1-9][0-9]+)/',
+				  'password' =>'',
+				  'jenis_kelamin' => 'required',
+        ];
+		//if(count(trim($req->password)) > 0) $check['password'] = 'min:6|max:20|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/';
+    $validator = Validator::make($req->all(), $check);
 		if($validator->fails()){
 		//if($validator->fails()){
 			//print_r($validator->messages()->all());
@@ -204,7 +210,7 @@ class SiswaController extends Controller
 					'tempat_lahir' => $req->tempat_lahir,
 					'tgl_lahir' => $req->tgl_lahir,
 					'alamat' => $req->alamat,
-					'agama' => $req->agama,
+					'id_agama' => $req->agama,
 					'jenis_kelamin' => $req->jenis_kelamin
 				];
 				if($uploadedFile != ""){

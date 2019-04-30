@@ -46,28 +46,28 @@
 						</td>
 					</tr>
 					<tr>
-						<th>NIS</th>
+						<th><strong><font style="color:red">*</font> </strong> NIS</th>
 						<td> <input type="number" value = "{{ $siswa->nis }}" name="nis" class="form-control" required/>
     						<!-- <div id="alertnis"></div> -->
 						</td>
 					</tr>
 					<tr>
-					<th>Password</th>
-						<td><input type="password" name="password" class="form-control" {{ $pass }} />
+					<th><font style="color:red">*</font> Password</th>
+						<td><input type="password" name="password" class="form-control" {{ $pass }} @if($url == "store") {{ "required" }} @endif />
                 <!-- <div id="alertpassword"></div> -->
 							<div class="alert alert-info alert-block">
-								<strong>* Format [ Min 6 Char, A-Z, a-z, 1-9 ] example : contoH123</strong>
+								<strong>* Format [ Min 6 Char, A-Z, a-z, 1-9 ] contoh : contoH123</strong>
 							</div>
 						</td>
 					</tr>
 					<tr>
-						<th>NISN</th>
+						<th><font style="color:red">*</font> NISN</th>
 						<td> <input type="number" value = "{{ $siswa->nisn }}" name="nisn" class="form-control" required/>
                 <!-- <div id="alertnisn"></div> -->
 						</td>
 					</tr>
 					<tr>
-						<th>No. Ijazah SLTP</th>
+						<th><font style="color:red">*</font> No. Ijazah SLTP</th>
 						<td> <input type="text" name="no_ijasah_smp"  value = "{{ $siswa->no_ijasah_smp }}" class="form-control" required/></td>
 					</tr>
 					<tr>
@@ -75,19 +75,19 @@
 						<td> <input type="text" name="no_un" value = "{{ $siswa->no_un }}" class="form-control"/></td>
 					</tr>
 					<tr>
-						<th>Nama</th>
+						<th><font style="color:red">*</font> Nama</th>
 						<td><input type="text" value = "{{ $siswa->nama }}" name="nama" class="form-control" required/></td>
 					</tr>
 					<tr>
 						<th>Tempat Lahir</th>
-						<td><input type="text" value = "{{ $siswa->tempat_lahir }}" name="tempat_lahir" class="form-control" required/></td>
+						<td><input type="text" value = "{{ $siswa->tempat_lahir }}" name="tempat_lahir" class="form-control" /></td>
 					</tr>
 					<tr>
 						<th>Tanggal Lahir</th>
-						<td><input type="date" name="tgl_lahir" value = "{{ $siswa->tgl_lahir }}" class="form-control" required/></td>
+						<td><input type="date" name="tgl_lahir" value = "{{ $siswa->tgl_lahir }}" class="form-control" /></td>
 					</tr>
 					<tr>
-						<th>Jenis Kelamin</th>
+						<th><font style="color:red">*</font> Jenis Kelamin</th>
 						<td>
 							<input type="radio" {{ $siswa->jenis_kelamin == "Laki-Laki" ? "checked":"" }} name="jenis_kelamin" value="Laki-Laki">Laki-Laki &nbsp;
 							<input type="radio" {{ $siswa->jenis_kelamin == "Perempuan" ? "checked":"" }} name="jenis_kelamin" value="Perempuan">Perempuan
@@ -95,16 +95,23 @@
 					</tr>
 					<tr>
 						<th>Agama</th>
-						<td><input type="text" name="agama" value = "{{ $siswa->agama }}" class="form-control" required/></td>
+						<td>
+							<select name="agama" class="form-control">
+								<option value="">Pilih Agama</option>
+								@foreach($Agama as $r)
+									<option {{ $siswa->id_agama == $r->id_agama ? "selected":"" }} value="{{ $r->id_agama }}">{{ $r->agama }}</option>
+								@endforeach
+							</select>
+						</td>
 					</tr>
 					<tr>
 						<th>Alamat</th>
-						<td><textarea name="alamat" rows="10" class="form-control" required>{{ $siswa->alamat }}</textarea></td>
+						<td><textarea name="alamat" rows="10" class="form-control">{{ $siswa->alamat }}</textarea></td>
 					</tr>
 					<tr>
-						<th>Kelas</th>
+						<th><font style="color:red">*</font> Kelas</th>
 						<td>
-							<select name="id_kelas" class="form-control">
+							<select name="id_kelas" class="form-control" required>
 								@foreach($kelas as $r)
 								<option {{ $siswa->id_kelas == $r->id_kelas ? "selected":"" }} value="{{ $r->id_kelas }}">{{ $r->tingkat." ".$r->jurusan." ".$r->rombel }}</option>
 								@endforeach
@@ -118,6 +125,7 @@
 						</td>
 					</tr>
 				</table>
+				<strong><font style="color:red">*</font> Harus diisi</strong>
       </form>
             </div>
           </section>

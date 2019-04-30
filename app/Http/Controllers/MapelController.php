@@ -13,7 +13,7 @@ class MapelController extends Controller
 				}
 				$data['mapel'] = \App\Mapel::all();
 				$data['active'] = 'mapel';
-				$data['judul'] = 'Mata Pelajaran';
+				$data['judul'] = 'Data Pelajaran';
 				return view('admin.datamapel', $data);
 		}
 

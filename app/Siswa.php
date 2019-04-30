@@ -13,7 +13,7 @@ class Siswa extends Authenticatable
     protected $table = 'tb_siswa';
 
     protected $fillable = [
-        'nis','nisn','no_ijasah_smp','no_un','id_kelas','nama','tempat_lahir','tgl_lahir','alamat','agama','password','jenis_kelamin','status','foto'
+        'nis','nisn','no_ijasah_smp','no_un','id_kelas','nama','tempat_lahir','tgl_lahir','alamat','id_agama','password','jenis_kelamin','status','foto'
     ];
 
     protected $primaryKey = 'nis';
@@ -31,6 +31,9 @@ class Siswa extends Authenticatable
 
     public function kelas(){
         return $this->belongsTo('App\Kelas', 'id_kelas');
+    }
+	public function agama(){
+        return $this->belongsTo('App\Agama', 'id_agama');
     }
 
     public function nilai(){
