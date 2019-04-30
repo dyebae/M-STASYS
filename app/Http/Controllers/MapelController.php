@@ -40,4 +40,16 @@ class MapelController extends Controller
 
         return json_encode($data);
     }
+
+		public function apiGetKategoriMapel(Request $request){
+				$data = DB::table('tb_ampu_mapel')
+								->select('tb_kategori_mapel.kategori_mapel as kategori_mapel')
+								->join('tb_kategori_mapel','tb_kategori_mapel.id_kategori', '=', 'tb_ampu_mapel.id_kategori')
+								->where('id_mapel', $request->id_mapel)
+								->where('id_kelas', $request->id_kelas)
+								->where('id_semester', $request->id_semester)
+								->first();
+
+				return json_encode($data);
+		}
 }
