@@ -13,7 +13,7 @@ class Guru extends Authenticatable
     protected $table = 'tb_guru';
 
     protected $fillable = [
-        'nip','walikelas','nama','tempat_lahir','tgl_lahir','alamat','agama','password','jenis_kelamin','status','foto'
+        'nip','walikelas','nama','tempat_lahir','tgl_lahir','alamat','id_agama','password','jenis_kelamin','status','foto'
     ];
 
     protected $primaryKey = 'nip';
@@ -31,6 +31,9 @@ class Guru extends Authenticatable
 
     public function ampu_mapel(){
         return $this->hasMany('App\AmpuMapel', 'nip');
+    }
+	public function agama(){
+        return $this->belongsTo('App\Agama', 'id_agama');
     }
 
 }

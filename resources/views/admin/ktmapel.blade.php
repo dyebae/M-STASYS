@@ -31,8 +31,8 @@
               <div class="row">
                 <div class="col-sm-6">
                   <div class="mb-md">
-                    <button class="btn btn-primary">Add <i class="fas fa-plus"></i></button>
-                    <button class="btn btn-default">Print <i class="fas fa-print"></i></button>
+                    <button class="btn btn-primary">Tambah <i class="fas fa-plus"></i></button>
+                    <button class="btn btn-default">Cetak <i class="fas fa-print"></i></button>
                   </div>
                 </div>
               </div>
@@ -42,7 +42,7 @@
                     <th>No</th>
                     <th>ID</th>
                     <th>Kategori</th>
-                    <th>Actions</th>
+                    <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>

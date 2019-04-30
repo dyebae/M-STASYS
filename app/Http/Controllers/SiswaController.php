@@ -46,7 +46,7 @@ class SiswaController extends Controller
 					'jenis_kelamin' => ''
 				]);
 		$data['pass'] = 'required';
-		$data['button'] = "Tambah";
+		$data['button'] = "Simpan";
 		$data['url'] = 'store';
 		$data['kelas'] = Kelas::all();
 		$data['Agama'] = Agama::all();
@@ -98,13 +98,14 @@ class SiswaController extends Controller
 		return view('admin.view_datasiswa', $data);
 	}
 	public function store(Request $req){
-		$validator = Validator::make($req->all(), [
+		$check = [
 					'foto'	=> 'max:2000|mimes:jpg,png,jpeg',
 					'nis'	=> 'required|digits:5|numeric|not_in:0|regex:/^([1-9][0-9]+)/',
 					'nisn'	=> 'required|digits:5|numeric|not_in:0|regex:/^([1-9][0-9]+)/',
-					'password' => 'required|string|min:6|max:20|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/',
+					'password' => 'string|min:6|max:20|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/',
 					'jenis_kelamin' => 'required',
-        ]);
+        ];
+		$validator = Validator::make($req->all(), $check);
 		if($validator->fails()){
 			return response()->json([
         'foto'     => $validator->messages()->first('foto'),
@@ -175,13 +176,15 @@ class SiswaController extends Controller
 		}
 	}
 	public function update(Request $req){
-    $validator = Validator::make($req->all(), [
+		$check = [
 			      'foto'	=> 'max:2000|mimes:jpg,png,jpeg',
-            'nis'	=> 'required|digits:5|numeric|not_in:0|regex:/^([1-9][0-9]+)/',
-            'nisn'	=> 'required|digits:5|numeric|not_in:0|regex:/^([1-9][0-9]+)/',
-            'password' => 'min:6|max:20|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/',
-			'jenis_kelamin' => 'required',
-        ]);
+				  'nis'	=> 'required|digits:5|numeric|not_in:0|regex:/^([1-9][0-9]+)/',
+				  'nisn'	=> 'required|digits:5|numeric|not_in:0|regex:/^([1-9][0-9]+)/',
+				  'password' =>'',
+				  'jenis_kelamin' => 'required',
+        ];
+		//if(count(trim($req->password)) > 0) $check['password'] = 'min:6|max:20|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/';
+    $validator = Validator::make($req->all(), $check);
 		if($validator->fails()){
 		//if($validator->fails()){
 			//print_r($validator->messages()->all());

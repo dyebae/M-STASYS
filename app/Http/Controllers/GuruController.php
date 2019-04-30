@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Guru;
 use App\Kelas;
+use App\Agama;
 class GuruController extends Controller
 {
 	public function index(){
@@ -14,6 +15,7 @@ class GuruController extends Controller
 			return redirect('/')->with(['alert' => 'Akses ditolak']);
 		$data['kelas'] = Kelas::all();
 		$data['guru'] = Guru::all();
+		$data['agama'] = Agama::all();
 		$data['active'] = 'data_guru';
 		$data['judul'] = 'Data Guru';
 		return view('admin.dataguru', $data);
@@ -28,8 +30,28 @@ class GuruController extends Controller
 	}
 
 	public function store(Request $req){
-		echo "OK";
-
+		$uploadedFile = $req->file('foto');
+				$guru = [
+					'nip' => $req->nip,
+					'walikelas' => $req->id_kelas,
+					'nama' => $req->nama,
+					'tempat_lahir' => $req->tempat_lahir,
+					'tgl_lahir' => $req->tgl_lahir,
+					'alamat' => $req->alamat,
+					'id_agama' => $req->agama,
+					'password' => $req->password,
+					'jenis_kelamin' => $req->jenis_kelamin
+				];
+				if($uploadedFile != ""){
+					$path = 'assets/images/Teachers/';
+					$guru['foto'] = $req->nip. '.' . $uploadedFile->getClientOriginalExtension();
+					$uploadedFile->move($path, $guru['foto']);
+				}
+				$create = Guru::create($guru);
+				if($create){
+					return redirect('/data_guru')->with(['message' => 'Guru Berhasil Ditambahkan']);
+				}
+//dd($guru);
 	}
     // ------------ API GURU ----------------------- ///
     public function apiLogin(Request $request){

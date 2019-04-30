@@ -41,8 +41,8 @@
               <div class="row">
                 <div class="col-sm-6">
                   <div class="mb-md">
-                    <button class="btn btn-primary"  data-toggle="modal" data-target="#addData" data-nip="" >Add <i class="fas fa-plus"></i></button>
-                    <button class="btn btn-default">Print <i class="fas fa-print"></i></button>
+                    <button class="btn btn-primary"  data-toggle="modal" data-target="#addData" data-nip="" >Tambah <i class="fas fa-plus"></i></button>
+                    <button class="btn btn-default">Cetak <i class="fas fa-print"></i></button>
                   </div>
                 </div>
               </div>
@@ -66,8 +66,7 @@
                     <td>{{ $r->alamat }}</td>
                     <td class="actions">
 						<a href="#" class="on-default" data-toggle="modal" data-target="#deleteData" data-nip="{{$r->nip}}"><i class="fas fa-trash-alt"></i></a>
-						<a href="#" class="on-default"><
-						i class="fas fa-info"></i></a>
+						<a href="#" class="on-default"><i class="fas fa-info"></i></a>
 						<a href="#" class="on-default"><i class="fas fa-edit"></i></a>
                     </td>
                   </tr>
@@ -85,18 +84,18 @@
 				    <div class="modal-content">
 				      <div class="modal-header">
 				        <button type="button" class="close" data-dismiss="modal">&times;</button>
-				        <h4 class="modal-title text-center"><span class="fas fa-check"></span> Delete Confirmation</h4>
+				        <h4 class="modal-title text-center"><span class="fas fa-check"></span>Hapus</h4>
 				      </div>
 				        <form id="modal-form-delete" method="post" action="{{ route('data-guru.destroy', 'destroy') }}">
 				            {{ method_field('delete') }}
 				            {{ csrf_field() }}
 				      <div class="modal-body">
 				            <input type="hidden" name="nip" id="nip" value="">
-				            <p><center>Are you sure you want to delete this ?</center></p>
+				            <p><center>Apakah anda yakin ingin menghpus data ini ?</center></p>
 				      </div>
 				      <div class="modal-footer">
-				        <button type="submit" class="btn btn-danger" id="btnDelete"><span class="fas fa-trash"></span> Yes, Delete</button>
-				        <button type="button" class="btn btn-info" data-dismiss="modal"><span class="fas fa-times-circle"></span> No, Cancel</button>
+				        <button type="submit" class="btn btn-danger" id="btnDelete"><span class="fas fa-trash"></span> Ya, Hapus</button>
+				        <button type="button" class="btn btn-info" data-dismiss="modal"><span class="fas fa-times-circle"></span> Tidak, Batal</button>
 				      </div>
 				      </form>
 				    </div>
@@ -111,7 +110,7 @@
 				        <button type="button" class="close" data-dismiss="modal">&times;</button>
 				        <h4 class="modal-title text-center"><span class="fas fa-plus"></span>Tambah Data Guru</h4>
 				      </div>
-				        <form id="modal-form-delete" method="post" action="{{ route('data-guru.store', 'store') }}">
+				        <form id="modal-form-delete" method="post" action="{{ route('data-guru.store', 'store') }}" enctype="multipart/form-data">
 				            {{ csrf_field() }}
 				      <div class="modal-body">
 				        <table class="table table-striped table-bordered table-hover no-footer">
@@ -127,12 +126,12 @@
 						</td>
 					</tr>
 					<tr>
-						<th>NIP</th>
+						<th><font style="color:red">*</font> NIP</th>
 						<td> <input type="number" name="nip" class="form-control" required/> </td>
 					</tr>
 					<tr>
-						<th>Password</th>
-						<td><input type="password" name="password" class="form-control" /></td>
+						<th><font style="color:red">*</font> Password</th>
+						<td><input type="password" name="password" class="form-control" required /></td>
 					</tr>
 					<tr>
 						<th>Wali Kelas</th>
@@ -146,16 +145,16 @@
 						</td>
 					</tr>
 					<tr>
-						<th>Nama</th>
-						<td> <input type="text" name="no_ijasah_smp" class="form-control" required/></td>
+						<th><font style="color:red">*</font> Nama</th>
+						<td> <input type="text" name="nama" class="form-control" required /></td>
 					</tr>
 					<tr>
 						<th>Tempat Lahir</th>
-						<td><input type="text" name="tempat_lahir" class="form-control" required/></td>
+						<td><input type="text" name="tempat_lahir" class="form-control" /></td>
 					</tr>
 					<tr>
 						<th>Tanggal Lahir</th>
-						<td><input type="date" name="tgl_lahir" class="form-control" required/></td>
+						<td><input type="date" name="tgl_lahir" class="form-control" /></td>
 					</tr>
 					<tr>
 						<th>Jenis Kelamin</th>
@@ -166,16 +165,24 @@
 					</tr>
 					<tr>
 						<th>Alamat</th>
-						<td><textarea name="alamat" rows="10" class="form-control" required ></textarea></td>
+						<td><textarea name="alamat" rows="10" class="form-control"  ></textarea></td>
 					</tr>
 					<tr>
 						<th>Agama</th>
-						<td><input type="text" name="agama" class="form-control" required/></td>
+						<td>
+							<select name="agama" class="form-control">
+								<option>Pilih Agama</option>
+								@foreach($agama as $r)
+								<option value="{{ $r->id_agama }}">{{ $r->agama }}</option>
+								@endforeach
+							</select>
+						</td>
 					</tr>
 				</table>
+				<strong><font style="color:red">*</font> Harus Diisi</strong>
 				      </div>
 				      <div class="modal-footer">
-				        <button type="submit" class="btn btn-info"><span class="fas fa-plus"></span>Tambah</button>
+				        <button type="submit" class="btn btn-info"><span class="fas fa-plus"></span>Simpan</button>
 				        <button type="button" class="btn btn-default" data-dismiss="modal"><span class="fas fa-times-circle"></span> Batal</button>
 				      </div>
 				      </form>

@@ -18,8 +18,8 @@ class KelasController extends Controller
 		$data['active'] = 'data_kelas';
 		$data['kelas'] = Kelas::all();
 		$data['judul'] = 'Data Kelas';
-		dd($data['kelas']);
-		//return view('admin.datakelas', $data);
+		//dd($data['kelas']);
+		return view('admin.datakelas', $data);
 	}
 
 	public function store(Request $request){

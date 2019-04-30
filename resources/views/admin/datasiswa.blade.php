@@ -46,8 +46,8 @@
                 <div class="col-sm-6">
                   <div class="mb-md">
                     <!-- <button class="btn btn-primary">Add <i class="fas fa-plus"></i></button> -->
-										<a href="{{ route('add_data_siswa') }}" class="btn btn-primary">Add <i class="fas fa-plus"></i></a>
-                    <button class="btn btn-default">Print <i class="fas fa-print"></i></button>
+										<a href="{{ route('add_data_siswa') }}" class="btn btn-primary">Tambah <i class="fas fa-plus"></i></a>
+                    <button class="btn btn-default">Cetak <i class="fas fa-print"></i></button>
                   </div>
                 </div>
               </div>
@@ -86,18 +86,18 @@
 				    <div class="modal-content">
 				      <div class="modal-header">
 				        <button type="button" class="close" data-dismiss="modal">&times;</button>
-				        <h4 class="modal-title text-center"><span class="fas fa-check"></span> Delete Confirmation</h4>
+				        <h4 class="modal-title text-center"><span class="fas fa-check"></span> Hapus</h4>
 				      </div>
 				        <form id="modal-form-delete" method="post" action="{{ route('data-siswa.destroy', 'destroy') }}">
 				            {{ method_field('delete') }}
 				            {{ csrf_field() }}
 				      <div class="modal-body">
 				            <input type="hidden" name="nis" id="nis" value="" />
-				            <p><center>Are you sure you want to delete this ?</center></p>
+				            <p><center>Apakah anda yakin ingin menghpus data ini ?</center></p>
 				      </div>
 				      <div class="modal-footer">
-				        <button type="submit" class="btn btn-danger" id="btnDelete"><span class="fas fa-trash"></span> Yes, Delete</button>
-				        <button type="button" class="btn btn-info" data-dismiss="modal"><span class="fas fa-times-circle"></span> No, Cancel</button>
+				        <button type="submit" class="btn btn-danger" id="btnDelete"><span class="fas fa-trash"></span> Ya, Hapus</button>
+				        <button type="button" class="btn btn-info" data-dismiss="modal"><span class="fas fa-times-circle"></span> Tidak, Batal</button>
 				      </div>
 				      </form>
 				    </div>
