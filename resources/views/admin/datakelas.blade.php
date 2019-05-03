@@ -117,14 +117,14 @@
 						</div>
 					  </div>
 				      <div class="modal-footer">
-				        <button type="submit" class="btn btn-info" id="btnDelete"><span class="fas fa-plus"></span>Simapn</button>
-				        <button type="button" class="btn btn-default" data-dismiss="modal"><span class="fas fa-times-circle"></span>Batal</button>
+				        <button type="submit" class="btn btn-info" id="btnDelete"><span class="fas fa-plus"></span> Simpan</button>
+				        <button type="button" class="btn btn-default" data-dismiss="modal"><span class="fas fa-times-circle"></span> Batal</button>
 				      </div>
 				      </form>
 				    </div>
 				  </div>
 				</div>
-				
+
 		  <!---- Modal Delete ------>
 		  <div id="deleteData" class="modal fade" role="dialog">
 				  <div class="modal-dialog">
@@ -159,7 +159,7 @@
 							var modal      = $(this)
 							modal.find('.modal-body #id_kelas').val(id_kelas)
 						  });
-						  
+
 						  $('#Data').on('show.bs.modal', function (event) {
 							var button     = $(event.relatedTarget)
 							var type = button.data('type')
@@ -167,18 +167,18 @@
 							if(type == 'edit'){
 								modal.find('.modal-title').text('Edit Kelas')
 								var data = button.data('data').split('-')
-								modal.find('.modal-body #id_kelas').prop('disabled', true)								
+								modal.find('.modal-body #id_kelas').prop('disabled', true)
 								modal.find('.modal-body #id_kelas').val(data[0])
-								modal.find('.modal-body #hiden').prop('disabled', false)								
-								modal.find('.modal-body #hiden').val(data[0])										
-								modal.find('.modal-body #tingkat').val(data[1])										
-								modal.find('.modal-body #jurusan').val(data[2])										
-								modal.find('.modal-body #rombel').val(data[3])								
+								modal.find('.modal-body #hiden').prop('disabled', false)
+								modal.find('.modal-body #hiden').val(data[0])
+								modal.find('.modal-body #tingkat').val(data[1])
+								modal.find('.modal-body #jurusan').val(data[2])
+								modal.find('.modal-body #rombel').val(data[3])
 							}else{
 								modal.find('.modal-title').text('Tambah Kelas')
 								modal.find('.modal-body #hiden').prop('disabled', true)
-								modal.find('.modal-body #id_kelas').prop('disabled', false);								
-								modal.find('.modal-body #id_kelas').val("")			
+								modal.find('.modal-body #id_kelas').prop('disabled', false);
+								modal.find('.modal-body #id_kelas').val("")
 							}
 						  });
 					});

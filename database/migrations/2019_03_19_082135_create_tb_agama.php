@@ -15,7 +15,7 @@ class CreateTbAgama extends Migration
     {
         Schema::create('tb_agama', function (Blueprint $table) {
             $table->Increments('id_agama');
-			      $table->string('agama', 10);
+			      $table->string('agama', 20);
             $table->timestamps();
         });
     }

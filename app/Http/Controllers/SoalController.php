@@ -34,14 +34,17 @@ class SoalController extends Controller
 
     public function apiGetSoal(Request $request){
         $data = DB::table('tb_soal')
-                ->select('deskripsi','tb_mapel.nama_mapel as nama_mapel','tb_kategori_mapel.kategori_mapel','date_create','waktu_pengerjaan')
+                ->select('tb_kelas.tingkat as tingkat','tb_kelas.jurusan as jurusan','tb_kelas.rombel as rombel','tb_semester.semester as semester','deskripsi','tb_mapel.nama_mapel as nama_mapel','tb_kategori_mapel.kategori_mapel','date_create','waktu_pengerjaan')
                 ->join('tb_ampu_mapel', 'tb_ampu_mapel.id_ampu', '=', 'tb_soal.id_ampu')
                 ->join('tb_mapel', 'tb_mapel.id_mapel', '=', 'tb_ampu_mapel.id_mapel')
                 ->join('tb_kategori_mapel', 'tb_kategori_mapel.id_kategori', '=', 'tb_ampu_mapel.id_kategori')
+                ->join('tb_kelas', 'tb_kelas.id_kelas', '=', 'tb_ampu_mapel.id_kelas')
+                ->join('tb_semester', 'tb_semester.id_semester', '=', 'tb_ampu_mapel.id_semester')
                 ->where('tb_ampu_mapel.nip', $request->nip)
                 ->groupBy('tb_soal.created_at')
                 ->get();
 
+        // $ar = array_merge($data->toArray(), $data->toArray(), $data->toArray());
         return json_encode($data);
     }
 
@@ -75,7 +78,8 @@ class SoalController extends Controller
                 ->join('tb_ampu_mapel', 'tb_ampu_mapel.id_ampu', '=', 'tb_soal.id_ampu')
                 ->join('tb_mapel', 'tb_mapel.id_mapel', '=', 'tb_ampu_mapel.id_mapel')
                 ->join('tb_kategori_mapel', 'tb_kategori_mapel.id_kategori', '=', 'tb_ampu_mapel.id_kategori')
-                ->where('tb_ampu_mapel.id_kelas', $request->id_kelas)
+                // ->where('tb_ampu_mapel.id_kelas', $request->id_kelas)
+                ->where('tb_ampu_mapel.id_ampu', $request->id_ampu)
                 ->groupBy('tb_soal.created_at')
                 ->get();
 

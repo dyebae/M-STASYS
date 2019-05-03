@@ -288,7 +288,10 @@ class SiswaController extends Controller
     }
 
     public function apiAllData($nis){
-        $data = DB::table('tb_siswa')->join('tb_kelas','tb_siswa.id_kelas', '=', 'tb_kelas.id_kelas')->where('nis', $nis)->first();
+        $data = DB::table('tb_siswa')
+                ->join('tb_kelas','tb_siswa.id_kelas', '=', 'tb_kelas.id_kelas')
+                ->join('tb_agama', 'tb_siswa.id_agama', '=', 'tb_agama.id_agama')
+                ->where('nis', $nis)->first();
 
         return json_encode($data);
     }

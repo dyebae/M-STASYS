@@ -120,8 +120,8 @@
 					</tr>
 					<tr>
 						<td colspan="2" align="center">
-						<button type="submit" class="btn btn-primary">{{ $button }}</button>
-						<a href="{{ route('data_siswa') }}" class="btn btn-default">Batal</a>
+						<button type="submit" class="btn btn-primary"><span class="fas fa-plus"></span> {{ $button }}</button>
+						<a href="{{ route('data_siswa') }}" class="btn btn-default"><span class="fas fa-times-circle"></span> Batal</a>
 						</td>
 					</tr>
 				</table>
