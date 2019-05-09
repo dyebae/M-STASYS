@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Nilai extends Model
+class NilaiPTS extends Model
 {
-    protected $table = 'tb_nilai';
+    protected $table = 'tb_nilai_pts';
 
     protected $fillable = [
         'id_nilai','nis','id_ampu','id_detail','nilai','date_create','date_update'
@@ -29,5 +29,4 @@ class Nilai extends Model
     public function mapel(){
         return $this->belongsTo('App\Mapel', 'id_mapel');
     }
-
 }

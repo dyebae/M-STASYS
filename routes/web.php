@@ -58,3 +58,20 @@ Route::post('/apiKelasGuru', 'KelasController@apiKelasGuru');
 //API MAPEL
 Route::post('/apiMapelGuru', 'MapelController@apiMapelGuru');
 Route::post('/apiSiswaMapel', 'MapelController@apiSiswaMapel');
+Route::post('/apiGetKategoriMapel', 'MapelController@apiGetKategoriMapel');
+
+//API NILAI SISWA
+Route::post('/apiNilaiSiswa', 'NilaiController@apiNilaiSiswa');
+Route::post('/apiLihatNilai', 'NilaiController@apiLihatNilai');
+Route::get('/apiJenisNilai', 'NilaiController@apiJenisNilai');
+Route::post('/apiTambahNilai', 'NilaiController@apiTambahNilai');
+Route::post('/apiUbahNilai', 'NilaiController@apiUbahNilai');
+Route::post('/apiHapusNilai', 'NilaiController@apiHapusNilai');
+// Route::post('/apiRanking', 'NilaiController@apiRanking');
+
+//API SOAL
+Route::post('/apiSoal', 'SoalController@apiSoal');
+Route::post('/apiGetSoal', 'SoalController@apiGetSoal');
+Route::post('/apiHapusSoal', 'SoalController@apiHapusSoal');
+Route::post('/apiLihatSoal', 'SoalController@apiLihatSoal');
+Route::post('/apiSoalSiswa', 'SoalController@apiSoalSiswa');

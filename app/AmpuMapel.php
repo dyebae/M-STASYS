@@ -36,4 +36,8 @@ class AmpuMapel extends Model
         return $this->hasMany('App\Nilai', 'id_ampu');
     }
 
+    public function soal(){
+        return $this->hasMany('App\Soal', 'id_soal');
+    }
+
 }

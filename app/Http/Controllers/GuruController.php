@@ -89,7 +89,10 @@ class GuruController extends Controller
     }
 
     public function apiAllData($nip){
-        $data = DB::table('tb_guru')->where('nip', $nip)->first();
+        $data = DB::table('tb_guru')
+								->join('tb_agama', 'tb_guru.id_agama', '=', 'tb_agama.id_agama')
+							  ->where('nip', $nip)
+								->first();
 
         return json_encode($data);
     }

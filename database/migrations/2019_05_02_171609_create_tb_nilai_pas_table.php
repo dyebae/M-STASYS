@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTbNilaiTable extends Migration
+class CreateTbNilaiPasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateTbNilaiTable extends Migration
      */
     public function up()
     {
-        Schema::create('tb_nilai', function (Blueprint $table) {
+        Schema::create('tb_nilai_pas', function (Blueprint $table) {
             $table->increments('id_nilai');
             $table->string('nis', 10)->index();
             $table->foreign('nis')->references('nis')->on('tb_siswa');
@@ -35,6 +35,6 @@ class CreateTbNilaiTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tb_nilai');
+        Schema::dropIfExists('tb_nilai_pas');
     }
 }

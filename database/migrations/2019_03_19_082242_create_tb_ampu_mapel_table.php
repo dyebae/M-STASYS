@@ -19,7 +19,7 @@ class CreateTbAmpuMapelTable extends Migration
             $table->foreign('nip')->references('nip')->on('tb_guru');
             $table->string('id_mapel', 5)->index();
             $table->foreign('id_mapel')->references('id_mapel')->on('tb_mapel');
-            $table->string('id_kelas', 5)->index();
+            $table->string('id_kelas', 10)->index();
             $table->foreign('id_kelas')->references('id_kelas')->on('tb_kelas');
             $table->string('id_kategori', 5)->index();
             $table->foreign('id_kategori')->references('id_kategori')->on('tb_kategori_mapel');
