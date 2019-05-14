@@ -63,7 +63,7 @@
 						</td>
 					</tr>
 					<tr>
-						<th>Agama</th><td>{{ $siswa->agama }}</td>
+						<th>Agama</th><td>{{ $siswa->agama->agama }}</td>
 					</tr>
 						<th>Jenis Kelamin</th><td>{{ $siswa->jenis_kelamin }}</td>
 					</tr>
