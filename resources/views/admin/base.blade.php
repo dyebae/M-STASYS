@@ -144,7 +144,7 @@
 											<span>User Profile</span>
 										</a>
 									</li>
-									<li class="nav-parent <?php echo $active == 'data_siswa' ? 'nav-active':''; ?>">
+									<li class="nav-parent <?php if($active == 'data_siswa' or $active == 'import_data_siswa') echo 'nav-active'; ?>">
 										<a>
 											<i class="fas fa-users" aria-hidden="true"></i>
 											<span>Siswa</span>
@@ -155,9 +155,14 @@
 													Data Siswa
 												</a>
 											</li>
+											<li <?php echo $active == 'import_data_siswa' ? 'class="nav-active"':''; ?>>
+												<a href="{{ route('view_import_data_siswa') }}">
+													Import Data Siswa
+												</a>
+											</li>
 										</ul>
 									</li>
-									<li class="nav-parent  <?php echo $active == 'data_guru' ? 'nav-active':''; ?>">
+									<li class="nav-parent  <?php if($active == 'data_guru' or $active == 'import_data_guru') echo 'nav-active'; ?>">
 										<a>
 											<i class="fas fa-chalkboard-teacher" aria-hidden="true"></i>
 											<span>Guru</span>
@@ -166,6 +171,11 @@
 											<li <?php echo $active == 'data_guru' ? 'class="nav-active"':''; ?>>
 												<a href="{{ route('data_guru') }}">
 													Data Guru
+												</a>
+											</li>
+											<li <?php echo $active == 'import_data_guru' ? 'class="nav-active"':''; ?>>
+												<a href="{{ route('import-data-guru') }}">
+													Import Data Guru
 												</a>
 											</li>
 										</ul>

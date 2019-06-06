@@ -21,8 +21,7 @@ class Siswa extends Authenticatable
     public $incrementing = false;
 
     protected $hidden = [
-        'pass
-		word', 'remember_token',
+        'password', 'remember_token',
     ];
 
     public function setPasswordAttribute($value)

@@ -10,6 +10,7 @@ use App\Agama;
 use App\Siswa;
 use App\Nilai;
 use App\AmpuMapel;
+use Maatwebsite\Excel\Facades\Excel;
 class SiswaController extends Controller
 {
 
@@ -175,6 +176,11 @@ class SiswaController extends Controller
       ], 200);
 		}
 	}
+	public function view_import_data_siswa(){
+		$data['active'] = 'import_data_siswa';
+		$data['judul'] = 'Import Data Siswa';
+		return view('admin.import_datasiswa', $data);
+	}
 	public function update(Request $req){
 		$check = [
 			      'foto'	=> 'max:2000|mimes:jpg,png,jpeg',
@@ -312,5 +318,8 @@ class SiswaController extends Controller
 
         return json_encode($data);
     }
-
+	public function import_excel(){
+		Excel::import(new ImportUsers, request()->file('file'));
+		
+	}
 }

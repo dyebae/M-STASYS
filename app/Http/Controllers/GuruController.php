@@ -53,6 +53,29 @@ class GuruController extends Controller
 				}
 //dd($guru);
 	}
+	public function view_import_data_guru(){
+		$data['active'] = 'import_data_guru';
+		$data['judul'] = 'Import Data Guru';
+		return view('admin.import_dataguru', $data);
+	}
+	public function update(Request $req){
+		$data = ['walikelas' => $req->id_kelas, 
+				 'nama' => $req->nama,
+				 'tempat_lahir' => $req->tempat_lahir,
+				 'tgl_lahir' => $req->tgl_lahir,
+				 'jenis_kelamin' => $req->jenis_kelamin,
+				 'alamat' => $req->alamat,
+				 'id_agama' => $req->agama];
+		if(count(trim($req->password) > 0)) $data['password'] = $req->password;
+		$guru = Guru::findOrFail($req->hidden);
+		//dd($data);
+		$guru->update($data);
+		//dd($req);
+		return back()->with(['info'=>'Data Berhasil Diperbaharui']);
+	}
+	public function ajax_get(Request $req){
+		return json_encode(Guru::findOrFail($req->nip));
+	}
     // ------------ API GURU ----------------------- ///
     public function apiLogin(Request $request){
           $auth = auth()->guard('guru');

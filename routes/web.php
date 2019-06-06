@@ -24,8 +24,12 @@ Route::get('/data_siswa', 'SiswaController@index')->name('data_siswa');
 Route::get('/data_siswa/add', 'SiswaController@add')->name('add_data_siswa');
 Route::get('/data_siswa/update/{nis}', 'SiswaController@update_view')->name('update_data_siswa');
 Route::get('/data_siswa/view/{nis}', 'SiswaController@view')->name('view_data_siswa');
+Route::get('/view_import_data_siswa', 'SiswaController@view_import_data_siswa')->name('view_import_data_siswa');
 
 Route::get('/data_guru', 'GuruController@index')->name('data_guru');
+Route::post('/ajax-get', 'GuruController@ajax_get');
+Route::get('/view_import_data_guru', 'GuruController@view_import_data_guru')->name('import-data-guru');
+
 Route::get('/data_kelas', 'KelasController@index')->name('data_kelas');
 Route::get('/ampu_mapel', 'AmpuMapelController@index')->name('ampu_mapel');
 Route::get('/mapel', 'MapelController@index')->name('mapel');
@@ -37,6 +41,10 @@ Route::get('/', 'LoginController@index')->name('login');
 Route::get('/profile', 'LoginController@profile')->name('profile');
 Route::get('/logout', 'LoginController@logout')->name('logout');
 Route::post('/login_procces', 'LoginController@process')->name('login_procces');
+
+//ImportExport
+Route::post('/import-siswa', 'ImportExport@import_siswa');
+Route::post('/import-guru', 'ImportExport@import_guru');
 
 //API GURU
 Route::post('/apiLoginGuru', 'GuruController@apiLogin');

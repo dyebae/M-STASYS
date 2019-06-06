@@ -36,7 +36,7 @@
 				<table class="table table-striped table-bordered table-hover no-footer">
 					<tr>
 						<td colspan="2" align="center">
-							<img src="{{ URL::asset('assets/images/students/'.$siswa->foto) }}" id="image-preview" alt="image preview" width="20%" />
+							<img src="{{ URL::asset('assets/images/students/') }}/{{($siswa->foto == '') ? 'no-image.gif':$siswa->foto }}" id="image-preview" alt="image preview" width="20%" />
 							<br/>
 							<div class="file-field">
 								<div class="btn btn-primary btn-sm float-left">

@@ -32,8 +32,12 @@ class Guru extends Authenticatable
     public function ampu_mapel(){
         return $this->hasMany('App\AmpuMapel', 'nip');
     }
+	
 	public function agama(){
         return $this->belongsTo('App\Agama', 'id_agama');
     }
-
+	
+	public function wali_kelas(){
+        return $this->belongsTo('App\Kelas', 'id_kelas');
+    }
 }

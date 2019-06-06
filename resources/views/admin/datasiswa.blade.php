@@ -69,9 +69,9 @@
                     <td>{{ $r->nama }}</td>
                     <td>{{ $r->kelas->tingkat." ".$r->kelas->jurusan." ".$r->kelas->rombel }}</td>
                     <td class="actions">
-                      <a href="{{ route('view_data_siswa', ['nis'=>$r->nis]) }}" class="on-default"><i class="fas fa-info"></i></a>
-                      <a href="{{ route('update_data_siswa', ['nis'=>$r->nis]) }}" class="on-default"><i class="fas fa-edit"></i></a>
-                      <a href="#" class="on-default" data-toggle="modal" data-target="#deleteData" data-nis = "{{ $r->nis }}"><i class="fas fa-trash-alt"></i></a>
+                      <a title="Lihat" href="{{ route('view_data_siswa', ['nis'=>$r->nis]) }}" class="on-default"><i class="fas fa-info"></i></a>
+                      <a title="Rubah" href="{{ route('update_data_siswa', ['nis'=>$r->nis]) }}" class="on-default"><i class="fas fa-edit"></i></a>
+                      <a title="Hapus" href="#" class="on-default" data-toggle="modal" data-target="#deleteData" data-nis = "{{ $r->nis }}"><i class="fas fa-trash-alt"></i></a>
                     </td>
                   </tr>
 				  @endforeach
