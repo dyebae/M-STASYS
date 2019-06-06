@@ -626,8 +626,9 @@ window.theme = {};
 
 			this.$body.find( '[data-lock-screen="true"]' ).on( 'click', function( e ) {
 				e.preventDefault();
-
-				_self.show();
+				$.ajax({url: "/logout", success: function(result){
+					_self.show();
+				}});
 			});
 
 			return this;
@@ -640,7 +641,7 @@ window.theme = {};
 				e.preventDefault();
 					//ajax here
 				
-				_self.hide();
+				//_self.hide();
 			});
 		},
 
@@ -722,7 +723,7 @@ window.theme = {};
 												'</p>',
 											'</div>',
 											'<div class="col-xs-6 text-right">',
-												'<button type="submit" class="btn btn-primary">Unlock</button>',
+												'<button type="submit" class="btn btn-primary">Buka</button>',
 											'</div>',
 										'</div>',
 									'</form>',

@@ -86,7 +86,7 @@
 							<figure class="profile-picture">
 								<img src="{{ URL::asset('assets/images/boy.png') }}" alt="Joseph Doe" class="img-circle" data-lock-picture="assets/images/boy.png" />
 							</figure>
-							<div class="profile-info" data-lock-name="Admin" data-lock-email="admin@polindra.com">
+							<div class="profile-info" data-lock-name="Admin Lock" data-lock-email="admin@polindra.com">
 								<span class="name">Admin</span>
 								<span class="role">administrator</span>
 							</div>
@@ -98,13 +98,13 @@
 							<ul class="list-unstyled">
 								<li class="divider"></li>
 								<li>
-									<a role="menuitem" tabindex="-1" href="#"><i class="fa fa-user"></i> My Profile</a>
+									<a role="menuitem" tabindex="-1" href="#"><i class="fa fa-user"></i>Profil</a>
 								</li>
 								<li>
-									<a role="menuitem" tabindex="-1" href="#" data-lock-screen="true"><i class="fa fa-lock"></i> Lock Screen</a>
+									<a role="menuitem" tabindex="-1" href="#" data-lock-screen="true"><i class="fa fa-lock"></i> Kunci Layar</a>
 								</li>
 								<li>
-									<a role="menuitem" tabindex="-1" href="{{ route('logout') }}"><i class="fa fa-power-off"></i> Logout</a>
+									<a role="menuitem" tabindex="-1" href="{{ route('logout') }}"><i class="fa fa-power-off"></i> Keluar</a>
 								</li>
 							</ul>
 						</div>
