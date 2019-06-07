@@ -1,3 +1,11 @@
+<?php
+switch(Session::get('logged_in')[0]){
+	case 'admin' : $level = 'Administraor';break;
+	case 'kepsek' : $level = 'Kepala Sekolah';break;
+	case 'guru' : $level = 'Guru';break;
+	case 'siswa' : $level = 'Siswa';
+}
+?>
 <!doctype html>
 <html class="boxed">
 	<head>
@@ -86,9 +94,9 @@
 							<figure class="profile-picture">
 								<img src="{{ URL::asset('assets/images/boy.png') }}" alt="Joseph Doe" class="img-circle" data-lock-picture="assets/images/boy.png" />
 							</figure>
-							<div class="profile-info" data-lock-name="Admin" data-lock-email="admin@polindra.com">
-								<span class="name">Admin</span>
-								<span class="role">administrator</span>
+							<div class="profile-info" data-lock-name="{{Session::get('logged_in')[1]}}" data-lock-email="{{$level}}" data-lock-level="{{Session::get('logged_in')[0]}}">
+								<span class="name">{{Session::get('logged_in')[1]}}</span>
+								<span class="role">{{$level}}</span>
 							</div>
 
 							<i class="fa custom-caret"></i>
@@ -98,13 +106,13 @@
 							<ul class="list-unstyled">
 								<li class="divider"></li>
 								<li>
-									<a role="menuitem" tabindex="-1" href="#"><i class="fa fa-user"></i> My Profile</a>
+									<a role="menuitem" tabindex="-1" href="#"><i class="fa fa-user"></i>Profil</a>
 								</li>
 								<li>
-									<a role="menuitem" tabindex="-1" href="#" data-lock-screen="true"><i class="fa fa-lock"></i> Lock Screen</a>
+									<a role="menuitem" tabindex="-1" href="#" data-lock-screen="true"><i class="fa fa-lock"></i> Kunci Layar</a>
 								</li>
 								<li>
-									<a role="menuitem" tabindex="-1" href="{{ route('logout') }}"><i class="fa fa-power-off"></i> Logout</a>
+									<a role="menuitem" tabindex="-1" href="{{ route('logout') }}"><i class="fa fa-power-off"></i> Keluar</a>
 								</li>
 							</ul>
 						</div>
@@ -134,17 +142,17 @@
 									<li <?php echo $active == '' ? 'class="nav-active"':''; ?>>
 										<a href="{{ route('dashboard') }}">
 											<i class="fa fa-home" aria-hidden="true"></i>
-											<span>Dashboard</span>
+											<span>Beranda</span>
 										</a>
 									</li>
 									<li <?php echo $active == 'profile' ? 'class="nav-active"':''; ?>>
 										<a href="{{ route('profile') }}">
 											<span class="pull-right label label-primary">Info</span>
 											<i class="fas fa-user-circle" aria-hidden="true"></i>
-											<span>User Profile</span>
+											<span>Profil Pengguna</span>
 										</a>
 									</li>
-									<li class="nav-parent <?php echo $active == 'data_siswa' ? 'nav-active':''; ?>">
+									<li class="nav-parent <?php if($active == 'data_siswa' or $active == 'import_data_siswa') echo 'nav-active'; ?>">
 										<a>
 											<i class="fas fa-users" aria-hidden="true"></i>
 											<span>Siswa</span>
@@ -155,9 +163,14 @@
 													Data Siswa
 												</a>
 											</li>
+											<li <?php echo $active == 'import_data_siswa' ? 'class="nav-active"':''; ?>>
+												<a href="{{ route('view_import_data_siswa') }}">
+													Import Data Siswa
+												</a>
+											</li>
 										</ul>
 									</li>
-									<li class="nav-parent  <?php echo $active == 'data_guru' ? 'nav-active':''; ?>">
+									<li class="nav-parent  <?php if($active == 'data_guru' or $active == 'import_data_guru') echo 'nav-active'; ?>">
 										<a>
 											<i class="fas fa-chalkboard-teacher" aria-hidden="true"></i>
 											<span>Guru</span>
@@ -166,6 +179,11 @@
 											<li <?php echo $active == 'data_guru' ? 'class="nav-active"':''; ?>>
 												<a href="{{ route('data_guru') }}">
 													Data Guru
+												</a>
+											</li>
+											<li <?php echo $active == 'import_data_guru' ? 'class="nav-active"':''; ?>>
+												<a href="{{ route('import-data-guru') }}">
+													Import Data Guru
 												</a>
 											</li>
 										</ul>

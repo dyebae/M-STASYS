@@ -11,10 +11,6 @@ use DB;
 class KelasController extends Controller
 {
     public function index(){
-		if(Session::get('logged_in')){}else
-		{
-			return redirect('/')->with(['alert' => 'Akses ditolak']);
-		}
 		$data['active'] = 'data_kelas';
 		$data['kelas'] = Kelas::all();
 		$data['judul'] = 'Data Kelas';
@@ -34,7 +30,7 @@ class KelasController extends Controller
 			if($update)
 				return redirect('/data_kelas')->with(['info' => 'Kelas Berhasil Diperbaharui']);
 		}
-		return redirect('/data_kelas')->with(['alert' => 'Operation Failed']);
+		return redirect('/data_kelas')->with(['alert' => 'Terjadi Kesalahan']);
 	}
 
 	public function destroy(Request $request){

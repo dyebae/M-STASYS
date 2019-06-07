@@ -43,11 +43,21 @@
 					@endif
             <div class="panel-body">
               <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-8">
                   <div class="mb-md">
-                    <!-- <button class="btn btn-primary">Add <i class="fas fa-plus"></i></button> -->
-										<a href="{{ route('add_data_siswa') }}" class="btn btn-primary">Tambah <i class="fas fa-plus"></i></a>
+					<a href="{{ route('add_data_siswa') }}" class="btn btn-primary">Tambah <i class="fas fa-plus"></i></a>
                     <button class="btn btn-default">Cetak <i class="fas fa-print"></i></button>
+                  </div>
+                </div>
+				<div class="col-sm-2">
+                  <div class="mb-md">
+					<form action="/siswa_from_class" id="form_siswa_from_class">
+					<select name="id_kelas" class="form-control" onChange="submit()" required>
+						@foreach($kelas as $r)
+							<option {{ $id_kelas == $r->id_kelas ? "selected":"" }} value="{{ $r->id_kelas }}">{{ $r->tingkat." ".$r->jurusan." ".$r->rombel }}</option>
+						@endforeach
+					</select>
+					</form>
                   </div>
                 </div>
               </div>
@@ -62,16 +72,16 @@
                   </tr>
                 </thead>
                 <tbody>
-				@foreach($siswa as $r)
+				@foreach($siswa as $key => $r)
                   <tr>
-                    <td>{{ ++$no }}</td>
+                    <td>{{ ++$key }}</td>
                     <td>{{ $r->nis }}</td>
                     <td>{{ $r->nama }}</td>
                     <td>{{ $r->kelas->tingkat." ".$r->kelas->jurusan." ".$r->kelas->rombel }}</td>
                     <td class="actions">
-                      <a href="{{ route('view_data_siswa', ['nis'=>$r->nis]) }}" class="on-default"><i class="fas fa-info"></i></a>
-                      <a href="{{ route('update_data_siswa', ['nis'=>$r->nis]) }}" class="on-default"><i class="fas fa-edit"></i></a>
-                      <a href="#" class="on-default" data-toggle="modal" data-target="#deleteData" data-nis = "{{ $r->nis }}"><i class="fas fa-trash-alt"></i></a>
+                      <a title="Lihat" href="{{ route('view_data_siswa', ['nis'=>$r->nis]) }}" class="on-default"><i class="fas fa-info"></i></a>
+                      <a title="Rubah" href="{{ route('update_data_siswa', ['nis'=>$r->nis]) }}" class="on-default"><i class="fas fa-edit"></i></a>
+                      <a title="Hapus" href="#" class="on-default" data-toggle="modal" data-target="#deleteData" data-nis = "{{ $r->nis }}"><i class="fas fa-trash-alt"></i></a>
                     </td>
                   </tr>
 				  @endforeach
@@ -111,5 +121,8 @@
 							$(this).find('.modal-body #nis').val($(event.relatedTarget).data('nis'))
 						  });
 				});
+				function submit(){
+					document.getElementById("form_siswa_from_class").submit();
+				}
 				</script>
 		  @endsection

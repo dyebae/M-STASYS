@@ -10,27 +10,30 @@ use App\Agama;
 use App\Siswa;
 use App\Nilai;
 use App\AmpuMapel;
+use Maatwebsite\Excel\Facades\Excel;
 class SiswaController extends Controller
 {
 
     public function index(){
-		if(\Session::get('logged_in')){}else
-		{
-			return redirect('/')->with(['alert' => 'Akses ditolak']);
-		}
-
 		$data['active'] = 'data_siswa';
-		$data['siswa'] = \App\Siswa::all();
+		$data['kelas'] = Kelas::all();
 		$data['judul'] = 'Data Siswa';
-		$data['no'] = 0;
+		$data['id_kelas'] = Kelas::first()->id_kelas;
+		$data['siswa'] = Siswa::where('id_kelas', $data['id_kelas'])->get();
 		//dd($data);
 		return view('admin.datasiswa', $data);
 	}
+	public function siswa_from_class(Request $req){
+		$data['active'] = 'data_siswa';
+		$data['kelas'] = Kelas::all();
+		$data['judul'] = 'Data Siswa';
+		$data['id_kelas'] = $req->id_kelas;
+		$data['siswa'] = Siswa::where('id_kelas', $data['id_kelas'])->get();
+		//dd($data);
+		return view('admin.datasiswa', $data);
+	}
+	
 	public function add(){
-		if(\Session::get('logged_in')){}else
-		{
-			return redirect('/')->with(['alert' => 'Akses ditolak']);
-		}
 		$siswa = json_encode([
 					'nis' => '',
 					'nisn' => '',
@@ -56,10 +59,6 @@ class SiswaController extends Controller
 		return view('admin.add_datasiswa', $data);
 	}
 	public function update_view($nis){
-		if(\Session::get('logged_in')){}else
-		{
-			return redirect('/')->with(['alert' => 'Akses ditolak']);
-		}
 		$data['pass'] = '';
 		$data['button'] = "Perbaharui";
 		$data['url'] = 'update';
@@ -71,10 +70,6 @@ class SiswaController extends Controller
 		return view('admin.add_datasiswa', $data);
 	}
 	public function view($nis){
-		if(\Session::get('logged_in')){}else
-		{
-			return redirect('/')->with(['alert' => 'Akses ditolak']);
-		}
 		$data['siswa'] = Siswa::where('nis', $nis)->first();
 		$data['tgl_lahir'] = explode('-',$data['siswa']->tgl_lahir);
 		switch($data['tgl_lahir'][1]){
@@ -174,6 +169,11 @@ class SiswaController extends Controller
           'status' => '3'
       ], 200);
 		}
+	}
+	public function view_import_data_siswa(){
+		$data['active'] = 'import_data_siswa';
+		$data['judul'] = 'Import Data Siswa';
+		return view('admin.import_datasiswa', $data);
 	}
 	public function update(Request $req){
 		$check = [
@@ -312,5 +312,4 @@ class SiswaController extends Controller
 
         return json_encode($data);
     }
-
 }

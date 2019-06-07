@@ -17,31 +17,52 @@ class LoginController extends Controller
     }
 
 	public function process(Request $req){
-		if($req->level == 'admin'){
+		$credentials = [
+					'nip' => $req->username,
+					'password' => $req->password,
+				];
+		if($req->level == 'admin')
 			$credentials = [
 						'username' => $req->username,
 						'password' => $req->password,
 					];
-			$auth = auth()->guard($req->level);
-		}elseif($req->level == 'siswa'){
+		elseif($req->level == 'siswa')
 			$credentials = [
 						'nis' => $req->username,
 						'password' => $req->password,
 					];
-			$auth = auth()->guard($req->level);
-		}else{
+		
+		$auth = auth()->guard($req->level);
+		
+		if($auth->attempt($credentials)){
+			$req->session()->put('logged_in', [$req->level, $req->username]);
+			return redirect('/dashboard')->with(['info' => 'Selamat Datang '.ucwords($req->level)]);
+		}
+		return redirect('/')->with(['alert' => 'Username atau Password Salah']);
+	}
+	public function unlock(Request $req){
+		$credentials = [
+					'nip' => $req->username,
+					'password' => $req->password,
+				];
+		if($req->level == 'admin')
 			$credentials = [
-						'nip' => $req->username,
+						'username' => $req->username,
 						'password' => $req->password,
 					];
-			$auth = auth()->guard($req->level);
-		}
+		elseif($req->level == 'siswa')
+			$credentials = [
+						'nis' => $req->username,
+						'password' => $req->password,
+					];
+		
+		$auth = auth()->guard($req->level);
+		
 		if($auth->attempt($credentials)){
-			$req->session()->put('logged_in', $req->level);
-			return redirect('/dashboard')->with(['info' => 'Selamat Datang '.ucwords($req->level)]);
-		}else{
-			return redirect('/')->with(['alert' => 'Username atau Password Salah']);
+			$req->session()->put('logged_in', [$req->level, $req->username]);
+			return json_encode(['stat' => 1, 'msg' => 'Layar Terbuka']);
 		}
+		return json_encode(['stat' => 0, 'msg' => 'Username atau Password Salah']);
 	}
 
 	public function logout(){

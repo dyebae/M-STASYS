@@ -65,9 +65,8 @@
                     <td>{{ $r->nama }}</td>
                     <td>{{ $r->alamat }}</td>
                     <td class="actions">
-						<a href="#" class="on-default" data-toggle="modal" data-target="#deleteData" data-nip="{{$r->nip}}"><i class="fas fa-trash-alt"></i></a>
-						<a href="#" class="on-default"><i class="fas fa-info"></i></a>
-						<a href="#" class="on-default"><i class="fas fa-edit"></i></a>
+						<a href="#" title="Hapus" class="on-default" data-toggle="modal" data-target="#deleteData" data-nip="{{$r->nip}}"><i class="fas fa-trash-alt"></i></a>
+						<a href="#" title="Rubah" class="on-default" data-toggle="modal" data-target="#EditData"  data-nip="{{$r->nip}}"><i class="fas fa-edit"></i></a>
                     </td>
                   </tr>
 				@endforeach
@@ -111,7 +110,8 @@
 				        <h4 class="modal-title text-center"><span class="fas fa-plus"></span>Tambah Data Guru</h4>
 				      </div>
 				        <form id="modal-form-delete" method="post" action="{{ route('data-guru.store', 'store') }}" enctype="multipart/form-data">
-				            {{ csrf_field() }}
+				            
+							{{ csrf_field() }}
 				      <div class="modal-body">
 				        <table class="table table-striped table-bordered table-hover no-footer">
 					<tr>
@@ -189,12 +189,121 @@
 				    </div>
 				  </div>
 				</div>
+				<!---- Modal Edit---->
+				<div id="EditData" class="modal fade" role="dialog">
+				  <div class="modal-dialog">
+				    <!-- Modal content-->
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal">&times;</button>
+				        <h4 class="modal-title text-center"><span class="fa fa-pen"></span>Edit Data Guru</h4>
+				      </div>
+				        <form id="modal-form-delete" method="post" action="{{ route('data-guru.update', 'update') }}" enctype="multipart/form-data">
+				            {{ method_field('put') }}
+							{{ csrf_field() }}
+				      <div class="modal-body">
+				        <table class="table table-striped table-bordered table-hover no-footer">
+					<tr>
+						<td colspan="2" align="center">
+							<img src="{{ URL::asset('assets/images/teachers/'.'no-image.gif') }}" id="image-preview1" alt="image preview" width="40%" />
+							<br/>
+							<div class="file-field">
+								<div class="btn btn-primary btn-sm float-left">
+								  <input name="foto" type="file" id="image-source" onchange="previewImage();">
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<th><font style="color:red">*</font> NIP</th>
+						<input type="hidden" name="hidden"/>
+						<td> <input type="number" name="nip" class="form-control"/> </td>
+					</tr>
+					<tr>
+						<th><font style="color:red">*</font> Password</th>
+						<td><input type="password" name="password" class="form-control" /></td>
+					</tr>
+					<tr>
+						<th>Wali Kelas</th>
+						<td>
+							<select name="id_kelas" id="kelas" class="form-control">
+								<option>Bukan Wali Kelas</option>
+								@foreach($kelas as $r)
+								<option value="{{ $r->id_kelas }}">{{ $r->tingkat." ".$r->jurusan." ".$r->rombel }}</option>
+								@endforeach
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th><font style="color:red">*</font> Nama</th>
+						<td> <input type="text" name="nama" class="form-control" /></td>
+					</tr>
+					<tr>
+						<th>Tempat Lahir</th>
+						<td><input type="text" name="tempat_lahir" class="form-control" /></td>
+					</tr>
+					<tr>
+						<th>Tanggal Lahir</th>
+						<td><input type="date" name="tgl_lahir" class="form-control" /></td>
+					</tr>
+					<tr>
+						<th>Jenis Kelamin</th>
+						<td>
+							<input type="radio" name="jenis_kelamin" value="Laki-Laki">Laki-Laki &nbsp; 
+							<input type="radio" name="jenis_kelamin" value="Perempuan">Perempuan				
+						</td>
+					</tr>
+					<tr>
+						<th>Alamat</th>
+						<td><textarea name="alamat" id="alamat1" rows="10" class="form-control" ></textarea></td>
+					</tr>
+					<tr>
+						<th>Agama</th>
+						<td>
+							<select name="agama" id="agama1" class="form-control">
+								<option>Pilih Agama</option>
+								@foreach($agama as $r)
+								<option value="{{ $r->id_agama }}">{{ $r->agama }}</option>
+								@endforeach
+							</select>
+						</td>
+					</tr>
+				</table>
+				<strong><font style="color:red">*</font> Harus Diisi</strong>
+				      </div>
+				      <div class="modal-footer">
+				        <input type="submit" class="btn btn-info" value="Perbaharui" class="btn btn-primary">
+				        <button type="button" class="btn btn-default" data-dismiss="modal"><span class="fas fa-times-circle"></span> Batal</button>
+				      </div>
+				      </form>
+				    </div>
+				  </div>
+				</div>
 				<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 				<script type="text/javascript">
 					$(document).ready(function(){
 						$('#deleteData').on('show.bs.modal', function (event) {
 							$(this).find('.modal-body #nip').val($(event.relatedTarget).data('nip'))
 						  });
+						  
+						$('#EditData').on('show.bs.modal', function (event) {
+							var nip = $(event.relatedTarget).data('nip')
+							var modal = $(this)
+							$.ajax({url: "/ajax-get", method:'post', dataType: "json", data:{"nip" : nip }, success: function(result){
+								$('#image-preview1').prop("src",'assets/images/Teachers/'+ (result.foto == null ? 'no-image.gif' : result.foto))
+								modal.find('input[name="hidden"]').val(nip)
+								modal.find('input[name="nip"]').val(nip)
+								modal.find('input[name="nip"]').prop('disabled', true)
+								if(result.walikelas != null)
+								modal.find('#kelas').val(result.walikelas)
+								modal.find('input[name="nama"]').val(result.nama)
+								modal.find('input[name="tempat_lahir"]').val(result.tempat_lahir)
+								modal.find('input[name="tgl_lahir"]').val(result.tgl_lahir)
+								modal.find('input[name="jenis_kelamin"][value="'+result.jenis_kelamin+'"]').prop('checked',true)
+								modal.find('#alamat1').val(result.alamat)
+								modal.find('#agama1').val(result.id_agama)
+							}});
+						});  
 					});
 				</script>
 @endsection

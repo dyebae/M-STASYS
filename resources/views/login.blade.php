@@ -68,7 +68,7 @@
 							<div class="form-group mb-lg">
 								<label>Username</label>
 								<div class="input-group input-group-icon">
-									<input name="username" type="text" class="form-control input-lg" />
+									<input name="username" type="text" class="form-control input-lg" required />
 									<span class="input-group-addon">
 										<span class="icon icon-lg">
 											<i class="fa fa-user"></i>
@@ -83,7 +83,7 @@
 									<!-- <a href="pages-recover-password.html" class="pull-right">Lost Password?</a> -->
 								</div>
 								<div class="input-group input-group-icon">
-									<input name="password" type="password" class="form-control input-lg" />
+									<input name="password" type="password" class="form-control input-lg" required />
 									<span class="input-group-addon">
 										<span class="icon icon-lg">
 											<i class="fa fa-lock"></i>
@@ -100,7 +100,6 @@
                     <option value="kepsek">Kepala Sekolah</option>
                     <option value="guru">Guru</option>
                     <option value="siswa">Siswa</option>
-                    <option value="walikelas">Walikelas</option>
                   </select>
 								</div>
 							</div>

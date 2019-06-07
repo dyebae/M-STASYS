@@ -626,21 +626,40 @@ window.theme = {};
 
 			this.$body.find( '[data-lock-screen="true"]' ).on( 'click', function( e ) {
 				e.preventDefault();
-
-				_self.show();
+				$.ajax({url: "/logout", success: function(result){
+					_self.show();
+				}});
 			});
 
 			return this;
 		},
 
 		formEvents: function( $form ) {
-			var _self = this;
-
+			var _self = this,
+				level = $( '#userbox' ).find( '.profile-info' ).attr( 'data-lock-level' ),
+				username = $( '#userbox' ).find( '.profile-info' ).attr( 'data-lock-name' );
+				
 			$form.on( 'submit', function( e ) {
 				e.preventDefault();
 					//ajax here
-				
-				_self.hide();
+					$.ajax({
+						url: "/unlock", 
+						dataType:'json', 
+						method:'post',
+						data: {'level':level, 'username':username, 'password':$form.find('#pwd').val() },
+						success: function(result){
+							if(result.stat == 1)
+								_self.hide();
+							else
+								new PNotify({
+											title: 'Gagal',
+											text: result.msg,
+											type: 'warning',
+											icon: "fa fa-times",
+											delay:1500
+										})
+							$form.find('#pwd').val("")
+					}});
 			});
 		},
 
@@ -722,7 +741,7 @@ window.theme = {};
 												'</p>',
 											'</div>',
 											'<div class="col-xs-6 text-right">',
-												'<button type="submit" class="btn btn-primary">Unlock</button>',
+												'<button type="submit" class="btn btn-primary">Buka</button>',
 											'</div>',
 										'</div>',
 									'</form>',

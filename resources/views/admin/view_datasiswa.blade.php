@@ -31,7 +31,7 @@
 				<table class="table table-striped table-bordered table-hover no-footer">
 					<tr>
 						<td colspan="2" align="center">
-							<img src="{{ URL::asset('assets/images/students/'.$siswa->foto) }}" id="image-preview" alt="image preview" width="40%" />
+							<img src="{{ URL::asset('assets/images/students/') }}/{{($siswa->foto == '') ? 'no-image.gif':$siswa->foto }}" id="image-preview" alt="image preview" width="40%" />
 							<br/>
 						</td>
 					</tr>
@@ -63,7 +63,7 @@
 						</td>
 					</tr>
 					<tr>
-						<th>Agama</th><td>{{ $siswa->agama }}</td>
+						<th>Agama</th><td>{{ $siswa->agama->agama }}</td>
 					</tr>
 						<th>Jenis Kelamin</th><td>{{ $siswa->jenis_kelamin }}</td>
 					</tr>
