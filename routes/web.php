@@ -41,7 +41,7 @@ Route::post('/login_procces', 'LoginController@process')->name('login_procces');
 //API GURU
 Route::post('/apiLoginGuru', 'GuruController@apiLogin');
 Route::get('/apiDataGuru/{nip}', 'GuruController@apiAllData');
-
+Route::post('/apiAmpuMapel', 'AmpuMapelController@apiAmpuMapel');
 
 //API SISWA
 Route::post('/apiLoginSiswa', 'SiswaController@apiLogin');
@@ -49,8 +49,9 @@ Route::get('/apiDataSiswa/{nis}', 'SiswaController@apiAllData');
 Route::post('/apiGetSiswa', 'SiswaController@apiGetSiswa');
 
 //API SEMESTER
-Route::get('/apiSemester', 'SemesterController@apiSemester');
+// Route::get('/apiSemester', 'SemesterController@apiSemester');
 Route::post('/apiSemesterGuru', 'SemesterController@apiSemesterGuru');
+Route::post('/apiSemesterSiswa', 'SemesterController@apiSemesterSiswa');
 
 //API KELAS
 Route::post('/apiKelasGuru', 'KelasController@apiKelasGuru');
@@ -69,9 +70,15 @@ Route::post('/apiUbahNilai', 'NilaiController@apiUbahNilai');
 Route::post('/apiHapusNilai', 'NilaiController@apiHapusNilai');
 // Route::post('/apiRanking', 'NilaiController@apiRanking');
 
-//API SOAL
+
+//API SOAL GURU
 Route::post('/apiSoal', 'SoalController@apiSoal');
 Route::post('/apiGetSoal', 'SoalController@apiGetSoal');
 Route::post('/apiHapusSoal', 'SoalController@apiHapusSoal');
 Route::post('/apiLihatSoal', 'SoalController@apiLihatSoal');
 Route::post('/apiSoalSiswa', 'SoalController@apiSoalSiswa');
+Route::post('/apiAktifSoal', 'SoalController@apiAktifSoal');
+
+//API SOAL SISWA
+Route::post('/apiSiswaSoal', 'SoalController@apiSiswaSoal');
+Route::post('/apiHasilSoal', 'SoalController@apiHasilSoal');

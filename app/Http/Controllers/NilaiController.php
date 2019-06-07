@@ -225,7 +225,7 @@ class NilaiController extends Controller
   }
 
   public function apiUbahNilai(Request $request){
-    $getDetail = DB::table('tb_detail_nilai')
+      $getDetail = DB::table('tb_detail_nilai')
                 ->select('jenis_nilai')
                 ->where('id_detail', $request->id_detail)
                 ->first();
@@ -233,13 +233,13 @@ class NilaiController extends Controller
       $date = Carbon::now()->locale('id');
 
       if($getDetail->jenis_nilai == "Penilaian Harian"){
-          $nilaiPH = NilaiPH::find($request->id_nilai);
-          $nilaiPH->nilai      = $request->nilai;
-          $nilaiPH->id_detail  = $request->id_detail;
-          $nilaiPH->date_update= $date->isoFormat('LLLL');
-          $nilaiPH->save();
+          $nilai = NilaiPH::find($request->id_nilai);
+          $nilai->nilai      = $request->nilai;
+          $nilai->id_detail  = $request->id_detail;
+          $nilai->date_update= $date->isoFormat('LLLL');
+          $nilai->save();
 
-          if($nilaiPH){
+          if($nilai){
               return response()->json([
                   'error'   => 0,
                   'message' => ['Berhasil'],
@@ -295,20 +295,63 @@ class NilaiController extends Controller
   }
 
   public function apiHapusNilai(Request $request){
-      $nilai = Nilai::find($request->id_nilai);
-      $nilai->delete();
+      $getDetail = DB::table('tb_detail_nilai')
+              ->select('jenis_nilai')
+              ->where('id_detail', $request->id_detail)
+              ->first();
 
-      if($nilai){
-          return response()->json([
-              'error'   => 0,
-              'message' => ['Berhasil'],
-          ], 200);
+      if($getDetail->jenis_nilai == "Penilaian Harian"){
+          $nilai = NilaiPH::find($request->id_nilai);
+          $nilai->delete();
+
+          if($nilai){
+              return response()->json([
+                  'error'   => 0,
+                  'message' => ['Berhasil'],
+              ], 200);
+          }else{
+              return response()->json([
+                  'error'   => 1,
+                  'message' => ['Gagal'],
+              ], 200);
+          }
+      }else if($getDetail->jenis_nilai == "Penilaian Tengah Semester"){
+          $nilai = NilaiPTS::find($request->id_nilai);
+          $nilai->delete();
+
+          if($nilai){
+              return response()->json([
+                  'error'   => 0,
+                  'message' => ['Berhasil'],
+              ], 200);
+          }else{
+              return response()->json([
+                  'error'   => 1,
+                  'message' => ['Gagal'],
+              ], 200);
+          }
+      }else if($getDetail->jenis_nilai == "Penilaian Akhir Semester"){
+          $nilai = NilaiPAS::find($request->id_nilai);
+          $nilai->delete();
+
+          if($nilai){
+              return response()->json([
+                  'error'   => 0,
+                  'message' => ['Berhasil'],
+              ], 200);
+          }else{
+              return response()->json([
+                  'error'   => 1,
+                  'message' => ['Gagal'],
+              ], 200);
+          }
       }else{
-          return response()->json([
-              'error'   => 1,
-              'message' => ['Gagal'],
-          ], 200);
+        return response()->json([
+            'error'   => 1,
+            'message' => ['Error'],
+        ], 200);
       }
+
   }
 
 }

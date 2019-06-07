@@ -26,6 +26,7 @@ class CreateTbSoalTable extends Migration
             $table->text('d');
             $table->string('jawaban', 1);
             $table->string('date_create', 50);
+            $table->integer('status', false, true)->length(1);
             $table->string('waktu_pengerjaan', 50);
             $table->timestamps();
         });

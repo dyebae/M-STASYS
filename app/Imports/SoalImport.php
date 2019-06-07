@@ -21,19 +21,19 @@ class SoalImport implements ToModel, WithHeadingRow, WithChunkReading
 
     public function model(array $row)
     {
-        $date = Carbon::now()->locale('id');
+          $date = Carbon::now()->locale('id');
 
           return new Soal([
               'id_ampu'  => $row['id_ampu'],
               'deskripsi'=> $row['deskripsi'],
-              'nomer'   => $row['no'],
-              'soal'    => $row['soal'],
-              'a'       => $row['a'],
-              'b'       => $row['b'],
-              'c'       => $row['c'],
-              'd'       => $row['d'],
-              'jawaban' => $row['jawaban'],
-              'date_create' => $date->isoFormat('LLLL'),
+              'nomer'    => $row['no'],
+              'soal'     => $row['soal'],
+              'a'        => $row['a'],
+              'b'        => $row['b'],
+              'c'        => $row['c'],
+              'd'        => $row['d'],
+              'jawaban'  => $row['jawaban'],
+              'date_create' => $date->isoFormat('dddd Do MMMM YYYY, H:mm:ss'),
               'waktu_pengerjaan' => $row['waktu_pengerjaan'],
           ]);
     }

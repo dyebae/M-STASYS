@@ -8,6 +8,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use File;
 use DB;
 use App\Soal;
+use Illuminate\Support\Arr;
 
 class SoalController extends Controller
 {
@@ -23,6 +24,7 @@ class SoalController extends Controller
                         'message' => ['Soal berhasil diunggah']
                   ], 200);
               }
+
           }else{
               return response()->json([
                     'error'   => 1,
@@ -34,7 +36,7 @@ class SoalController extends Controller
 
     public function apiGetSoal(Request $request){
         $data = DB::table('tb_soal')
-                ->select('tb_kelas.tingkat as tingkat','tb_kelas.jurusan as jurusan','tb_kelas.rombel as rombel','tb_semester.semester as semester','deskripsi','tb_mapel.nama_mapel as nama_mapel','tb_kategori_mapel.kategori_mapel','date_create','waktu_pengerjaan')
+                ->select('tb_kelas.tingkat as tingkat','tb_kelas.jurusan as jurusan','tb_kelas.rombel as rombel','tb_semester.semester as semester', 'tb_semester.thn_ajaran','deskripsi','tb_mapel.nama_mapel as nama_mapel','tb_kategori_mapel.kategori_mapel','date_create','waktu_pengerjaan')
                 ->join('tb_ampu_mapel', 'tb_ampu_mapel.id_ampu', '=', 'tb_soal.id_ampu')
                 ->join('tb_mapel', 'tb_mapel.id_mapel', '=', 'tb_ampu_mapel.id_mapel')
                 ->join('tb_kategori_mapel', 'tb_kategori_mapel.id_kategori', '=', 'tb_ampu_mapel.id_kategori')
@@ -85,4 +87,84 @@ class SoalController extends Controller
 
         return json_encode($data);
     }
+
+    public function apiAktifSoal(Request $request){
+        $data = Soal::where('date_create', $request->date_create)->update(array('status' => $request->status));
+
+        if($data){
+          return response()->json([
+              'error'   => 0,
+              'message' => ['Berhasil'],
+          ], 200);
+        }else{
+          return response()->json([
+              'error'   => 1,
+              'message' => ['Gagal'],
+          ], 200);
+        }
+
+    }
+
+    //API SISWA
+    public function apiSiswaSoal(Request $request){
+        $data = DB::table('tb_soal')
+                ->select('deskripsi','tb_mapel.nama_mapel as nama_mapel','tb_kategori_mapel.kategori_mapel','date_create','waktu_pengerjaan', 'status')
+                ->join('tb_ampu_mapel', 'tb_ampu_mapel.id_ampu', '=', 'tb_soal.id_ampu')
+                ->join('tb_mapel', 'tb_mapel.id_mapel', '=', 'tb_ampu_mapel.id_mapel')
+                ->join('tb_kategori_mapel', 'tb_kategori_mapel.id_kategori', '=', 'tb_ampu_mapel.id_kategori')
+                ->where('tb_ampu_mapel.id_kelas', $request->id_kelas)
+                ->where('tb_ampu_mapel.id_semester', $request->id_semester)
+                ->groupBy('tb_soal.created_at')
+                ->get();
+
+      return json_encode($data);
+    }
+
+    public function apiHasilSoal(Request $request){
+        $no      = $request->nomer;
+        $jawaban = $request->jawaban;
+        $date    = $request->date;
+
+        $benar = 0;
+        $salah = 0;
+
+        $noBener = [];
+        $noSalah = [];
+
+        for($i = 0; $i < sizeof($no); $i++){
+            $cek = DB::table('tb_soal')
+                    ->where('nomer', $no[$i])
+                    ->where('jawaban', $jawaban[$i])
+                    ->where('date_create', $date)
+                    ->count();
+
+            $getNoBenar = DB::table('tb_soal')
+                   ->where('nomer', $no[$i])
+                   ->where('jawaban', $jawaban[$i])
+                   ->where('date_create', $date)
+                   ->value('nomer');
+
+            $getNoSalah = DB::table('tb_soal')
+                    ->where('nomer', '=' ,$no[$i])
+                    ->where('jawaban', '!=' ,$jawaban[$i])
+                    ->where('date_create', $date)
+                    ->value('nomer');
+
+            if($cek > 0){
+              $benar++;
+              $noBener = Arr::prepend($noBener, $getNoBenar);
+            }else{
+              $salah++;
+              $noSalah = Arr::prepend($noSalah, $getNoSalah);
+            }
+
+        }
+
+        return response()->json([
+            'error'   => $benar,
+            'message' => $noBener,
+        ], 200);
+
+    }
+
 }
