@@ -1,3 +1,11 @@
+<?php
+switch(Session::get('logged_in')[0]){
+	case 'admin' : $level = 'Administraor';break;
+	case 'kepsek' : $level = 'Kepala Sekolah';break;
+	case 'guru' : $level = 'Guru';break;
+	case 'siswa' : $level = 'Siswa';
+}
+?>
 <!doctype html>
 <html class="boxed">
 	<head>
@@ -86,9 +94,9 @@
 							<figure class="profile-picture">
 								<img src="{{ URL::asset('assets/images/boy.png') }}" alt="Joseph Doe" class="img-circle" data-lock-picture="assets/images/boy.png" />
 							</figure>
-							<div class="profile-info" data-lock-name="Admin Lock" data-lock-email="admin@polindra.com">
-								<span class="name">Admin</span>
-								<span class="role">administrator</span>
+							<div class="profile-info" data-lock-name="{{Session::get('logged_in')[1]}}" data-lock-email="{{$level}}" data-lock-level="{{Session::get('logged_in')[0]}}">
+								<span class="name">{{Session::get('logged_in')[1]}}</span>
+								<span class="role">{{$level}}</span>
 							</div>
 
 							<i class="fa custom-caret"></i>
@@ -134,14 +142,14 @@
 									<li <?php echo $active == '' ? 'class="nav-active"':''; ?>>
 										<a href="{{ route('dashboard') }}">
 											<i class="fa fa-home" aria-hidden="true"></i>
-											<span>Dashboard</span>
+											<span>Beranda</span>
 										</a>
 									</li>
 									<li <?php echo $active == 'profile' ? 'class="nav-active"':''; ?>>
 										<a href="{{ route('profile') }}">
 											<span class="pull-right label label-primary">Info</span>
 											<i class="fas fa-user-circle" aria-hidden="true"></i>
-											<span>User Profile</span>
+											<span>Profil Pengguna</span>
 										</a>
 									</li>
 									<li class="nav-parent <?php if($active == 'data_siswa' or $active == 'import_data_siswa') echo 'nav-active'; ?>">

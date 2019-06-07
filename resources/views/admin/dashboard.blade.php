@@ -66,7 +66,7 @@
 														</div>
 													</div>
 													<div class="summary-footer">
-														<a href="{{ route('data_siswa') }}" class="text-muted text-uppercase">View All</a>
+														<a href="{{ route('data_siswa') }}" class="text-muted text-uppercase">Lihat</a>
 													</div>
 												</div>
 											</div>
@@ -91,7 +91,7 @@
 														</div>
 													</div>
 													<div class="summary-footer">
-														<a href="{{ route('data_guru') }}" class="text-muted text-uppercase">View All</a>
+														<a href="{{ route('data_guru') }}" class="text-muted text-uppercase">Lihat Semua</a>
 													</div>
 												</div>
 											</div>
@@ -115,7 +115,7 @@
 														</div>
 													</div>
 													<div class="summary-footer">
-														<a href="{{ route('data_kelas') }}" class="text-muted text-uppercase">View All</a>
+														<a href="{{ route('data_kelas') }}" class="text-muted text-uppercase">Lihat Semua</a>
 													</div>
 												</div>
 											</div>
@@ -139,7 +139,7 @@
 														</div>
 													</div>
 													<div class="summary-footer">
-														<a href="{{ route('mapel') }}" class="text-muted text-uppercase">View All</a>
+														<a href="{{ route('mapel') }}" class="text-muted text-uppercase">Lihat Semua</a>
 													</div>
 												</div>
 											</div>

@@ -17,6 +17,9 @@
 Route::Resource('data-kelas', 'KelasController');
 Route::Resource('data-siswa', 'SiswaController');
 Route::Resource('data-guru', 'GuruController');
+Route::Resource('data-mapel', 'MapelController');
+Route::Resource('data-ktmapel', 'KategoriMapelController');
+
 //Admin
 Route::get('/dashboard', ['middleware'=>'cek-sesi-admin', 'uses'=>'DashboardController@index'])->name('dashboard');
 
@@ -25,6 +28,7 @@ Route::get('/view_import_data_siswa', ['middleware'=>'cek-sesi-admin', 'uses'=>'
 Route::get('/data_siswa/add', ['middleware'=>'cek-sesi-admin', 'uses'=>'SiswaController@add'])->name('add_data_siswa');
 Route::get('/data_siswa/update/{nis}', ['middleware'=>'cek-sesi-admin', 'uses'=>'SiswaController@update_view'])->name('update_data_siswa');
 Route::get('/data_siswa/view/{nis}', ['middleware'=>'cek-sesi-admin', 'uses'=>'SiswaController@view'])->name('view_data_siswa');
+Route::get('/siswa_from_class', ['middleware'=>'cek-sesi-admin', 'uses'=>'SiswaController@siswa_from_class']);
 
 Route::get('/data_guru', ['middleware'=>'cek-sesi-admin', 'uses'=>'GuruController@index'])->name('data_guru');
 Route::post('/ajax-get', 'GuruController@ajax_get');
@@ -41,6 +45,7 @@ Route::get('/', 'LoginController@index')->name('login');
 Route::get('/profile', 'LoginController@profile')->name('profile');
 Route::get('/logout', 'LoginController@logout')->name('logout');
 Route::post('/login_procces', 'LoginController@process')->name('login_procces');
+Route::post('/unlock', 'LoginController@unlock');
 
 //ImportExport
 Route::post('/import-siswa', 'ImportExport@import_siswa');

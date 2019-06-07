@@ -15,11 +15,8 @@ class cekSessionAdmin
      */
     public function handle($request, Closure $next)
     {
-        if(\Session::get('logged_in')){
+        if(\Session::get('logged_in'))
 			return $next($request);
-		}else
-		{
-			return redirect('/')->with(['alert' => 'Akses ditolak']);
-		}
-    }
+		return redirect('/')->with(['alert' => 'Akses ditolak']);
+	}
 }

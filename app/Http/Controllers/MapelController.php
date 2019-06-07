@@ -4,19 +4,39 @@ namespace App\Http\Controllers;
 
 use DB;
 use Illuminate\Http\Request;
+use \App\Mapel;
 
 class MapelController extends Controller
 {
 		public function index(){
-		    if(\Session::get('logged_in')){}else{
-					return redirect('/')->with(['alert' => 'Akses ditolak']);
-				}
-				$data['mapel'] = \App\Mapel::all();
+				$data['mapel'] = Mapel::all();
 				$data['active'] = 'mapel';
 				$data['judul'] = 'Data Pelajaran';
 				return view('admin.datamapel', $data);
 		}
-
+		public function store(Request $request){
+			if(Mapel::where('id_mapel', $request->id_mapel)->count() == 0){
+				$create = Mapel::create($request->all());
+				if($create){
+					return back()->with(['info' => 'Mata Pelajaran Berhasil Ditambahkan']);
+				}
+			}else{
+				$update = Mapel::findOrFail($request->id_mapel);
+				$update->update($request->all());
+				if($update)
+					return back()->with(['info' => 'Mata Pelajaran Berhasil Diperbaharui']);
+			}
+			return back()->with(['alert' => 'Terjadi Kesalahan']);
+		}
+		
+		public function destroy(Request $req){
+			$mapel = Mapel::findOrFail($req->id_mapel);
+			if($mapel->delete())
+				return back()->with(['info'=>'Data Berhasil dihapus']);
+			return back()->with(['alert'=>'Terjadi Kesalahan saat menghapus data']);
+			
+		}
+		
 		public function apiMapelGuru(Request $request){
 				$semester = DB::table('tb_ampu_mapel')
 										->select('tb_mapel.id_mapel as id_mapel', 'nama_mapel')
