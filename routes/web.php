@@ -95,3 +95,5 @@ Route::post('/apiAktifSoal', 'SoalController@apiAktifSoal');
 //API SOAL SISWA
 Route::post('/apiSiswaSoal', 'SoalController@apiSiswaSoal');
 Route::post('/apiHasilSoal', 'SoalController@apiHasilSoal');
+Route::post('/apiInsertHasil', 'SoalController@apiInsertHasil');
+Route::post('/apiRanking', 'SoalController@apiRanking');

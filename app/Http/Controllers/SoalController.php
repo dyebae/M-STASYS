@@ -8,6 +8,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use File;
 use DB;
 use App\Soal;
+use App\HasilSoal;
 use Illuminate\Support\Arr;
 
 class SoalController extends Controller
@@ -161,10 +162,50 @@ class SoalController extends Controller
         }
 
         return response()->json([
-            'error'   => $benar,
-            'message' => $noBener,
+            'benar'   => $benar,
+            'salah'   => $salah
         ], 200);
 
+    }
+
+    public function apiInsertHasil(Request $request){
+        $cekIfExist = DB::table('tb_hasil_soal')
+                      ->where('nis', $request->nis)
+                      ->where('date_soal', $request->date_soal)
+                      ->count();
+
+        if( $cekIfExist == 0 ){
+            $create = HasilSoal::create($request->all());
+
+            if( $create ){
+              return response()->json([
+                  'error'   => 0,
+                  'message' => ['Berhasil'],
+              ], 200);
+            }else{
+              return response()->json([
+                  'error'   => 1,
+                  'message' => ['Gagal'],
+              ], 200);
+            }
+
+        }else{
+          return response()->json([
+              'error'   => 2,
+              'message' => ['Error'],
+          ], 200);
+        }
+    }
+
+    public function apiRanking(Request $request){
+        $data = DB::table('tb_hasil_soal')
+                ->select('tb_siswa.nis', 'tb_siswa.nama', 'benar', 'salah', 'nilai', 'tb_hasil_soal.created_at')
+                ->join('tb_siswa', 'tb_siswa.nis', '=', 'tb_hasil_soal.nis')
+                ->where('date_soal', $request->date_soal)
+                ->orderBy('benar', 'desc')
+                ->get();
+
+        return json_encode($data);
     }
 
 }
