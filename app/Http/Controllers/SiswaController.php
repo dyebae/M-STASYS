@@ -11,6 +11,7 @@ use App\Siswa;
 use App\Nilai;
 use App\AmpuMapel;
 use Maatwebsite\Excel\Facades\Excel;
+use \Illuminate\Database\QueryException;
 class SiswaController extends Controller
 {
 
@@ -95,8 +96,8 @@ class SiswaController extends Controller
 	public function store(Request $req){
 		$check = [
 					'foto'	=> 'max:2000|mimes:jpg,png,jpeg',
-					'nis'	=> 'required|digits:5|numeric|not_in:0|regex:/^([1-9][0-9]+)/',
-					'nisn'	=> 'required|digits:5|numeric|not_in:0|regex:/^([1-9][0-9]+)/',
+					'nis'	=> 'required|max:9999999999|numeric|not_in:0|regex:/^([1-9][0-9]+)/',
+					'nisn'	=> 'required|max:9999999999|numeric|not_in:0|regex:/^([1-9][0-9]+)/',
 					'password' => 'string|min:6|max:20|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/',
 					'jenis_kelamin' => 'required',
         ];
@@ -133,30 +134,31 @@ class SiswaController extends Controller
 					$siswa['foto'] = $req->nis. '.' . $uploadedFile->getClientOriginalExtension();
 					$uploadedFile->move($path, $siswa['foto']);
 				}
-				$create = Siswa::create($siswa);
-				if($create){
+				try{
+					$create = Siswa::create($siswa);
+					if($create){
 					// return redirect('/data_siswa')->with(['info' => 'Siswa Berhasil ditambahkan']);
-          return response()->json([
-              'foto'     => '',
-              'nis'      => '',
-              'nisn'     => '',
-              'password' => '',
-			  'jenis_kelamin' => '',
-              'info'   => 'Siswa Berhasil ditambahkan',
-              'status' => '1'
-          ], 200);
+						  return response()->json([
+							  'foto'     => '',
+							  'nis'      => '',
+							  'nisn'     => '',
+							  'password' => '',
+							  'jenis_kelamin' => '',
+							  'info'   => 'Siswa Berhasil ditambahkan',
+							  'status' => '1'
+						  ], 200);
+						}
+				}catch(QueryException $e){
+					return response()->json([
+						'foto'     => '',
+						'nis'      => '',
+						'nisn'     => '',
+						'password' => '',
+						'jenis_kelamin' => '',
+						'info'   => $e->errorInfo,
+						'status' => '3'
+					], 200);
 				}
-				// return redirect('/data_siswa')->with(['alert' => ['Terjadi Kesalahan saat menambah data Siswa']]);
-        return response()->json([
-            'foto'     => '',
-            'nis'      => '',
-            'nisn'     => '',
-            'password' => '',
-			'jenis_kelamin' => '',
-            'info'   => 'Terjadi Kesalah saat menambah data Siswa',
-            'status' => '3'
-        ], 200);
-				print_r($siswa);
 			}
 			// return redirect('/data_siswa')->with(['alert' => ['NIS Sudah terdaftar']]);
       return response()->json([
@@ -178,8 +180,8 @@ class SiswaController extends Controller
 	public function update(Request $req){
 		$check = [
 			      'foto'	=> 'max:2000|mimes:jpg,png,jpeg',
-				  'nis'	=> 'required|digits:5|numeric|not_in:0|regex:/^([1-9][0-9]+)/',
-				  'nisn'	=> 'required|digits:5|numeric|not_in:0|regex:/^([1-9][0-9]+)/',
+				  'nis'	=> 'required|max:9999999999|numeric|not_in:0|regex:/^([1-9][0-9]+)/',
+				  'nisn'	=> 'required|max:9999999999|numeric|not_in:0|regex:/^([1-9][0-9]+)/',
 				  'password' =>'',
 				  'jenis_kelamin' => 'required',
         ];
@@ -262,7 +264,7 @@ class SiswaController extends Controller
         ];
 
         $validator = Validator::make($request->all(), [
-            'nis' => 'required|digits:5|numeric|not_in:0|regex:/^([1-9][0-9]+)/',
+            'nis' => 'required|max:9999999999|numeric|not_in:0|regex:/^([1-9][0-9]+)/',
             'password' => 'required|string|min:6|max:20|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/',
         ]);
 

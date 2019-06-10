@@ -11,7 +11,7 @@
                   <i class="fa fa-home"></i>
                 </a>
               </li>
-              <li><span>{{ $judul }}</span></li>
+              <li><span>Agama</span></li>
             </ol>
 
             <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
@@ -20,16 +20,16 @@
 
         <!-- start: page -->
           <section class="panel">
-		@if ($message = Session::get('info'))
-			<div class="alert alert-info alert-block" data-dismiss="alert">
-				<strong>{{ $message }}</strong>
-			</div>
-		@endif
-		@if ($message = Session::get('alert'))
-			<div class="alert alert-danger alert-block" data-dismiss="alert">
-				<strong>{{ $message }}</strong>
-			</div>
-		@endif
+		   @if ($message = Session::get('info'))
+				<div class="alert alert-info alert-block" data-dismiss="alert">
+					<strong>{{ $message }}</strong>
+				</div>
+		  @endif
+			@if ($message = Session::get('alert'))
+				<div class="alert	 alert-danger alert-block" data-dismiss="alert">
+					<strong>{{ $message }}</strong>
+				</div>
+			@endif
             <header class="panel-heading">
               <div class="panel-actions">
                 <a href="#" class="fa fa-caret-down"></a>
@@ -40,8 +40,8 @@
               <div class="row">
                 <div class="col-sm-6">
                   <div class="mb-md">
-                    <button data-toggle="modal"  data-type = "add" data-target="#Data" class="btn btn-primary">Tambah <i class="fas fa-plus"></i></button>
-                    <button class="btn btn-default">Print <i class="fas fa-print"></i></button>
+                    <button class="btn btn-primary"  data-toggle="modal" data-target="#Data"  data-type = "add">Tambah <i class="fas fa-plus"></i></button>
+                    <button class="btn btn-default">Cetak <i class="fas fa-print"></i></button>
                   </div>
                 </div>
               </div>
@@ -49,30 +49,28 @@
                 <thead>
                   <tr>
                     <th>No</th>
-                    <th>ID Semester</th>
-                    <th>Semester</th>
-                    <th>Tahun Pelajaran</th>
-                    <th>Actions</th>
+                    <th>ID</th>
+                    <th>{{ $judul }}</th>
+                    <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
-				@foreach($semester as $key => $r)
+				@foreach($agama as $key => $r)
                   <tr>
                     <td>{{ ++$key }}</td>
-                    <td>{{ $r->id_semester }}</td>
-                    <td>{{ $r->semester }}</td>
-                    <td>{{ $r->thn_ajaran }}</td>
+                    <td>{{ $r->id_agama }}</td>
+                    <td>{{ $r->agama }}</td>
                     <td class="actions">
-						<a href="" class="on-default"" data-toggle="modal" data-target="#deleteData" data-id_semester="{{$r->id_semester}}"><i class="fas fa-trash-alt"></i></a>
-						<a href="#" class="on-default" data-toggle="modal" data-target="#Data" data-type = "edit" data-data="{{ $r->id_semester.'-'.$r->semester.'-'.$r->thn_ajaran }}"><i class="fas fa-edit"></i></a>
-                    </td>
+						<a href="" class="on-default"" data-toggle="modal" data-target="#deleteData" data-id_agama="{{$r->id_agama}}"><i class="fas fa-trash-alt"></i></a>
+					</td>
                   </tr>
                 @endforeach
                 </tbody>
               </table>
+			  
             </div>
           </section>
-		  <!---- Modal Data ------>
+		  
 		  <div id="Data" class="modal fade" role="dialog">
 				  <div class="modal-dialog">
 				    <!-- Modal content-->
@@ -81,21 +79,12 @@
 				        <button type="button" class="close" data-dismiss="modal">&times;</button>
 				        <h4 class="modal-title text-center"></h4>
 				      </div>
-				        <form id="modal-form-delete" method="post" action="{{ route('data-semester.store', 'store') }}">
+				        <form id="modal-form-delete" method="post" action="{{ route('data-agama.store', 'store') }}">
 				            {{ csrf_field() }}
 				      <div class="modal-body">
 						<div class="form-group has-warning">
-						  <label for="id_semester" class="form-control-label">ID Semester</label>
-						  <input type="text" id="id_semester" name="id_semester" class="form-control"  required />
-						  <input type="hidden" id="hiden" name="id_semester" class="form-control" />
-						</div>
-						<div class="form-group has-warning">
-						  <label for="id_semester" class="form-control-label">Semester</label>
-						  <input type="number" id="semester" name="semester" class="form-control"  required />
-						</div>
-						<div class="form-group has-warning">
-						  <label for="thn_ajaran" class="form-control-label">Tahun Pelajaran</label>
-						  <input type="text" id="thn_ajaran" name="thn_ajaran" class="form-control"  required />
+						  <label for="agama" class="form-control-label">Agama</label>
+						  <input type="text" id="agama" name="agama" class="form-control"  required />
 						</div>
 					  </div>
 				      <div class="modal-footer">
@@ -116,11 +105,11 @@
 				        <button type="button" class="close" data-dismiss="modal">&times;</button>
 				        <h4 class="modal-title text-center"><span class="fas fa-check"></span>Hapus</h4>
 				      </div>
-				        <form id="modal-form-delete" method="post" action="{{ route('data-semester.destroy', 'destroy') }}">
+				        <form id="modal-form-delete" method="post" action="{{ route('data-agama.destroy', 'destroy') }}">
 				            {{ method_field('delete') }}
 				            {{ csrf_field() }}
 				      <div class="modal-body">
-				            <input type="hidden" name="id_semester" id="id_semester" value="">
+				            <input type="hidden" name="id_agama" id="id_agama" value="">
 				            <p><center>Apakah anda yakin ingin menghpus data ini ?</center></p>
 				      </div>
 				      <div class="modal-footer">
@@ -137,36 +126,10 @@
 					$(document).ready(function(){
 						$('#deleteData').on('show.bs.modal', function (event) {
 							var button     = $(event.relatedTarget)
-							var id_semester = button.data('id_semester')
+							var id_agama = button.data('id_agama')
 							var modal      = $(this)
-							modal.find('.modal-body #id_semester').val(id_semester)
-						  });
-
-						  $('#Data').on('show.bs.modal', function (event) {
-							var button     = $(event.relatedTarget)
-							var type = button.data('type')
-							var modal      = $(this)
-							if(type == 'edit'){
-								modal.find('.modal-title').text('Edit Semester')
-								var data = button.data('data').split('-')
-								modal.find('.modal-body #id_semester').prop('disabled', true)
-								modal.find('.modal-body #id_semester').val(data[0])
-								modal.find('.modal-body #hiden').prop('disabled', false)
-								modal.find('.modal-body #hiden').val(data[0])
-								modal.find('.modal-body #semester').val(data[1])
-								modal.find('.modal-body #thn_ajaran').val(data[2])
-							}else{
-								modal.find('.modal-title').text('Tambah Semester')
-								modal.find('.modal-body #hiden').prop('disabled', true)
-								modal.find('.modal-body #id_semester').prop('disabled', false);
-								modal.find('.modal-body #id_semester').val("")
-								modal.find('.modal-body #semester').val("")
-								modal.find('.modal-body #thn_ajaran').val("")
-							}
+							modal.find('.modal-body #id_agama').val(id_agama)
 						  });
 					});
-					function submit_kelas(){
-						document.getElementById("form_data_kelas_dist").submit();
-					}
 				</script>
 		  @endsection

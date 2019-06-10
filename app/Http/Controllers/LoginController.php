@@ -70,14 +70,31 @@ class LoginController extends Controller
 			return redirect('/')->with(['info' => 'Logout Berhasil']);
 	}
 	public function profile(){
-		if(\Session::get('logged_in')){}else
-		{
-			return redirect('/')->with(['alert' => 'Akses ditolak']);
+		switch(\Session::get('logged_in')[0]){
+			case 'admin' : 
+							$view = 'admin.profile';
+							$d = \App\AdminOP::findOrfail(\Session::get('logged_in')[1]);
+							break;
+			case 'kepsek' : 
+							$view = 'admin.profile';
+							$d = \App\Kepsek::findOrfail(\Session::get('logged_in')[1]);
+							break;
+			case 'guru' : 
+							$view = 'admin.profile';
+							$d = \App\Guru::findOrfail(\Session::get('logged_in')[1]);
+							break;
+			case 'siswa' : 
+							$view = 'admin.profile';
+							$d = \App\Siswa::findOrfail(\Session::get('logged_in')[1]);
+							break;
 		}
+		$data['kelas'] = \App\Kelas::all();
+		$data['agama'] = \App\Agama::all();
+		$data['d'] = $d;
 		$data['active'] = 'profile';
 		$data['judul'] = 'Profil';
-		//return view('admin.dashboard', $data);
-		print_r($data);
+		return view($view, $data);
+		//print_r($data);
     }
 
   	// public function login(Request $request){

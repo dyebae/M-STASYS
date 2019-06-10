@@ -14,14 +14,29 @@
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+
+
+Route::Resource('data-admin', 'AdminOPController');
 Route::Resource('data-kelas', 'KelasController');
 Route::Resource('data-siswa', 'SiswaController');
+Route::Resource('data-kepsek', 'KepsekController');
 Route::Resource('data-guru', 'GuruController');
 Route::Resource('data-mapel', 'MapelController');
 Route::Resource('data-ktmapel', 'KategoriMapelController');
+Route::Resource('data-agama', 'AgamaController');
+Route::Resource('data-semester', 'SemesterController');
+
+//Agama
+Route::get('/data_agama', ['middleware'=>'cek-sesi-admin', 'uses'=>'AgamaController@index'])->name('agama');
 
 //Admin
 Route::get('/dashboard', ['middleware'=>'cek-sesi-admin', 'uses'=>'DashboardController@index'])->name('dashboard');
+Route::put('/update_profil_admin', ['middleware'=>'cek-sesi-admin', 'uses'=>'AdminOPController@update_profil_admin']);
+
+Route::get('/admin', ['middleware'=>'cek-sesi-admin', 'uses'=>'AdminOPController@index'])->name('admin');
+Route::get('/kepsek', ['middleware'=>'cek-sesi-admin', 'uses'=>'KepsekController@index'])->name('kepsek');
+Route::post('/ajax-get-kepsek', 'KepsekController@ajax_get');
+Route::post('/ajax-get-admin', 'AdminOPController@ajax_get');
 
 Route::get('/data_siswa', ['middleware'=>'cek-sesi-admin', 'uses'=>'SiswaController@index'])->name('data_siswa');
 Route::get('/view_import_data_siswa', ['middleware'=>'cek-sesi-admin', 'uses'=>'SiswaController@view_import_data_siswa'])->name('view_import_data_siswa');
@@ -35,6 +50,8 @@ Route::post('/ajax-get', 'GuruController@ajax_get');
 Route::get('/view_import_data_guru', ['middleware'=>'cek-sesi-admin', 'uses'=>'GuruController@view_import_data_guru'])->name('import-data-guru');
 
 Route::get('/data_kelas', ['middleware'=>'cek-sesi-admin', 'uses'=>'KelasController@index'])->name('data_kelas');
+Route::get('/data_kelas_dist', ['middleware'=>'cek-sesi-admin', 'uses'=>'KelasController@data_kelas_dist']);
+
 Route::get('/ampu_mapel', ['middleware'=>'cek-sesi-admin', 'uses'=>'AmpuMapelController@index'])->name('ampu_mapel');
 Route::get('/mapel', ['middleware'=>'cek-sesi-admin', 'uses'=>'MapelController@index'])->name('mapel');
 Route::get('/kategori_mapel', ['middleware'=>'cek-sesi-admin', 'uses'=>'KategoriMapelController@index'])->name('kategori_mapel');
@@ -95,3 +112,7 @@ Route::post('/apiAktifSoal', 'SoalController@apiAktifSoal');
 //API SOAL SISWA
 Route::post('/apiSiswaSoal', 'SoalController@apiSiswaSoal');
 Route::post('/apiHasilSoal', 'SoalController@apiHasilSoal');
+
+Route::get('/generate_password/{pass}', function($pass){
+	echo bcrypt($pass);
+});

@@ -15,6 +15,7 @@ class CreateTbKelasTable extends Migration
     {
         Schema::create('tb_kelas', function (Blueprint $table) {
             $table->string('id_kelas', 10)->primary();
+            $table->string('th_masuk', 4);
             $table->string('tingkat', 3);
             $table->string('jurusan', 5);
             $table->integer('rombel', false, true)->length(1);

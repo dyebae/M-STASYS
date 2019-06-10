@@ -13,7 +13,7 @@ class Kepsek extends Authenticatable
     protected $table = 'tb_kepsek';
 
     protected $fillable = [
-        'nip','nama','tempat_lahir','tgl_lahir','alamat','agama','password','jenis_kelamin','status','foto'
+        'nip','nama','tempat_lahir','tgl_lahir','alamat','id_agama','password','jenis_kelamin','status','foto','jabatan'
     ];
 
     protected $primaryKey = 'nip';

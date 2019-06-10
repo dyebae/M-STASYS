@@ -11,7 +11,6 @@
                   <i class="fa fa-home"></i>
                 </a>
               </li>
-              <li><span>Guru</span></li>
               <li><span>{{ $judul }}</span></li>
             </ol>
 
@@ -57,10 +56,9 @@
                   </tr>
                 </thead>
                 <tbody>
-				<?php $no = 1; ?>
-				@foreach($guru as $r)
+				@foreach($kepsek as $no => $r)
                   <tr>
-                    <td>{{ $no++ }}</td>
+                    <td>{{ ++$no }}</td>
                     <td>{{ $r->nip }}</td>
                     <td>{{ $r->nama }}</td>
                     <td>{{ $r->alamat }}</td>
@@ -85,7 +83,7 @@
 				        <button type="button" class="close" data-dismiss="modal">&times;</button>
 				        <h4 class="modal-title text-center"><span class="fas fa-check"></span>Hapus</h4>
 				      </div>
-				        <form id="modal-form-delete" method="post" action="{{ route('data-guru.destroy', 'destroy') }}">
+				        <form id="modal-form-delete" method="post" action="{{ route('data-kepsek.destroy', 'destroy') }}">
 				            {{ method_field('delete') }}
 				            {{ csrf_field() }}
 				      <div class="modal-body">
@@ -107,9 +105,9 @@
 				    <div class="modal-content">
 				      <div class="modal-header">
 				        <button type="button" class="close" data-dismiss="modal">&times;</button>
-				        <h4 class="modal-title text-center"><span class="fas fa-plus"></span>Tambah Data Guru</h4>
+				        <h4 class="modal-title text-center"><span class="fas fa-plus"></span>Tambah Data {{ $judul }}</h4>
 				      </div>
-				        <form id="modal-form-delete" method="post" action="{{ route('data-guru.store', 'store') }}" enctype="multipart/form-data">
+				        <form id="modal-form-delete" method="post" action="{{ route('data-kepsek.store', 'store') }}" enctype="multipart/form-data">
 				            
 							{{ csrf_field() }}
 				      <div class="modal-body">
@@ -134,13 +132,11 @@
 						<td><input type="password" name="password" class="form-control" required /></td>
 					</tr>
 					<tr>
-						<th>Wali Kelas</th>
+						<th><font style="color:red">*</font> Jabatan</th>
 						<td>
-							<select name="id_kelas" class="form-control">
-								<option value="">Bukan Wali Kelas</option>
-								@foreach($kelas as $r)
-								<option value="{{ $r->id_kelas }}">{{ $r->tingkat." ".$r->jurusan." ".$r->rombel }}</option>
-								@endforeach
+							<select name="jabatan" class="form-control">
+								<option value="kepsek">Kepala Sekolah</option>
+								<option value="wakasek">Wakil Kepala Sekolah</option>
 							</select>
 						</td>
 					</tr>
@@ -157,10 +153,10 @@
 						<td><input type="date" name="tgl_lahir" class="form-control" /></td>
 					</tr>
 					<tr>
-						<th><font style="color:red">*</font> Jenis Kelamin</th>
+						<th>Jenis Kelamin</th>
 						<td>
-							<input type="radio" name="jenis_kelamin" value="Laki-Laki" required>Laki-Laki &nbsp; 
-							<input type="radio" name="jenis_kelamin" value="Perempuan" required>Perempuan				
+							<input type="radio" name="jenis_kelamin" value="Laki-Laki">Laki-Laki &nbsp; 
+							<input type="radio" name="jenis_kelamin" value="Perempuan">Perempuan				
 						</td>
 					</tr>
 					<tr>
@@ -171,7 +167,7 @@
 						<th>Agama</th>
 						<td>
 							<select name="agama" class="form-control">
-								<option value="">Pilih Agama</option>
+								<option>Pilih Agama</option>
 								@foreach($agama as $r)
 								<option value="{{ $r->id_agama }}">{{ $r->agama }}</option>
 								@endforeach
@@ -196,9 +192,9 @@
 				    <div class="modal-content">
 				      <div class="modal-header">
 				        <button type="button" class="close" data-dismiss="modal">&times;</button>
-				        <h4 class="modal-title text-center"><span class="fa fa-pen"></span>Edit Data Guru</h4>
+				        <h4 class="modal-title text-center"><span class="fa fa-pen"></span>Edit Data {{ $judul }}</h4>
 				      </div>
-				        <form id="modal-form-delete" method="post" action="{{ route('data-guru.update', 'update') }}" enctype="multipart/form-data">
+				        <form id="modal-form-delete" method="post" action="{{ route('data-kepsek.update', 'update') }}" enctype="multipart/form-data">
 				            {{ method_field('put') }}
 							{{ csrf_field() }}
 				      <div class="modal-body">
@@ -224,13 +220,11 @@
 						<td><input type="password" name="password" class="form-control" /></td>
 					</tr>
 					<tr>
-						<th>Wali Kelas</th>
+						<th><font style="color:red">*</font> Jabatan</th>
 						<td>
-							<select name="id_kelas" id="kelas" class="form-control">
-								<option value="">Bukan Wali Kelas</option>
-								@foreach($kelas as $r)
-								<option value="{{ $r->id_kelas }}">{{ $r->tingkat." ".$r->jurusan." ".$r->rombel }}</option>
-								@endforeach
+							<select name="jabatan" id="jabatan" class="form-control">
+								<option value="kepsek">Kepala Sekolah</option>
+								<option value="wakasek">Wakil Kepala Sekolah</option>
 							</select>
 						</td>
 					</tr>
@@ -247,10 +241,10 @@
 						<td><input type="date" name="tgl_lahir" class="form-control" /></td>
 					</tr>
 					<tr>
-						<th><font style="color:red">*</font> Jenis Kelamin</th>
+						<th>Jenis Kelamin</th>
 						<td>
-							<input type="radio" name="jenis_kelamin" value="Laki-Laki" required>Laki-Laki &nbsp; 
-							<input type="radio" name="jenis_kelamin" value="Perempuan" required>Perempuan				
+							<input type="radio" name="jenis_kelamin" value="Laki-Laki">Laki-Laki &nbsp; 
+							<input type="radio" name="jenis_kelamin" value="Perempuan">Perempuan				
 						</td>
 					</tr>
 					<tr>
@@ -261,7 +255,7 @@
 						<th>Agama</th>
 						<td>
 							<select name="agama" id="agama1" class="form-control">
-								<option value="">Pilih Agama</option>
+								<option>Pilih Agama</option>
 								@foreach($agama as $r)
 								<option value="{{ $r->id_agama }}">{{ $r->agama }}</option>
 								@endforeach
@@ -285,22 +279,20 @@
 						$('#deleteData').on('show.bs.modal', function (event) {
 							$(this).find('.modal-body #nip').val($(event.relatedTarget).data('nip'))
 						  });
-						  
 						$('#EditData').on('show.bs.modal', function (event) {
 							var nip = $(event.relatedTarget).data('nip')
 							var modal = $(this)
-							$.ajax({url: "/ajax-get", method:'post', dataType: "json", data:{"nip" : nip }, success: function(result){
+							$.ajax({url: "/ajax-get-kepsek", method:'post', dataType: "json", data:{"nip" : nip }, success: function(result){
 								$('#image-preview1').prop("src",'assets/images/Teachers/'+ (result.foto == null ? 'no-image.gif' : result.foto))
 								modal.find('input[name="hidden"]').val(nip)
 								modal.find('input[name="nip"]').val(nip)
 								modal.find('input[name="nip"]').prop('disabled', true)
-								if(result.walikelas != null)
-								modal.find('#kelas').val(result.walikelas)
 								modal.find('input[name="nama"]').val(result.nama)
 								modal.find('input[name="tempat_lahir"]').val(result.tempat_lahir)
 								modal.find('input[name="tgl_lahir"]').val(result.tgl_lahir)
 								modal.find('input[name="jenis_kelamin"][value="'+result.jenis_kelamin+'"]').prop('checked',true)
 								modal.find('#alamat1').val(result.alamat)
+								modal.find('#jabatan').val(result.jabatan)
 								modal.find('#agama1').val(result.id_agama)
 							}});
 						});  

@@ -9,12 +9,31 @@ use DB;
 class SemesterController extends Controller
 {
     public function index(){
-    		$data['semester'] = \App\Semester::all();
+    		$data['semester'] = Semester::all();
     		$data['active'] = 'semester';
     		$data['judul'] = 'Data Semester';
     		return view('admin.semester', $data);
 	 }
-
+	 public function store(Request $req){
+		 if(Semester::where('id_semester', $req->id_semester)->count() == 0){
+			$create = Semester::create($req->all());
+			if($create){
+				return back()->with(['info' => 'Semester Berhasil Ditambahkan']);
+			}
+		}else{
+			$update = Semester::findOrFail($req->id_semester);
+			$update->update($req->all());
+			if($update)
+				return back()->with(['info' => 'Semester Berhasil Diperbaharui']);
+		}
+		return back()->with(['alert' => 'Terjadi Kesalahan']);
+	 }
+	public function destroy(Request $req){
+		$semester = Semester::findOrFail($req->id_semester);
+		if($semester->delete())
+			return back()->with(['info' => 'Semester Berhasil dihapus']);
+		return back()->with(['alert' => 'Terjadi Kesalahan']);
+	}
    //API
    // public function apiSemester(){
    //     $data = DB::table('tb_semester')->select('id_semester', 'semester')->get();

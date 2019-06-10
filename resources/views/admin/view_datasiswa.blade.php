@@ -63,7 +63,7 @@
 						</td>
 					</tr>
 					<tr>
-						<th>Agama</th><td>{{ $siswa->agama->agama }}</td>
+						<th>Agama</th><td>@if($siswa->id_agama !=''){{ $siswa->agama->agama }} @endif</td>
 					</tr>
 						<th>Jenis Kelamin</th><td>{{ $siswa->jenis_kelamin }}</td>
 					</tr>

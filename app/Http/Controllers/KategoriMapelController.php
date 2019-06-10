@@ -7,10 +7,6 @@ use \App\KategoriMapel;
 class KategoriMapelController extends Controller
 {
 	public function index(){
-		if(\Session::get('logged_in')){}else
-			{
-				return redirect('/')->with(['alert' => 'Akses ditolak']);
-			}
 		$data['kategori'] = KategoriMapel::all();
 		$data['active'] = 'kategori_mapel';
 		$data['judul'] = 'Kategori Mata Pelajaran';

@@ -11,13 +11,35 @@ use DB;
 class KelasController extends Controller
 {
     public function index(){
+		$now = date('Y');
+		$n=0;
+		for($i = $now -5; $i<=$now +5; $i++){
+			$tahun[$n++] = $i;
+		}
+		$data['tahun'] = $tahun;
+		$data['select'] = $now;
 		$data['active'] = 'data_kelas';
-		$data['kelas'] = Kelas::all();
+		$data['kelasdist'] = Kelas::select('th_masuk')->distinct()->get();
+		$data['kelas'] = Kelas::where('th_masuk', $now)->get();
 		$data['judul'] = 'Data Kelas';
 		//dd($data['kelas']);
 		return view('admin.datakelas', $data);
 	}
-
+	public function data_kelas_dist(Request $req){
+		$now = date('Y');
+		$n=0;
+		for($i = $now -5; $i<=$now +5; $i++){
+			$tahun[$n++] = $i;
+		}
+		$data['tahun'] = $tahun;
+		$data['select'] = $req->distkelas;
+		$data['active'] = 'data_kelas';
+		$data['kelasdist'] = Kelas::select('th_masuk')->distinct()->get();
+		$data['kelas'] = Kelas::where('th_masuk', $req->distkelas)->get();
+		$data['judul'] = 'Data Kelas';
+		//dd($data['kelas']);
+		return view('admin.datakelas', $data);
+	}
 	public function store(Request $request){
 		if(Kelas::where('id_kelas', $request->id_kelas)->count() == 0){
 			$create = Kelas::create($request->all());

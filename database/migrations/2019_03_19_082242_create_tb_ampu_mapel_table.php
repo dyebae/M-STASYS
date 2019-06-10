@@ -23,7 +23,7 @@ class CreateTbAmpuMapelTable extends Migration
             $table->foreign('id_kelas')->references('id_kelas')->on('tb_kelas');
             $table->string('id_kategori', 5)->index();
             $table->foreign('id_kategori')->references('id_kategori')->on('tb_kategori_mapel');
-            $table->string('id_semester', 5)->index();
+            $table->string('id_semester', 10)->index();
             $table->foreign('id_semester')->references('id_semester')->on('tb_semester');
             $table->timestamps();
         });

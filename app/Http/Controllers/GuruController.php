@@ -8,11 +8,11 @@ use Illuminate\Support\Facades\Validator;
 use App\Guru;
 use App\Kelas;
 use App\Agama;
+use \Illuminate\Database\QueryException;
 class GuruController extends Controller
 {
+	const path = 'assets/images/Teachers/';
 	public function index(){
-		if(!\Session::get('logged_in'))
-			return redirect('/')->with(['alert' => 'Akses ditolak']);
 		$data['kelas'] = Kelas::all();
 		$data['guru'] = Guru::all();
 		$data['agama'] = Agama::all();
@@ -43,15 +43,17 @@ class GuruController extends Controller
 					'jenis_kelamin' => $req->jenis_kelamin
 				];
 				if($uploadedFile != ""){
-					$path = 'assets/images/Teachers/';
 					$guru['foto'] = $req->nip. '.' . $uploadedFile->getClientOriginalExtension();
-					$uploadedFile->move($path, $guru['foto']);
+					$uploadedFile->move(self::path, $guru['foto']);
 				}
-				$create = Guru::create($guru);
-				if($create){
-					return redirect('/data_guru')->with(['message' => 'Guru Berhasil Ditambahkan']);
+				try{
+					$create = Guru::create($guru);
+					if($create){
+						return redirect('/data_guru')->with(['message' => 'Guru Berhasil Ditambahkan']);
+					}
+				}catch(QueryException $e){
+					return back()->with(['alert'=>$e->errorInfo[2]]);
 				}
-//dd($guru);
 	}
 	public function view_import_data_guru(){
 		$data['active'] = 'import_data_guru';
@@ -67,6 +69,11 @@ class GuruController extends Controller
 				 'alamat' => $req->alamat,
 				 'id_agama' => $req->agama];
 		if(count(trim($req->password) > 0)) $data['password'] = $req->password;
+		$uploadedFile = $req->file('foto');
+		if($uploadedFile != ""){
+			$data['foto'] = $req->hidden. '.' . $uploadedFile->getClientOriginalExtension();
+			$uploadedFile->move(self::path, $data['foto']);
+		}
 		$guru = Guru::findOrFail($req->hidden);
 		//dd($data);
 		$guru->update($data);

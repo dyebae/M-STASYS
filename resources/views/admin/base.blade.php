@@ -1,10 +1,12 @@
 <?php
 switch(Session::get('logged_in')[0]){
-	case 'admin' : $level = 'Administraor';break;
+	case 'admin' : $level = 'Administraor'; break;
 	case 'kepsek' : $level = 'Kepala Sekolah';break;
 	case 'guru' : $level = 'Guru';break;
 	case 'siswa' : $level = 'Siswa';
 }
+
+
 ?>
 <!doctype html>
 <html class="boxed">
@@ -148,8 +150,38 @@ switch(Session::get('logged_in')[0]){
 									<li <?php echo $active == 'profile' ? 'class="nav-active"':''; ?>>
 										<a href="{{ route('profile') }}">
 											<span class="pull-right label label-primary">Info</span>
-											<i class="fas fa-user-circle" aria-hidden="true"></i>
+											<i class="far fa-user" aria-hidden="true"></i>
 											<span>Profil Pengguna</span>
+										</a>
+									</li>
+									<li <?php echo $active == 'admin' ? 'class="nav-active"':''; ?>>
+										<a href="{{ route('admin') }}">
+											<i class="fas fa-user-secret" aria-hidden="true"></i>
+											<span>Administrator</span>
+										</a>
+									</li>
+									<li <?php echo $active == 'kepsek' ? 'class="nav-active"':''; ?>>
+										<a href="{{ route('kepsek') }}">
+											<i class="fas fa-user-circle" aria-hidden="true"></i>
+											<span>Kepala Sekolah</span>
+										</a>
+									</li>
+									<li <?php echo $active == 'agama' ? 'class="nav-active"':''; ?>>
+										<a href="{{ route('agama') }}">
+											<i class="fas fa-heart" aria-hidden="true"></i>
+											<span>Agama</span>
+										</a>
+									</li>
+									<li <?php echo $active == 'semester' ? 'class="nav-active"':''; ?>>
+										<a href="{{ route('semester') }}">
+											<i class="fas fa-file" aria-hidden="true"></i>
+											<span>Semester</span>
+										</a>
+									</li>
+									<li <?php echo $active == 'ampu_mapel' ? 'class="nav-active"':''; ?>>
+										<a href="{{ route('ampu_mapel') }}">
+											<i class="fas fa-book" aria-hidden="true"></i>
+											<span>Ampu Mapel</span>
 										</a>
 									</li>
 									<li class="nav-parent <?php if($active == 'data_siswa' or $active == 'import_data_siswa') echo 'nav-active'; ?>">
@@ -218,31 +250,6 @@ switch(Session::get('logged_in')[0]){
 												</a>
 											</li>
 										</ul>
-									</li>
-									<li class="nav-parent<?php echo $active == 'nilai_siswa' ? ' nav-active':''; ?>">
-										<a>
-											<i class="fas fa-book" aria-hidden="true"></i>
-											<span>Nilai</span>
-										</a>
-										<ul class="nav nav-children">
-											<li <?php echo $active == 'nilai_siswa' ? 'class="nav-active"':''; ?>>
-												<a href="{{ route('nilai_siswa') }}">
-													Nilai Siswa
-												</a>
-											</li>
-										</ul>
-									</li>
-									<li <?php echo $active == 'ampu_mapel' ? 'class="nav-active"':''; ?>>
-										<a href="{{ route('ampu_mapel') }}">
-											<i class="fas fa-book" aria-hidden="true"></i>
-											<span>Ampu Mapel</span>
-										</a>
-									</li>
-									<li <?php echo $active == 'semester' ? 'class="nav-active"':''; ?>>
-										<a href="{{ route('semester') }}">
-											<i class="fas fa-book" aria-hidden="true"></i>
-											<span>Semester</span>
-										</a>
 									</li>
 								</ul>
 							</nav>

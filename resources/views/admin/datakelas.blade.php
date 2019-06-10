@@ -39,10 +39,21 @@
             </header>
             <div class="panel-body">
               <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-8">
                   <div class="mb-md">
                     <button data-toggle="modal"  data-type = "add" data-target="#Data" class="btn btn-primary">Tambah <i class="fas fa-plus"></i></button>
                     <button class="btn btn-default">Cetak <i class="fas fa-print"></i></button>
+                  </div>
+                </div>
+				<div class="col-sm-2">
+                  <div class="mb-md">
+					<form action="/data_kelas_dist" id="form_data_kelas_dist">
+					<select name="distkelas" class="form-control" onChange="submit_kelas()" required>
+						@foreach($kelasdist as $r)
+							<option @if($select == $r->th_masuk) selected @endif value="{{ $r->th_masuk }}">{{ $r->th_masuk }}</option>
+						@endforeach
+					</select>
+					</form>
                   </div>
                 </div>
               </div>
@@ -51,6 +62,7 @@
                   <tr>
                     <th>No</th>
                     <th>ID</th>
+                    <th>Tahun Masuk</th>
                     <th>Tingkat</th>
                     <th>Jurusan</th>
                     <th>Kelas</th>
@@ -62,12 +74,13 @@
                   <tr>
                     <td>{{ ++$key }}</td>
                     <td>{{ $r->id_kelas }}</td>
+                    <td>{{ $r->th_masuk }}</td>
                     <td>{{ $r->tingkat }}</td>
                     <td>{{ $r->jurusan }}</td>
                     <td>{{ $r->rombel }}</td>
                     <td class="actions">
 						<a href="" class="on-default"" data-toggle="modal" data-target="#deleteData" data-id_kelas="{{$r->id_kelas}}"><i class="fas fa-trash-alt"></i></a>
-						<a href="#" class="on-default" data-toggle="modal" data-target="#Data" data-type = "edit" data-data="{{ $r->id_kelas.'-'.$r->tingkat.'-'.$r->jurusan.'-'.$r->rombel }}"><i class="fas fa-edit"></i></a>
+						<a href="#" class="on-default" data-toggle="modal" data-target="#Data" data-type = "edit" data-data="{{ $r->id_kelas.'-'.$r->tingkat.'-'.$r->jurusan.'-'.$r->rombel.'-'.$r->th_masuk }}"><i class="fas fa-edit"></i></a>
                     </td>
                   </tr>
                 @endforeach
@@ -91,6 +104,15 @@
 						  <label for="id_kelas" class="form-control-label">ID Kelas</label>
 						  <input type="text" id="id_kelas" name="id_kelas" class="form-control"  required />
 						  <input type="hidden" id="hiden" name="id_kelas" class="form-control" />
+						</div>
+						<div class="form-group has-warning">
+						  <label for="th_masuk" class="form-control-label">Tahun Masuk</label>
+						  <select name="th_masuk" id="th_masuk">
+							<option>Pilih Tahun Masuk</option>
+							@foreach($tahun as $r)
+								<option value="{{$r}}">{{$r}}</option>
+							@endforeach
+						  </select>
 						</div>
 						<div class="form-group has-warning">
 						  <label for="tingkat" class="form-control-label">Tingkat</label>
@@ -174,6 +196,7 @@
 								modal.find('.modal-body #tingkat').val(data[1])
 								modal.find('.modal-body #jurusan').val(data[2])
 								modal.find('.modal-body #rombel').val(data[3])
+								modal.find('.modal-body #th_masuk').val(data[4])
 							}else{
 								modal.find('.modal-title').text('Tambah Kelas')
 								modal.find('.modal-body #hiden').prop('disabled', true)
@@ -182,5 +205,8 @@
 							}
 						  });
 					});
+					function submit_kelas(){
+						document.getElementById("form_data_kelas_dist").submit();
+					}
 				</script>
 		  @endsection

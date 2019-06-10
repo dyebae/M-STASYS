@@ -9,7 +9,7 @@ class Kelas extends Model
     protected $table = 'tb_kelas';
 
     protected $fillable = [
-        'id_kelas','tingkat','kelas','jurusan','rombel'
+        'id_kelas','th_masuk','tingkat','kelas','jurusan','rombel'
     ];
 
     protected $primaryKey = 'id_kelas';

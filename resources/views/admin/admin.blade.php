@@ -11,7 +11,6 @@
                   <i class="fa fa-home"></i>
                 </a>
               </li>
-              <li><span>Guru</span></li>
               <li><span>{{ $judul }}</span></li>
             </ol>
 
@@ -50,23 +49,22 @@
                 <thead>
                   <tr>
                     <th>No</th>
-                    <th>NIP</th>
+                    <th>Username</th>
                     <th>Nama</th>
                     <th>Alamat</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
-				<?php $no = 1; ?>
-				@foreach($guru as $r)
+				@foreach($admin as $no => $r)
                   <tr>
-                    <td>{{ $no++ }}</td>
-                    <td>{{ $r->nip }}</td>
+                    <td>{{ ++$no }}</td>
+                    <td>{{ $r->username }}</td>
                     <td>{{ $r->nama }}</td>
                     <td>{{ $r->alamat }}</td>
                     <td class="actions">
-						<a href="#" title="Hapus" class="on-default" data-toggle="modal" data-target="#deleteData" data-nip="{{$r->nip}}"><i class="fas fa-trash-alt"></i></a>
-						<a href="#" title="Rubah" class="on-default" data-toggle="modal" data-target="#EditData"  data-nip="{{$r->nip}}"><i class="fas fa-edit"></i></a>
+						<a href="#" title="Hapus" class="on-default" data-toggle="modal" data-target="#deleteData" data-username="{{$r->username}}"><i class="fas fa-trash-alt"></i></a>
+						<a href="#" title="Rubah" class="on-default" data-toggle="modal" data-target="#EditData"  data-username="{{$r->username}}"><i class="fas fa-edit"></i></a>
                     </td>
                   </tr>
 				@endforeach
@@ -85,11 +83,11 @@
 				        <button type="button" class="close" data-dismiss="modal">&times;</button>
 				        <h4 class="modal-title text-center"><span class="fas fa-check"></span>Hapus</h4>
 				      </div>
-				        <form id="modal-form-delete" method="post" action="{{ route('data-guru.destroy', 'destroy') }}">
+				        <form id="modal-form-delete" method="post" action="{{ route('data-admin.destroy', 'destroy') }}">
 				            {{ method_field('delete') }}
 				            {{ csrf_field() }}
 				      <div class="modal-body">
-				            <input type="hidden" name="nip" id="nip" value="">
+				            <input type="hidden" name="username" id="username" value="">
 				            <p><center>Apakah anda yakin ingin menghpus data ini ?</center></p>
 				      </div>
 				      <div class="modal-footer">
@@ -107,16 +105,16 @@
 				    <div class="modal-content">
 				      <div class="modal-header">
 				        <button type="button" class="close" data-dismiss="modal">&times;</button>
-				        <h4 class="modal-title text-center"><span class="fas fa-plus"></span>Tambah Data Guru</h4>
+				        <h4 class="modal-title text-center"><span class="fas fa-plus"></span>Tambah Data {{ $judul }}</h4>
 				      </div>
-				        <form id="modal-form-delete" method="post" action="{{ route('data-guru.store', 'store') }}" enctype="multipart/form-data">
+				        <form id="modal-form-delete" method="post" action="{{ route('data-admin.store', 'store') }}" enctype="multipart/form-data">
 				            
 							{{ csrf_field() }}
 				      <div class="modal-body">
 				        <table class="table table-striped table-bordered table-hover no-footer">
 					<tr>
 						<td colspan="2" align="center">
-							<img src="{{ URL::asset('assets/images/teachers/'.'no-image.gif') }}" id="image-preview" alt="image preview" width="40%" />
+							<img src="{{ URL::asset('assets/images/admin/'.'no-image.gif') }}" id="image-preview" alt="image preview" width="40%" />
 							<br/>
 							<div class="file-field">
 								<div class="btn btn-primary btn-sm float-left">
@@ -126,23 +124,12 @@
 						</td>
 					</tr>
 					<tr>
-						<th><font style="color:red">*</font> NIP</th>
-						<td> <input type="number" name="nip" class="form-control" required/> </td>
+						<th><font style="color:red">*</font> Username</th>
+						<td> <input type="text" name="username" class="form-control" required/> </td>
 					</tr>
 					<tr>
 						<th><font style="color:red">*</font> Password</th>
 						<td><input type="password" name="password" class="form-control" required /></td>
-					</tr>
-					<tr>
-						<th>Wali Kelas</th>
-						<td>
-							<select name="id_kelas" class="form-control">
-								<option value="">Bukan Wali Kelas</option>
-								@foreach($kelas as $r)
-								<option value="{{ $r->id_kelas }}">{{ $r->tingkat." ".$r->jurusan." ".$r->rombel }}</option>
-								@endforeach
-							</select>
-						</td>
 					</tr>
 					<tr>
 						<th><font style="color:red">*</font> Nama</th>
@@ -157,10 +144,10 @@
 						<td><input type="date" name="tgl_lahir" class="form-control" /></td>
 					</tr>
 					<tr>
-						<th><font style="color:red">*</font> Jenis Kelamin</th>
+						<th>Jenis Kelamin</th>
 						<td>
-							<input type="radio" name="jenis_kelamin" value="Laki-Laki" required>Laki-Laki &nbsp; 
-							<input type="radio" name="jenis_kelamin" value="Perempuan" required>Perempuan				
+							<input type="radio" name="jenis_kelamin" value="Laki-Laki">Laki-Laki &nbsp; 
+							<input type="radio" name="jenis_kelamin" value="Perempuan">Perempuan				
 						</td>
 					</tr>
 					<tr>
@@ -171,7 +158,7 @@
 						<th>Agama</th>
 						<td>
 							<select name="agama" class="form-control">
-								<option value="">Pilih Agama</option>
+								<option>Pilih Agama</option>
 								@foreach($agama as $r)
 								<option value="{{ $r->id_agama }}">{{ $r->agama }}</option>
 								@endforeach
@@ -196,9 +183,9 @@
 				    <div class="modal-content">
 				      <div class="modal-header">
 				        <button type="button" class="close" data-dismiss="modal">&times;</button>
-				        <h4 class="modal-title text-center"><span class="fa fa-pen"></span>Edit Data Guru</h4>
+				        <h4 class="modal-title text-center"><span class="fa fa-pen"></span>Edit Data {{ $judul }}</h4>
 				      </div>
-				        <form id="modal-form-delete" method="post" action="{{ route('data-guru.update', 'update') }}" enctype="multipart/form-data">
+				        <form id="modal-form-delete" method="post" action="{{ route('data-admin.update', 'update') }}" enctype="multipart/form-data">
 				            {{ method_field('put') }}
 							{{ csrf_field() }}
 				      <div class="modal-body">
@@ -215,24 +202,13 @@
 						</td>
 					</tr>
 					<tr>
-						<th><font style="color:red">*</font> NIP</th>
+						<th><font style="color:red">*</font> Username</th>
 						<input type="hidden" name="hidden"/>
-						<td> <input type="number" name="nip" class="form-control"/> </td>
+						<td> <input type="text" name="username" class="form-control"/> </td>
 					</tr>
 					<tr>
 						<th><font style="color:red">*</font> Password</th>
 						<td><input type="password" name="password" class="form-control" /></td>
-					</tr>
-					<tr>
-						<th>Wali Kelas</th>
-						<td>
-							<select name="id_kelas" id="kelas" class="form-control">
-								<option value="">Bukan Wali Kelas</option>
-								@foreach($kelas as $r)
-								<option value="{{ $r->id_kelas }}">{{ $r->tingkat." ".$r->jurusan." ".$r->rombel }}</option>
-								@endforeach
-							</select>
-						</td>
 					</tr>
 					<tr>
 						<th><font style="color:red">*</font> Nama</th>
@@ -247,10 +223,10 @@
 						<td><input type="date" name="tgl_lahir" class="form-control" /></td>
 					</tr>
 					<tr>
-						<th><font style="color:red">*</font> Jenis Kelamin</th>
+						<th>Jenis Kelamin</th>
 						<td>
-							<input type="radio" name="jenis_kelamin" value="Laki-Laki" required>Laki-Laki &nbsp; 
-							<input type="radio" name="jenis_kelamin" value="Perempuan" required>Perempuan				
+							<input type="radio" name="jenis_kelamin" value="Laki-Laki">Laki-Laki &nbsp; 
+							<input type="radio" name="jenis_kelamin" value="Perempuan">Perempuan				
 						</td>
 					</tr>
 					<tr>
@@ -261,7 +237,7 @@
 						<th>Agama</th>
 						<td>
 							<select name="agama" id="agama1" class="form-control">
-								<option value="">Pilih Agama</option>
+								<option>Pilih Agama</option>
 								@foreach($agama as $r)
 								<option value="{{ $r->id_agama }}">{{ $r->agama }}</option>
 								@endforeach
@@ -283,19 +259,16 @@
 				<script type="text/javascript">
 					$(document).ready(function(){
 						$('#deleteData').on('show.bs.modal', function (event) {
-							$(this).find('.modal-body #nip').val($(event.relatedTarget).data('nip'))
+							$(this).find('.modal-body #username').val($(event.relatedTarget).data('username'))
 						  });
-						  
 						$('#EditData').on('show.bs.modal', function (event) {
-							var nip = $(event.relatedTarget).data('nip')
+							var username = $(event.relatedTarget).data('username')
 							var modal = $(this)
-							$.ajax({url: "/ajax-get", method:'post', dataType: "json", data:{"nip" : nip }, success: function(result){
-								$('#image-preview1').prop("src",'assets/images/Teachers/'+ (result.foto == null ? 'no-image.gif' : result.foto))
-								modal.find('input[name="hidden"]').val(nip)
-								modal.find('input[name="nip"]').val(nip)
-								modal.find('input[name="nip"]').prop('disabled', true)
-								if(result.walikelas != null)
-								modal.find('#kelas').val(result.walikelas)
+							$.ajax({url: "/ajax-get-admin", method:'post', dataType: "json", data:{"username" : username }, success: function(result){
+								$('#image-preview1').prop("src",'assets/images/admin/'+ (result.foto == null ? 'no-image.gif' : result.foto))
+								modal.find('input[name="hidden"]').val(username)
+								modal.find('input[name="username"]').val(username)
+								modal.find('input[name="username"]').prop('disabled', true)
 								modal.find('input[name="nama"]').val(result.nama)
 								modal.find('input[name="tempat_lahir"]').val(result.tempat_lahir)
 								modal.find('input[name="tgl_lahir"]').val(result.tgl_lahir)

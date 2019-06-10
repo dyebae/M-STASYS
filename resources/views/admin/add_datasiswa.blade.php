@@ -79,11 +79,11 @@
 						<td><input type="text" value = "{{ $siswa->nama }}" name="nama" class="form-control" required/></td>
 					</tr>
 					<tr>
-						<th>Tempat Lahir</th>
+						<th><font style="color:red">*</font> Tempat Lahir</th>
 						<td><input type="text" value = "{{ $siswa->tempat_lahir }}" name="tempat_lahir" class="form-control" /></td>
 					</tr>
 					<tr>
-						<th>Tanggal Lahir</th>
+						<th><font style="color:red">*</font> Tanggal Lahir</th>
 						<td><input type="date" name="tgl_lahir" value = "{{ $siswa->tgl_lahir }}" class="form-control" /></td>
 					</tr>
 					<tr>
@@ -227,7 +227,14 @@
                         window.location.href = "{{ route('data_siswa') }}"
 
                     }else if(res.status == '2'){ //update
-                        //window.location.href = "{{ route('data_siswa') }}"
+					new PNotify({
+                              title: 'Berhasil',
+                              text: res.info,
+                              type: 'success',
+                              icon: "fa fa-check",
+                              delay:2100
+                            })
+                        window.location.href = "{{ route('data_siswa') }}"
                     }else{
                         if(res.info == ''){ }else{
                             new PNotify({
