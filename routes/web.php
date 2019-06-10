@@ -116,3 +116,5 @@ Route::post('/apiHasilSoal', 'SoalController@apiHasilSoal');
 Route::get('/generate_password/{pass}', function($pass){
 	echo bcrypt($pass);
 });
+Route::post('/apiInsertHasil', 'SoalController@apiInsertHasil');
+Route::post('/apiRanking', 'SoalController@apiRanking');
