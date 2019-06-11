@@ -14,7 +14,7 @@ class CreateTbAmpuMapelTable extends Migration
     public function up()
     {
         Schema::create('tb_ampu_mapel', function (Blueprint $table) {
-            $table->string('id_ampu', 5)->primary();
+            $table->string('id_ampu', 10)->primary();
             $table->string('nip', 20)->index();
             $table->foreign('nip')->references('nip')->on('tb_guru');
             $table->string('id_mapel', 5)->index();

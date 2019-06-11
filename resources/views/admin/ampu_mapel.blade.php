@@ -20,16 +20,21 @@
 
         <!-- start: page -->
           <section class="panel">
-		   @if ($message = Session::get('info'))
-				<div class="alert alert-info alert-block" data-dismiss="alert">
+		   @if ($message = Session::get('error'))
+			<div class="alert alert-danger alert-block" data-dismiss="alert">
 					<strong>{{ $message }}</strong>
+			</div>
+		@endif
+		  @if ($message = Session::get('succ'))
+			<div class="alert alert-info alert-block" data-dismiss="alert">
+					<strong>Berhasil Dihapus :{{ $message }}</strong>
 				</div>
-		  @endif
-			@if ($message = Session::get('alert'))
-				<div class="alert	 alert-danger alert-block" data-dismiss="alert">
-					<strong>{{ $message }}</strong>
+		@endif
+		@if ($message = Session::get('fail'))
+			<div class="alert alert-warning alert-block" data-dismiss="alert">
+					<strong>Tidak dapat dihapus :{{ $message }}</strong>
 				</div>
-			@endif
+		@endif
             <header class="panel-heading">
               <div class="panel-actions">
                 <a href="#" class="fa fa-caret-down"></a>
@@ -40,13 +45,20 @@
               <div class="row">
                 <div class="col-sm-8">
                   <div class="mb-md">
-                    <button class="btn btn-primary"  data-toggle="modal" data-target="#Data"  data-type = "add">Tambah <i class="fas fa-plus"></i></button>
+                    <button class="btn btn-primary"  data-toggle="modal" data-target="#addData"  data-type = "add">Tambah <i class="fas fa-plus"></i></button>
                   </div>
                 </div>
 				<div class="col-sm-2">
                   <div class="mb-md">
-                    <button class="btn btn-primary"  data-toggle="modal" data-target="#Data"  data-type = "add">Tambah <i class="fas fa-plus"></i></button>
-                  </div>
+				  <form action="\get-data-ampu" id="form_ampu_from_semester" method="post">{{csrf_field()}}
+                    <select name="semester" id="semester" onChange="submit_form_ampu_from_semester()"class="form-control">
+						<option value="">Pilih Semester</option>
+						@foreach($listSemester as $sm)
+							<option @if($semester == $sm->id_semester) selected @endif value="{{$sm->id_semester}}">{{$sm->id_semester}}</option>
+						@endforeach
+					</select>
+				</form>
+				  </div>
                 </div>
               </div>
 			  <table class="table table-bordered table-striped mb-none" id="datatable-default">
@@ -62,6 +74,7 @@
                   </tr>
                 </thead>
                 <tbody>
+					<form method="post" action="\hapus_ampu">
 				@foreach($ampu as $key => $r)
                   <tr>
                     <td>{{ ++$key }}</td>
@@ -77,6 +90,98 @@
                 @endforeach
                 </tbody>
               </table>
+			  
+			  <div class="col-sm-2">
+                  <div class="mb-md">
+                    <input type="submit" value="Hapus" class="btn btn-danger"></form>
+                  </div>
+                </div>
             </div>
           </section>
+		  <div id="addData" class="modal fade" role="dialog">
+				  <div class="modal-dialog">
+				    <!-- Modal content-->
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal">&times;</button>
+				        <h4 class="modal-title text-center"><span class="fas fa-plus"></span>Tambah Data Ampu</h4>
+				      </div>
+				        <form id="submit_ampu" method="post" action="{{ route('data-ampu.store', 'store') }}">
+							{{ csrf_field() }}
+							<input type="hidden" value="{{$semester}}" name="id_semester">
+				      <div class="modal-body">
+				        <table class="table table-striped table-bordered table-hover no-footer">
+					<tr>
+						<th>ID Ampu</th>
+						<td><input type="text" name="id_ampu" class="form-control"></td>
+					</tr>
+					<tr>
+						<th>Nama Guru</th>
+						<td>
+							<select name="nip" class="form-control">
+								@foreach($guru as $g)
+									<option value="{{$g->nip}}">{{$g->nama}}</option>
+								@endforeach
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th>Mata Pelajaran</th>
+						<td>
+						<select name="id_mapel" class="form-control">
+							@foreach($mapel as $mp)
+								<option value="{{$mp->id_mapel}}">{{$mp->nama_mapel}}</option>
+							@endforeach
+						</select>
+						</td>
+					</tr>
+					<tr>
+						<th>Kategori</th>
+						<td>
+						<select name="id_kategori" class="form-control">
+							@foreach($kategori as $kt)
+								<option value="{{$kt->id_kategori}}">{{$kt->kategori_mapel}}</option>
+							@endforeach
+						</select>
+						</td>
+					</tr>
+					<tr><td colspan="2">
+					<strong>Pilih Kelas</strong>
+						<table class="table table-striped table-bordered table-hover no-footer">
+							<thead>
+								<th>No</th>
+								<th>Kelas</th>
+								<th>Pilih</th>
+							</thead>
+							<tbody>
+							@foreach($kelas as $no => $r)
+								<tr>
+									<td>{{ ++$no }}</td>
+									<td>{{ $r->tingkat.' '.$r->jurusan.' '.$r->rombel }}</td>
+									<td><input type="checkbox" value="{{$r->id_kelas}}" name="id_kelas[]"></td>
+								</tr>
+								@endforeach
+							</tbody>
+							</tbody>
+						</table>
+					</td></tr>
+				</table>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="submit" class="btn btn-info" onClick="submit_ampu"><span class="fas fa-plus"></span>Simpan</button>
+				        <button type="button" class="btn btn-default" data-dismiss="modal"><span class="fas fa-times-circle"></span> Batal</button>
+				      </div>
+				      </form>
+				    </div>
+				  </div>
+				</div>
+				<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+				<script type="text/javascript">
+				function submit_form_ampu_from_semester(){
+					document.getElementById("form_ampu_from_semester").submit();
+				}
+				function submit_ampu(){
+					document.getElementById("submit_ampu").submit();
+				}
+				</script>
 		  @endsection

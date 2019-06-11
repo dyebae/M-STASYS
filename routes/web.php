@@ -25,9 +25,11 @@ Route::Resource('data-mapel', 'MapelController');
 Route::Resource('data-ktmapel', 'KategoriMapelController');
 Route::Resource('data-agama', 'AgamaController');
 Route::Resource('data-semester', 'SemesterController');
+Route::Resource('data-ampu', 'AmpuMapelController');
 
 //Agama
 Route::get('/data_agama', ['middleware'=>'cek-sesi-admin', 'uses'=>'AgamaController@index'])->name('agama');
+Route::post('/hapus_ampu', ['middleware'=>'cek-sesi-admin', 'uses'=>'AmpuMapelController@hapus_ampu'])->name('agama');
 
 //Admin
 Route::get('/dashboard', ['middleware'=>'cek-sesi-admin', 'uses'=>'DashboardController@index'])->name('dashboard');
@@ -37,6 +39,7 @@ Route::get('/admin', ['middleware'=>'cek-sesi-admin', 'uses'=>'AdminOPController
 Route::get('/kepsek', ['middleware'=>'cek-sesi-admin', 'uses'=>'KepsekController@index'])->name('kepsek');
 Route::post('/ajax-get-kepsek', 'KepsekController@ajax_get');
 Route::post('/ajax-get-admin', 'AdminOPController@ajax_get');
+Route::post('/get-data-ampu', 'AmpuMapelController@data_ampu');
 
 Route::get('/data_siswa', ['middleware'=>'cek-sesi-admin', 'uses'=>'SiswaController@index'])->name('data_siswa');
 Route::get('/view_import_data_siswa', ['middleware'=>'cek-sesi-admin', 'uses'=>'SiswaController@view_import_data_siswa'])->name('view_import_data_siswa');
