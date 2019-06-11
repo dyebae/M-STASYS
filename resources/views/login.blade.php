@@ -98,8 +98,7 @@
                   <select name="level" class="form-control input-mb-md" data-plugin-multiselect id="ms_example1">
                     <option value="admin" selected>Admin</option>
                     <option value="kepsek">Kepala Sekolah</option>
-                    <option value="guru">Guru</option>
-                    <option value="siswa">Siswa</option>
+                    <!--<option value="guru">Kepala Sekolah</option>-->
                   </select>
 								</div>
 							</div>

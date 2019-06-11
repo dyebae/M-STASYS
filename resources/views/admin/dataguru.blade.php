@@ -1,3 +1,6 @@
+<?php
+$level = Session::get('logged_in')[0];
+?>
 @extends('admin.base')
 @section('content')
 <section role="main" class="content-body">
@@ -41,8 +44,9 @@
               <div class="row">
                 <div class="col-sm-6">
                   <div class="mb-md">
+				  @if($level =='admin')
                     <button class="btn btn-primary"  data-toggle="modal" data-target="#addData" data-nip="" >Tambah <i class="fas fa-plus"></i></button>
-                    <button class="btn btn-default">Cetak <i class="fas fa-print"></i></button>
+                   <!-- <button class="btn btn-default">Cetak <i class="fas fa-print"></i></button>-->@endif
                   </div>
                 </div>
               </div>
@@ -64,10 +68,10 @@
                     <td>{{ $r->nip }}</td>
                     <td>{{ $r->nama }}</td>
                     <td>{{ $r->alamat }}</td>
-                    <td class="actions">
+                    <td class="actions">@if($level == 'admin')
 						<a href="#" title="Hapus" class="on-default" data-toggle="modal" data-target="#deleteData" data-nip="{{$r->nip}}"><i class="fas fa-trash-alt"></i></a>
 						<a href="#" title="Rubah" class="on-default" data-toggle="modal" data-target="#EditData"  data-nip="{{$r->nip}}"><i class="fas fa-edit"></i></a>
-                    </td>
+                    @endif</td>
                   </tr>
 				@endforeach
                 </tbody>

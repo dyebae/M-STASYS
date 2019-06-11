@@ -1,5 +1,6 @@
 <?php
-switch(Session::get('logged_in')[0]){
+$level = Session::get('logged_in')[0];
+switch($level){
 	case 'admin' : $level = 'Administraor'; break;
 	case 'kepsek' : $level = 'Kepala Sekolah';break;
 	case 'guru' : $level = 'Guru';break;
@@ -153,7 +154,7 @@ switch(Session::get('logged_in')[0]){
 											<i class="far fa-user" aria-hidden="true"></i>
 											<span>Profil Pengguna</span>
 										</a>
-									</li>
+									</li>@if($level == 'Administraor')
 									<li <?php echo $active == 'admin' ? 'class="nav-active"':''; ?>>
 										<a href="{{ route('admin') }}">
 											<i class="fas fa-user-secret" aria-hidden="true"></i>
@@ -171,13 +172,14 @@ switch(Session::get('logged_in')[0]){
 											<i class="fas fa-heart" aria-hidden="true"></i>
 											<span>Agama</span>
 										</a>
-									</li>
+									</li>@endif
 									<li <?php echo $active == 'semester' ? 'class="nav-active"':''; ?>>
 										<a href="{{ route('semester') }}">
 											<i class="fas fa-file" aria-hidden="true"></i>
 											<span>Semester</span>
 										</a>
 									</li>
+
 									<li <?php echo $active == 'ampu_mapel' ? 'class="nav-active"':''; ?>>
 										<a href="{{ route('ampu_mapel') }}">
 											<i class="fas fa-book" aria-hidden="true"></i>
@@ -194,12 +196,12 @@ switch(Session::get('logged_in')[0]){
 												<a href="{{ route('data_siswa') }}">
 													Data Siswa
 												</a>
-											</li>
+											</li>@if($level=='Administraor')
 											<li <?php echo $active == 'import_data_siswa' ? 'class="nav-active"':''; ?>>
 												<a href="{{ route('view_import_data_siswa') }}">
 													Import Data Siswa
 												</a>
-											</li>
+											</li>@endif
 										</ul>
 									</li>
 									<li class="nav-parent  <?php if($active == 'data_guru' or $active == 'import_data_guru') echo 'nav-active'; ?>">
@@ -212,12 +214,12 @@ switch(Session::get('logged_in')[0]){
 												<a href="{{ route('data_guru') }}">
 													Data Guru
 												</a>
-											</li>
+											</li>@if($level=='Administraor')
 											<li <?php echo $active == 'import_data_guru' ? 'class="nav-active"':''; ?>>
 												<a href="{{ route('import-data-guru') }}">
 													Import Data Guru
 												</a>
-											</li>
+											</li>@endif
 										</ul>
 									</li>
 									<li class="nav-parent <?php echo $active == 'data_kelas' ? 'nav-active':''; ?>">

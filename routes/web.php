@@ -29,7 +29,7 @@ Route::Resource('data-ampu', 'AmpuMapelController');
 
 //Agama
 Route::get('/data_agama', ['middleware'=>'cek-sesi-admin', 'uses'=>'AgamaController@index'])->name('agama');
-Route::post('/hapus_ampu', ['middleware'=>'cek-sesi-admin', 'uses'=>'AmpuMapelController@hapus_ampu'])->name('agama');
+Route::post('/hapus_ampu', ['middleware'=>'cek-sesi-admin', 'uses'=>'AmpuMapelController@hapus_ampu']);
 
 //Admin
 Route::get('/dashboard', ['middleware'=>'cek-sesi-admin', 'uses'=>'DashboardController@index'])->name('dashboard');

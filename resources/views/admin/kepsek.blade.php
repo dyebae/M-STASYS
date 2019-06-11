@@ -41,7 +41,7 @@
                 <div class="col-sm-6">
                   <div class="mb-md">
                     <button class="btn btn-primary"  data-toggle="modal" data-target="#addData" data-nip="" >Tambah <i class="fas fa-plus"></i></button>
-                    <button class="btn btn-default">Cetak <i class="fas fa-print"></i></button>
+                   
                   </div>
                 </div>
               </div>

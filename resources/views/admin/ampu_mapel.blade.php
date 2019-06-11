@@ -1,3 +1,6 @@
+<?php
+$level = Session::get('logged_in')[0];
+?>
 @extends('admin.base')
 @section('content')
 <section role="main" class="content-body">
@@ -45,8 +48,9 @@
               <div class="row">
                 <div class="col-sm-8">
                   <div class="mb-md">
+				  @if($level =='admin')
                     <button class="btn btn-primary"  data-toggle="modal" data-target="#addData"  data-type = "add">Tambah <i class="fas fa-plus"></i></button>
-                  </div>
+                  @endif</div>
                 </div>
 				<div class="col-sm-2">
                   <div class="mb-md">
@@ -93,7 +97,8 @@
 			  
 			  <div class="col-sm-2">
                   <div class="mb-md">
-                    <input type="submit" value="Hapus" class="btn btn-danger"></form>
+				  @if($level == 'admin')
+                    <input type="submit" value="Hapus" class="btn btn-danger">@endif</form>
                   </div>
                 </div>
             </div>

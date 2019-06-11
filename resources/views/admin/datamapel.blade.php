@@ -1,3 +1,6 @@
+<?php
+$level = Session::get('logged_in')[0];
+?>
 @extends('admin.base')
 @section('content')
 <section role="main" class="content-body">
@@ -40,10 +43,9 @@
             <div class="panel-body">
               <div class="row">
                 <div class="col-sm-6">
-                  <div class="mb-md">
+                  <div class="mb-md">@if($level =='admin')
                     <button class="btn btn-primary"  data-toggle="modal" data-target="#Data"  data-type = "add">Tambah <i class="fas fa-plus"></i></button>
-                    <button class="btn btn-default">Cetak <i class="fas fa-print"></i></button>
-                  </div>
+                 @endif</div>
                 </div>
               </div>
               <table class="table table-bordered table-striped mb-none" id="datatable-default">
@@ -95,10 +97,10 @@
 						  <input type="text" id="nama_mapel" name="nama_mapel" class="form-control"  required />
 						</div>
 					  </div>
-				      <div class="modal-footer">
+				      <div class="modal-footer">@if($level =='admin')
 				        <button type="submit" class="btn btn-info" id="btnDelete"><span class="fas fa-plus"></span> Simpan</button>
 				        <button type="button" class="btn btn-default" data-dismiss="modal"><span class="fas fa-times-circle"></span> Batal</button>
-				      </div>
+				      @endif</div>
 				      </form>
 				    </div>
 				  </div>

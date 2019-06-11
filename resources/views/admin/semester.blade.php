@@ -1,3 +1,6 @@
+<?php
+$level = Session::get('logged_in')[0];
+?>
 @extends('admin.base')
 @section('content')
 <section role="main" class="content-body">
@@ -40,8 +43,9 @@
               <div class="row">
                 <div class="col-sm-6">
                   <div class="mb-md">
+				  @if($level=='admin')
                     <button data-toggle="modal"  data-type = "add" data-target="#Data" class="btn btn-primary">Tambah <i class="fas fa-plus"></i></button>
-                    <button class="btn btn-default">Print <i class="fas fa-print"></i></button>
+                   @endif
                   </div>
                 </div>
               </div>
@@ -63,9 +67,9 @@
                     <td>{{ $r->semester }}</td>
                     <td>{{ $r->thn_ajaran }}</td>
                     <td class="actions">
-						<a href="" class="on-default"" data-toggle="modal" data-target="#deleteData" data-id_semester="{{$r->id_semester}}"><i class="fas fa-trash-alt"></i></a>
+						@if($level =='admin')<a href="" class="on-default"" data-toggle="modal" data-target="#deleteData" data-id_semester="{{$r->id_semester}}"><i class="fas fa-trash-alt"></i></a>
 						<a href="#" class="on-default" data-toggle="modal" data-target="#Data" data-type = "edit" data-data="{{ $r->id_semester.'-'.$r->semester.'-'.$r->thn_ajaran }}"><i class="fas fa-edit"></i></a>
-                    </td>
+                    @endif &nbsp</td>
                   </tr>
                 @endforeach
                 </tbody>

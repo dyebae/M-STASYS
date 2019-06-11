@@ -1,3 +1,6 @@
+<?php
+$level = Session::get('logged_in')[0];
+?>
 @extends('admin.base')
 @section('content')
 <section role="main" class="content-body">
@@ -45,8 +48,9 @@
               <div class="row">
                 <div class="col-sm-8">
                   <div class="mb-md">
+				  @if($level=='admin')
 					<a href="{{ route('add_data_siswa') }}" class="btn btn-primary">Tambah <i class="fas fa-plus"></i></a>
-                    <button class="btn btn-default">Cetak <i class="fas fa-print"></i></button>
+                    <!-- <button class="btn btn-default">Cetak <i class="fas fa-print"></i></button>-->@endif
                   </div>
                 </div>
 				<div class="col-sm-2">
@@ -78,11 +82,11 @@
                     <td>{{ $r->nis }}</td>
                     <td>{{ $r->nama }}</td>
                     <td>{{ $r->kelas->tingkat." ".$r->kelas->jurusan." ".$r->kelas->rombel }}</td>
-                    <td class="actions">
+                    <td class="actions">@if($level == 'admin')
                       <a title="Lihat" href="{{ route('view_data_siswa', ['nis'=>$r->nis]) }}" class="on-default"><i class="fas fa-info"></i></a>
                       <a title="Rubah" href="{{ route('update_data_siswa', ['nis'=>$r->nis]) }}" class="on-default"><i class="fas fa-edit"></i></a>
                       <a title="Hapus" href="#" class="on-default" data-toggle="modal" data-target="#deleteData" data-nis = "{{ $r->nis }}"><i class="fas fa-trash-alt"></i></a>
-                    </td>
+                    @endif</td>
                   </tr>
 				  @endforeach
                 </tbody>
