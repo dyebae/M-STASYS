@@ -29,17 +29,31 @@ Route::Resource('data-ampu', 'AmpuMapelController');
 
 //Agama
 Route::get('/data_agama', ['middleware'=>'cek-sesi-admin', 'uses'=>'AgamaController@index'])->name('agama');
+
 Route::post('/hapus_ampu', ['middleware'=>'cek-sesi-admin', 'uses'=>'AmpuMapelController@hapus_ampu']);
+Route::post('/get-data-ampu', 'AmpuMapelController@data_ampu');
+Route::get('/ampu_mapel', ['middleware'=>'cek-sesi-admin', 'uses'=>'AmpuMapelController@index'])->name('ampu_mapel');
 
 //Admin
 Route::get('/dashboard', ['middleware'=>'cek-sesi-admin', 'uses'=>'DashboardController@index'])->name('dashboard');
 Route::put('/update_profil_admin', ['middleware'=>'cek-sesi-admin', 'uses'=>'AdminOPController@update_profil_admin']);
 
-Route::get('/admin', ['middleware'=>'cek-sesi-admin', 'uses'=>'AdminOPController@index'])->name('admin');
+//Kepsek
 Route::get('/kepsek', ['middleware'=>'cek-sesi-admin', 'uses'=>'KepsekController@index'])->name('kepsek');
 Route::post('/ajax-get-kepsek', 'KepsekController@ajax_get');
+
+//ADMINOP
+Route::get('/admin', ['middleware'=>'cek-sesi-admin', 'uses'=>'AdminOPController@index'])->name('admin');
 Route::post('/ajax-get-admin', 'AdminOPController@ajax_get');
-Route::post('/get-data-ampu', 'AmpuMapelController@data_ampu');
+
+//Nilai
+Route::get('/detail_nilai', ['middleware'=>'cek-sesi-admin', 'uses'=>'NilaiController@detail_nilai'])->name('detail_nilai');
+Route::post('/store_detail_nilai', ['middleware'=>'cek-sesi-admin', 'uses'=>'NilaiController@store_detail_nilai']);
+Route::delete('/destroy_detail_nilai', ['middleware'=>'cek-sesi-admin', 'uses'=>'NilaiController@destroy_detail_nilai']);
+Route::get('/nilai_siswa', ['middleware'=>'cek-sesi-admin', 'uses'=>'NilaiController@index'])->name('nilai_siswa');
+
+///Siswa
+Route::get('/dashboard_siswa', ['middleware' => 'cek-sesi-siswa', 'uses'=>'SiswaController@dashboard_siswa'])->name('dashboard_siswa');
 
 Route::get('/data_siswa', ['middleware'=>'cek-sesi-admin', 'uses'=>'SiswaController@index'])->name('data_siswa');
 Route::get('/view_import_data_siswa', ['middleware'=>'cek-sesi-admin', 'uses'=>'SiswaController@view_import_data_siswa'])->name('view_import_data_siswa');
@@ -48,24 +62,32 @@ Route::get('/data_siswa/update/{nis}', ['middleware'=>'cek-sesi-admin', 'uses'=>
 Route::get('/data_siswa/view/{nis}', ['middleware'=>'cek-sesi-admin', 'uses'=>'SiswaController@view'])->name('view_data_siswa');
 Route::get('/siswa_from_class', ['middleware'=>'cek-sesi-admin', 'uses'=>'SiswaController@siswa_from_class']);
 
+
+//Guru
+Route::get('/dashboard_guru', ['middleware'=>'cek-sesi-guru', 'uses'=>'GuruController@dashboard_guru'])->name('dashboard_guru');
+
 Route::get('/data_guru', ['middleware'=>'cek-sesi-admin', 'uses'=>'GuruController@index'])->name('data_guru');
 Route::post('/ajax-get', 'GuruController@ajax_get');
 Route::get('/view_import_data_guru', ['middleware'=>'cek-sesi-admin', 'uses'=>'GuruController@view_import_data_guru'])->name('import-data-guru');
 
+
+//Kelas
 Route::get('/data_kelas', ['middleware'=>'cek-sesi-admin', 'uses'=>'KelasController@index'])->name('data_kelas');
 Route::get('/data_kelas_dist', ['middleware'=>'cek-sesi-admin', 'uses'=>'KelasController@data_kelas_dist']);
 
-Route::get('/ampu_mapel', ['middleware'=>'cek-sesi-admin', 'uses'=>'AmpuMapelController@index'])->name('ampu_mapel');
 Route::get('/mapel', ['middleware'=>'cek-sesi-admin', 'uses'=>'MapelController@index'])->name('mapel');
+
 Route::get('/kategori_mapel', ['middleware'=>'cek-sesi-admin', 'uses'=>'KategoriMapelController@index'])->name('kategori_mapel');
-Route::get('/nilai_siswa', ['middleware'=>'cek-sesi-admin', 'uses'=>'NilaiController@index'])->name('nilai_siswa');
+
 Route::get('/semester', ['middleware'=>'cek-sesi-admin', 'uses'=>'SemesterController@index'])->name('semester');
 
+//Login
 Route::get('/', 'LoginController@index')->name('login');
 Route::get('/profile', 'LoginController@profile')->name('profile');
 Route::get('/logout', 'LoginController@logout')->name('logout');
 Route::post('/login_procces', 'LoginController@process')->name('login_procces');
 Route::post('/unlock', 'LoginController@unlock');
+Route::get('/restricted', 'LoginController@restricted');
 
 //ImportExport
 Route::post('/import-siswa', 'ImportExport@import_siswa');

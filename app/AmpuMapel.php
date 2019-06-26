@@ -9,7 +9,7 @@ class AmpuMapel extends Model
     protected $table = 'tb_ampu_mapel';
 
     protected $fillable = [
-        'id_ampu','nip','id_mapel','id_kelas','id_kategori','id_semester'
+        'nip','id_mapel','id_kelas','id_kategori','id_semester'
     ];
 
     protected $primaryKey = 'id_ampu';

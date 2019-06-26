@@ -24,6 +24,11 @@ class SiswaController extends Controller
 		//dd($data);
 		return view('admin.datasiswa', $data);
 	}
+	public function dashboard_siswa(){
+		$data['active'] = '';
+		$data['judul'] = 'Beranda';
+		return view('siswa.dashboard', $data);
+	}
 	public function siswa_from_class(Request $req){
 		$data['active'] = 'data_siswa';
 		$data['kelas'] = Kelas::all();
@@ -180,7 +185,7 @@ class SiswaController extends Controller
 	public function update(Request $req){
 		$check = [
 			      'foto'	=> 'max:2000|mimes:jpg,png,jpeg',
-				  'nis'	=> 'required|max:9999999999|numeric|not_in:0|regex:/^([1-9][0-9]+)/',
+				  //'nis'	=> 'required|max:9999999999|numeric|not_in:0|regex:/^([1-9][0-9]+)/',
 				  'nisn'	=> 'required|max:9999999999|numeric|not_in:0|regex:/^([1-9][0-9]+)/',
 				  'password' =>'',
 				  'jenis_kelamin' => 'required',
@@ -193,7 +198,7 @@ class SiswaController extends Controller
 			// return redirect('/data_siswa/add')->with(['alert'=>$validator->messages()->all()]);
       return response()->json([
         'foto'     => $validator->messages()->first('foto'),
-        'nis'      => $validator->messages()->first('nis'),
+        //'nis'      => $validator->messages()->first('nis'),
         'nisn'     => $validator->messages()->first('nisn'),
         'password' => $validator->messages()->first('password'),
 		'jenis_kelamin' => '',
@@ -203,7 +208,7 @@ class SiswaController extends Controller
 		}else{
 				$uploadedFile = $req->file('foto');
 				$siswa = [
-					'nis' => $req->nis,
+					//'nis' => $req->nis,
 					'nisn' => $req->nisn,
 					'no_ijasah_smp' => $req->no_ijasah_smp,
 					'no_un' => $req->no_un,
@@ -217,11 +222,11 @@ class SiswaController extends Controller
 				];
 				if($uploadedFile != ""){
 					$path = 'assets/images/students/';
-					$siswa['foto'] = $req->nis. '.' . $uploadedFile->getClientOriginalExtension();
+					$siswa['foto'] = $req->hidden. '.' . $uploadedFile->getClientOriginalExtension();
 					$uploadedFile->move($path, $siswa['foto']);
 				}
 				if($req->password != "") $siswa['password'] = $req->password;
-				$update = Siswa::findOrFail($req->nis);
+				$update = Siswa::findOrFail($req->hidden);
 				$update->update($siswa);
 				if($update){
 					// return redirect('/data_siswa')->with(['info' => 'Siswa Berhasil diperbaharui']);

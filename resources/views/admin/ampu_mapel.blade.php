@@ -94,11 +94,13 @@ $level = Session::get('logged_in')[0];
                 @endforeach
                 </tbody>
               </table>
-			  
-			  <div class="col-sm-2">
+			  <br>
+			  <div class="col-sm-8">
                   <div class="mb-md">
 				  @if($level == 'admin')
-                    <input type="submit" value="Hapus" class="btn btn-danger">@endif</form>
+                    <input type="submit" value="Hapus" class="btn btn-danger"></form>
+                    <button class="btn btn-warning" onClick="checkall(true)">Pilih Semua</button>
+                    <button class="btn btn-default" onClick="checkall(false)">Reset</button> @endif 
                   </div>
                 </div>
             </div>
@@ -116,10 +118,6 @@ $level = Session::get('logged_in')[0];
 							<input type="hidden" value="{{$semester}}" name="id_semester">
 				      <div class="modal-body">
 				        <table class="table table-striped table-bordered table-hover no-footer">
-					<tr>
-						<th>ID Ampu</th>
-						<td><input type="text" name="id_ampu" class="form-control"></td>
-					</tr>
 					<tr>
 						<th>Nama Guru</th>
 						<td>
@@ -187,6 +185,11 @@ $level = Session::get('logged_in')[0];
 				}
 				function submit_ampu(){
 					document.getElementById("submit_ampu").submit();
+				}
+				function checkall(a){
+					$('input[name="id_ampu[]').each(function() {
+						this.checked=a;
+					});
 				}
 				</script>
 		  @endsection

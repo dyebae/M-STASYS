@@ -64,7 +64,7 @@ $level = Session::get('logged_in')[0];
                 <thead>
                   <tr>
                     <th>No</th>
-                    <th>ID</th>
+                    <th>Kode</th>
                     <th>Tahun Masuk</th>
                     <th>Tingkat</th>
                     <th>Jurusan</th>
@@ -104,7 +104,7 @@ $level = Session::get('logged_in')[0];
 				            {{ csrf_field() }}
 				      <div class="modal-body">
 						<div class="form-group has-warning">
-						  <label for="id_kelas" class="form-control-label">ID Kelas</label>
+						  <label for="id_kelas" class="form-control-label">Kode Kelas</label>
 						  <input type="text" id="id_kelas" name="id_kelas" class="form-control"  required />
 						  <input type="hidden" id="hiden" name="id_kelas" class="form-control" />
 						</div>

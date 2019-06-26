@@ -9,7 +9,7 @@ class DetailNilai extends Model
     protected $table = 'tb_detail_nilai';
 
     protected $fillable = [
-        'id_detail','jenis_nilai'
+        'id_detail','jenis_nilai','kategori_nilai'
     ];
 
     protected $primaryKey = 'id_detail';

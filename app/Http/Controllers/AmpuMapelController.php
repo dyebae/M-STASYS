@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use DB;
 use Illuminate\Http\Request;
 use App\Semester;
+use App\AmpuMapel as Ampu;
 use \Illuminate\Database\QueryException;
 class AmpuMapelController extends Controller
 {
@@ -36,7 +37,7 @@ class AmpuMapelController extends Controller
 		if(count($req->id_ampu) > 0){
 		foreach($req->id_ampu as $v){
 			try{
-				$ampu = \App\AmpuMapel::findOrfail($v);
+				$ampu = Ampu::findOrfail($v);
 				$ampu->delete();
 				$succ++;
 			}catch(QueryException $e){
@@ -44,9 +45,9 @@ class AmpuMapelController extends Controller
 			}
 			
 		}
-		return back()->with(['succ'=>$succ, 'fail'=>$fail]);
+		return redirect('ampu_mapel')->with(['succ'=>$succ, 'fail'=>$fail]);
 		}
-		return back()->with(['error'=>'Tidak Ada Data yang dihapus']);
+		return redirect('ampu_mapel')->with(['error'=>'Tidak Ada Data yang dihapus']);
 	}
 	public function data_ampu(Request $req){
 		$semester = $req->semester;
@@ -77,10 +78,7 @@ class AmpuMapelController extends Controller
 						'id_kategori' => $req->id_kategori,
 						'id_semester' => $req->id_semester,
 			];
-			$ind = 1;
-			
 			foreach($req->id_kelas as $kls){
-				$data['id_ampu'] = $req->id_ampu.'-'.$ind++;
 				$data['id_kelas'] = $kls;
 				\App\AmpuMapel::create($data);
 			}

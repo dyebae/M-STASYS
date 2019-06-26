@@ -83,6 +83,15 @@ class GuruController extends Controller
 	public function ajax_get(Request $req){
 		return json_encode(Guru::findOrFail($req->nip));
 	}
+	public function dashboard_guru(){
+		$data['active'] = 'data_guru';
+		$data['judul'] = 'Data Guru';
+		return view('guru.dashboard', $data);
+	}
+	
+	
+	
+	
     // ------------ API GURU ----------------------- ///
     public function apiLogin(Request $request){
           $auth = auth()->guard('guru');
@@ -93,7 +102,7 @@ class GuruController extends Controller
           ];
 
           $validator = Validator::make($request->all(), [
-              'nip'   => 'required|digits:18|numeric|not_in:0|regex:/^([1-9][0-9]+)/',
+              'nip'   => 'required|max:18|not_in:0|regex:/^([1-9][0-9]+)/',
               'password'=> 'required|string|min:6|max:20|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/',
           ]);
 
@@ -123,7 +132,20 @@ class GuruController extends Controller
 								->join('tb_agama', 'tb_guru.id_agama', '=', 'tb_agama.id_agama')
 							  ->where('nip', $nip)
 								->first();
-
+		/*$guru = DB::table('tb_guru')
+				->join('tb_agama', 'tb_guru.id_agama', '=', 'tb_agama.id_agama')
+				->join('tb_kelas', 'tb_guru.walikelas', '=', 'tb_kelas.id_kelas')
+				->where('nip', $nip)->get();
+				$data = ['nip' => $guru->nip,
+						 //'walikelas' => $guru->tingkat.' '.$guru->jurusan.' '.$guru->rombel,
+						 'walikelas' => $guru->nama,
+						 'nama' => $guru->nama,
+						 'tempat_lahir' => $guru->tempat_lahir,
+						 'tgl_lahir' => $guru->tgl_lahir,
+						 'alamat' => $guru->alamat,
+						 'agama' => $guru->alamat,
+						 'jenis_kelamin' => $guru->jenis_kelamin,
+						 'foto' => $guru->foto];*/
         return json_encode($data);
     }
 

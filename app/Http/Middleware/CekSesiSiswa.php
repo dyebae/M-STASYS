@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class cekSessionAdmin
+class CekSesiSiswa
 {
     /**
      * Handle an incoming request.
@@ -15,8 +15,8 @@ class cekSessionAdmin
      */
     public function handle($request, Closure $next)
     {
-        if(\Session::get('logged_in')[0] == "admin" or \Session::get('logged_in')[0] == "kepsek")
+        if(\Session::get('logged_in')[0] == "siswa")
 			return $next($request);
 		return redirect('/restricted');
-	}
+    }
 }

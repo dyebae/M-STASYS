@@ -1,6 +1,3 @@
-<?php
-$level = Session::get('logged_in')[0];
-?>
 @extends('admin.base')
 @section('content')
 <section role="main" class="content-body">
@@ -23,16 +20,16 @@ $level = Session::get('logged_in')[0];
 
         <!-- start: page -->
           <section class="panel">
-		@if ($message = Session::get('info'))
-			<div class="alert alert-info alert-block" data-dismiss="alert">
-				<strong>{{ $message }}</strong>
-			</div>
-		@endif
-		@if ($message = Session::get('alert'))
-			<div class="alert alert-danger alert-block" data-dismiss="alert">
-				<strong>{{ $message }}</strong>
-			</div>
-		@endif
+		   @if ($message = Session::get('info'))
+				<div class="alert alert-info alert-block" data-dismiss="alert">
+					<strong>{{ $message }}</strong>
+				</div>
+		  @endif
+			@if ($message = Session::get('alert'))
+				<div class="alert	 alert-danger alert-block" data-dismiss="alert">
+					<strong>{{ $message }}</strong>
+				</div>
+			@endif
             <header class="panel-heading">
               <div class="panel-actions">
                 <a href="#" class="fa fa-caret-down"></a>
@@ -43,9 +40,8 @@ $level = Session::get('logged_in')[0];
               <div class="row">
                 <div class="col-sm-6">
                   <div class="mb-md">
-				  @if($level=='admin')
-                    <button data-toggle="modal"  data-type = "add" data-target="#Data" class="btn btn-primary">Tambah <i class="fas fa-plus"></i></button>
-                   @endif
+                    <button class="btn btn-primary"  data-toggle="modal" data-target="#Data"  data-type = "add">Tambah <i class="fas fa-plus"></i></button>
+                    
                   </div>
                 </div>
               </div>
@@ -53,30 +49,30 @@ $level = Session::get('logged_in')[0];
                 <thead>
                   <tr>
                     <th>No</th>
-                    <th>Kode Semester</th>
-                    <th>Semester</th>
-                    <th>Tahun Pelajaran</th>
-                    <th>Actions</th>
+                    <th>Kode</th>
+                    <th>Jenis Nilai</th>
+                    <th>Katgori Nilai</th>
+                    <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
-				@foreach($semester as $key => $r)
+				@foreach($dns as $key => $dn)
                   <tr>
                     <td>{{ ++$key }}</td>
-                    <td>{{ $r->id_semester }}</td>
-                    <td>{{ $r->semester }}</td>
-                    <td>{{ $r->thn_ajaran }}</td>
+                    <td>{{ $dn->id_detail }}</td>
+                    <td>{{ $dn->jenis_nilai }}</td>
+                    <td>{{ toKategori($dn->kategori_nilai) }}</td>
                     <td class="actions">
-						@if($level =='admin')<a href="" class="on-default"" data-toggle="modal" data-target="#deleteData" data-id_semester="{{$r->id_semester}}"><i class="fas fa-trash-alt"></i></a>
-						<a href="#" class="on-default" data-toggle="modal" data-target="#Data" data-type = "edit" data-data="{{ $r->id_semester.'-'.$r->semester.'-'.$r->thn_ajaran }}"><i class="fas fa-edit"></i></a>
-                    @endif &nbsp</td>
+						<a href="" class="on-default"" data-toggle="modal" data-target="#deleteData" data-id_detail="{{$dn->id_detail}}"><i class="fas fa-trash-alt"></i></a>
+					</td>
                   </tr>
                 @endforeach
                 </tbody>
               </table>
+			  
             </div>
           </section>
-		  <!---- Modal Data ------>
+		  
 		  <div id="Data" class="modal fade" role="dialog">
 				  <div class="modal-dialog">
 				    <!-- Modal content-->
@@ -85,21 +81,28 @@ $level = Session::get('logged_in')[0];
 				        <button type="button" class="close" data-dismiss="modal">&times;</button>
 				        <h4 class="modal-title text-center"></h4>
 				      </div>
-				        <form id="modal-form-delete" method="post" action="{{ route('data-semester.store', 'store') }}">
+				        <form id="modal-form-delete" method="post" action="/store_detail_nilai">
 				            {{ csrf_field() }}
 				      <div class="modal-body">
 						<div class="form-group has-warning">
-						  <label for="id_semester" class="form-control-label">Kode Semester</label>
-						  <input type="text" id="id_semester" name="id_semester" class="form-control"  required />
-						  <input type="hidden" id="hiden" name="id_semester" class="form-control" />
+						  <label for="agama" class="form-control-label">Kode Detail Nilai</label>
+						  <input type="text" id="id_detail" name="id_detail" class="form-control"  required />
 						</div>
+					  </div>
+					  <div class="modal-body">
 						<div class="form-group has-warning">
-						  <label for="id_semester" class="form-control-label">Semester</label>
-						  <input type="number" id="semester" name="semester" class="form-control"  required />
+						  <label for="agama" class="form-control-label">Jenis Nilai</label>
+						  <input type="text" id="jenis_nilai" name="jenis_nilai" class="form-control"  required />
 						</div>
+					  </div>
+					  <div class="modal-body">
 						<div class="form-group has-warning">
-						  <label for="thn_ajaran" class="form-control-label">Tahun Pelajaran</label>
-						  <input type="text" id="thn_ajaran" name="thn_ajaran" class="form-control"  required />
+						  <label for="agama" class="form-control-label">Kategori Nilai</label>
+						  <select name="kategori_nilai" id="kategori_nilai" required>
+								<option value="ph">Penilaian Harian</option>
+								<option value="pts">Penilaian Tengah Semester</option>
+								<option value="pas">Penilaian Akhir Semester</option>
+						  </select>
 						</div>
 					  </div>
 				      <div class="modal-footer">
@@ -120,11 +123,11 @@ $level = Session::get('logged_in')[0];
 				        <button type="button" class="close" data-dismiss="modal">&times;</button>
 				        <h4 class="modal-title text-center"><span class="fas fa-check"></span>Hapus</h4>
 				      </div>
-				        <form id="modal-form-delete" method="post" action="{{ route('data-semester.destroy', 'destroy') }}">
+				        <form id="modal-form-delete" method="post" action="/destroy_detail_nilai">
 				            {{ method_field('delete') }}
 				            {{ csrf_field() }}
 				      <div class="modal-body">
-				            <input type="hidden" name="id_semester" id="id_semester" value="">
+				            <input type="hidden" name="id_detail" id="id_detail" value="">
 				            <p><center>Apakah anda yakin ingin menghpus data ini ?</center></p>
 				      </div>
 				      <div class="modal-footer">
@@ -141,36 +144,20 @@ $level = Session::get('logged_in')[0];
 					$(document).ready(function(){
 						$('#deleteData').on('show.bs.modal', function (event) {
 							var button     = $(event.relatedTarget)
-							var id_semester = button.data('id_semester')
+							var id_detail = button.data('id_detail')
 							var modal      = $(this)
-							modal.find('.modal-body #id_semester').val(id_semester)
-						  });
-
-						  $('#Data').on('show.bs.modal', function (event) {
-							var button     = $(event.relatedTarget)
-							var type = button.data('type')
-							var modal      = $(this)
-							if(type == 'edit'){
-								modal.find('.modal-title').text('Edit Semester')
-								var data = button.data('data').split('-')
-								modal.find('.modal-body #id_semester').prop('disabled', true)
-								modal.find('.modal-body #id_semester').val(data[0])
-								modal.find('.modal-body #hiden').prop('disabled', false)
-								modal.find('.modal-body #hiden').val(data[0])
-								modal.find('.modal-body #semester').val(data[1])
-								modal.find('.modal-body #thn_ajaran').val(data[2])
-							}else{
-								modal.find('.modal-title').text('Tambah Semester')
-								modal.find('.modal-body #hiden').prop('disabled', true)
-								modal.find('.modal-body #id_semester').prop('disabled', false);
-								modal.find('.modal-body #id_semester').val("")
-								modal.find('.modal-body #semester').val("")
-								modal.find('.modal-body #thn_ajaran').val("")
-							}
+							modal.find('.modal-body #id_detail').val(id_detail)
 						  });
 					});
-					function submit_kelas(){
-						document.getElementById("form_data_kelas_dist").submit();
-					}
 				</script>
 		  @endsection
+		  <?php 
+			function toKategori($i){
+				switch($i){
+					case 'ph' : return 'Penilaian Harian'; break;
+					case 'pts' : return 'Penilaian Tengah Semester'; break;
+					case 'pas' : return 'Penilaian Akhir Semester'; break;
+				}
+			}
+		  
+		  ?>

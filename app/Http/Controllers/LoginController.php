@@ -10,10 +10,13 @@ class LoginController extends Controller
 {
 
     public function index(){
-			if(\Session::get('logged_in')){
-				return redirect('/dashboard');
-			}
-			return view('login');
+		switch(\Session::get('logged_in')[0]){
+			case 'kepsek':
+			case 'admin': return redirect('dashboard');break;
+			case 'guru': return redirect('dashboard_guru');break;
+			case 'siswa': return redirect('dashboard_siswa');break;
+			default : return view('login');break;
+		}
     }
 
 	public function process(Request $req){
@@ -36,7 +39,14 @@ class LoginController extends Controller
 		
 		if($auth->attempt($credentials)){
 			$req->session()->put('logged_in', [$req->level, $req->username]);
-			return redirect('/dashboard')->with(['info' => 'Selamat Datang '.ucwords($req->level)]);
+			$red ='';
+			switch(\Session::get('logged_in')[0]){
+				case 'admin':
+				case 'kepsek': $red = '/dashboard';break;
+				case 'guru' : $red = '/dashboard_guru';break;
+				case 'siswa' : $red = '/dashboard_siswa';break;
+			}
+			return redirect($red)->with(['info' => 'Selamat Datang '.ucwords($req->level)]);
 		}
 		return redirect('/')->with(['alert' => 'Username atau Password Salah']);
 	}
@@ -69,25 +79,34 @@ class LoginController extends Controller
 			\Session::forget('logged_in');
 			return redirect('/')->with(['info' => 'Logout Berhasil']);
 	}
+	public function restricted(){
+		\Session::forget('logged_in');
+			return redirect('/')->with(['alert' => 'Akses Ditolak']);
+	}
 	public function profile(){
+		if(!\Session::get('logged_in'))
+			return redirect('restricted');
 		switch(\Session::get('logged_in')[0]){
 			case 'admin' : 
 							$view = 'admin.profile';
 							$d = \App\AdminOP::findOrfail(\Session::get('logged_in')[1]);
 							break;
 			case 'kepsek' : 
-							$view = 'admin.profile';
+							$view = 'admin.profile_kepsek';
 							$d = \App\Kepsek::findOrfail(\Session::get('logged_in')[1]);
 							break;
 			case 'guru' : 
-							$view = 'admin.profile';
+							$view = 'guru.profile';
 							$d = \App\Guru::findOrfail(\Session::get('logged_in')[1]);
 							break;
-			case 'siswa' : 
-							$view = 'admin.profile';
-							$d = \App\Siswa::findOrfail(\Session::get('logged_in')[1]);
+			case 'siswa' :
+							$data['url'] = 'update';
+							$data['siswa']  = \App\Siswa::findOrfail(\Session::get('logged_in')[1]);
+							$view = 'siswa.profile';
+							$d = '';//\App\Siswa::findOrfail(\Session::get('logged_in')[1]);
 							break;
 		}
+		
 		$data['kelas'] = \App\Kelas::all();
 		$data['agama'] = \App\Agama::all();
 		$data['d'] = $d;

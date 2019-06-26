@@ -38,14 +38,14 @@
               <h2 class="panel-title">{{ $judul }}</h2>
             </header>
             <div class="panel-body">
-          <form id="modal-form-delete" method="post" action="{{ route('data-admin.update', 'update') }}" enctype="multipart/form-data">
+          <form id="modal-form-delete" method="post" action="{{ route('data-kepsek.update', 'update') }}" enctype="multipart/form-data">
 				            {{ method_field('put') }}
 							{{ csrf_field() }}
-							<input type="hidden" value="{{$d->username}}" name="hidden">
+							<input type="hidden" value="{{$d->nip}}" name="hidden">
 				<table class="table table-striped table-bordered table-hover no-footer">
 					<tr>
 						<td colspan="2" align="center">
-							<img src="{{ URL::asset('assets/images/') }}@if(Session::get('logged_in')[0] == 'admin')/admin/@else/Teachers/@endif{{($d->foto == '') ? 'no-image.gif':$d->foto }}" id="image-preview" alt="image preview" width="20%" />
+							<img src="{{ URL::asset('assets/images/Teachers') }}/{{($d->foto == '') ? 'no-image.gif':$d->foto }}" id="image-preview" alt="image preview" width="20%" />
 							<br/>
 							<div class="file-field">
 								<div class="btn btn-primary btn-sm float-left">
@@ -55,8 +55,8 @@
 						</td>
 					</tr>
 					<tr>
-						<th>Username</th>
-						<td> <input type="text" value = "{{ $d->username }}" name="username" class="form-control" disabled/>
+						<th>NIP</th>
+						<td> <input type="text" value = "{{ $d->nip }}" name="username" class="form-control" disabled/>
     						<!-- <div id="alertnis"></div> -->
 						</td>
 					</tr>

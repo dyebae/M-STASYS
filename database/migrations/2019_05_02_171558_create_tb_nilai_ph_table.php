@@ -17,7 +17,7 @@ class CreateTbNilaiPhTable extends Migration
             $table->increments('id_nilai');
             $table->string('nis', 10)->index();
             $table->foreign('nis')->references('nis')->on('tb_siswa');
-            $table->string('id_ampu', 5)->index();
+            $table->integer('id_ampu', false, true)->index();
             $table->foreign('id_ampu')->references('id_ampu')->on('tb_ampu_mapel');
             $table->string('id_detail', 5)->index();
             $table->foreign('id_detail')->references('id_detail')->on('tb_detail_nilai');

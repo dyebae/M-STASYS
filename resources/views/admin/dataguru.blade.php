@@ -131,11 +131,19 @@ $level = Session::get('logged_in')[0];
 					</tr>
 					<tr>
 						<th><font style="color:red">*</font> NIP</th>
-						<td> <input type="number" name="nip" class="form-control" required/> </td>
+						<td> <input type="number" name="nip" class="form-control" required/> 
+						<div class="alert alert-info alert-block">
+								<strong>* Format [ 18 Digit, 1-9 ]</strong>
+						</div>
+						</td>
 					</tr>
 					<tr>
 						<th><font style="color:red">*</font> Password</th>
-						<td><input type="password" name="password" class="form-control" required /></td>
+						<td><input type="password" name="password" class="form-control" required />
+						<div class="alert alert-info alert-block">
+								<strong>* Format [ Min 6 Char, A-Z, a-z, 1-9 ] contoh : ContoH123</strong>
+							</div>
+						</td>
 					</tr>
 					<tr>
 						<th>Wali Kelas</th>
@@ -225,7 +233,12 @@ $level = Session::get('logged_in')[0];
 					</tr>
 					<tr>
 						<th><font style="color:red">*</font> Password</th>
-						<td><input type="password" name="password" class="form-control" /></td>
+						<td><input type="password" name="password" class="form-control" />
+						<div class="alert alert-info alert-block">
+								<strong>* Format [ Min 6 Char, A-Z, a-z, 1-9 ] contoh : contoH123</strong><br>
+								<strong>* Abaikan jika tidak dirubah</strong>
+						</div>
+						</td>
 					</tr>
 					<tr>
 						<th>Wali Kelas</th>

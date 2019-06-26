@@ -109,7 +109,7 @@ switch($level){
 							<ul class="list-unstyled">
 								<li class="divider"></li>
 								<li>
-									<a role="menuitem" tabindex="-1" href="#"><i class="fa fa-user"></i>Profil</a>
+									<a role="menuitem" tabindex="-1" href="{{ route('profile') }}"><i class="fa fa-user"></i>Profil</a>
 								</li>
 								<li>
 									<a role="menuitem" tabindex="-1" href="#" data-lock-screen="true"><i class="fa fa-lock"></i> Kunci Layar</a>
@@ -143,7 +143,7 @@ switch($level){
 							<nav id="menu" class="nav-main" role="navigation">
 								<ul class="nav nav-main">
 									<li <?php echo $active == '' ? 'class="nav-active"':''; ?>>
-										<a href="{{ route('dashboard') }}">
+										<a href="{{ route('dashboard_guru') }}">
 											<i class="fa fa-home" aria-hidden="true"></i>
 											<span>Beranda</span>
 										</a>
@@ -154,111 +154,6 @@ switch($level){
 											<i class="far fa-user" aria-hidden="true"></i>
 											<span>Profil Pengguna</span>
 										</a>
-									</li>@if($level == 'Administraor')
-									<li <?php echo $active == 'admin' ? 'class="nav-active"':''; ?>>
-										<a href="{{ route('admin') }}">
-											<i class="fas fa-user-secret" aria-hidden="true"></i>
-											<span>Administrator</span>
-										</a>
-									</li>
-									<li <?php echo $active == 'kepsek' ? 'class="nav-active"':''; ?>>
-										<a href="{{ route('kepsek') }}">
-											<i class="fas fa-user-circle" aria-hidden="true"></i>
-											<span>Kepala Sekolah</span>
-										</a>
-									</li>
-									<li <?php echo $active == 'agama' ? 'class="nav-active"':''; ?>>
-										<a href="{{ route('agama') }}">
-											<i class="fas fa-heart" aria-hidden="true"></i>
-											<span>Agama</span>
-										</a>
-									</li>
-									
-									<li <?php echo $active == 'detail_nilai' ? 'class="nav-active"':''; ?>>
-										<a href="{{ route('detail_nilai') }}">
-											<i class="fas fa-expand" aria-hidden="true"></i>
-											<span>Detail Nilai</span>
-										</a>
-									</li>@endif
-									<li <?php echo $active == 'semester' ? 'class="nav-active"':''; ?>>
-										<a href="{{ route('semester') }}">
-											<i class="fas fa-file" aria-hidden="true"></i>
-											<span>Semester</span>
-										</a>
-									</li>
-
-									<li <?php echo $active == 'ampu_mapel' ? 'class="nav-active"':''; ?>>
-										<a href="{{ route('ampu_mapel') }}">
-											<i class="fas fa-book" aria-hidden="true"></i>
-											<span>Ampu Mapel</span>
-										</a>
-									</li>
-									<li class="nav-parent <?php if($active == 'data_siswa' or $active == 'import_data_siswa') echo 'nav-active'; ?>">
-										<a>
-											<i class="fas fa-users" aria-hidden="true"></i>
-											<span>Siswa</span>
-										</a>
-										<ul class="nav nav-children">
-											<li <?php echo $active == 'data_siswa' ? 'class="nav-active"':''; ?>>
-												<a href="{{ route('data_siswa') }}">
-													Data Siswa
-												</a>
-											</li>@if($level=='Administraor')
-											<li <?php echo $active == 'import_data_siswa' ? 'class="nav-active"':''; ?>>
-												<a href="{{ route('view_import_data_siswa') }}">
-													Import Data Siswa
-												</a>
-											</li>@endif
-										</ul>
-									</li>
-									<li class="nav-parent  <?php if($active == 'data_guru' or $active == 'import_data_guru') echo 'nav-active'; ?>">
-										<a>
-											<i class="fas fa-chalkboard-teacher" aria-hidden="true"></i>
-											<span>Guru</span>
-										</a>
-										<ul class="nav nav-children">
-											<li <?php echo $active == 'data_guru' ? 'class="nav-active"':''; ?>>
-												<a href="{{ route('data_guru') }}">
-													Data Guru
-												</a>
-											</li>@if($level=='Administraor')
-											<li <?php echo $active == 'import_data_guru' ? 'class="nav-active"':''; ?>>
-												<a href="{{ route('import-data-guru') }}">
-													Import Data Guru
-												</a>
-											</li>@endif
-										</ul>
-									</li>
-									<li class="nav-parent <?php echo $active == 'data_kelas' ? 'nav-active':''; ?>">
-										<a>
-											<i class="fas fa-school" aria-hidden="true"></i>
-											<span>Kelas</span>
-										</a>
-										<ul class="nav nav-children">
-											<li <?php echo $active == 'data_kelas' ? 'class="nav-active"':''; ?>>
-												<a href="{{ route('data_kelas') }}">
-													Data Kelas
-												</a>
-											</li>
-										</ul>
-									</li>
-									<li class="nav-parent <?php echo $active == 'mapel' || $active == 'kategori_mapel' ? 'nav-active':''; ?>">
-										<a>
-											<i class="fas fa-book" aria-hidden="true"></i>
-											<span>Mata Pelajaran</span>
-										</a>
-										<ul class="nav nav-children">
-											<li <?php echo $active == 'mapel' ? 'class="nav-active"':''; ?>>
-												<a href="{{ route('mapel') }}">
-													Data Pelajaran
-												</a>
-											</li>
-											<li <?php echo $active == 'kategori_mapel' ? 'class="nav-active"':''; ?>>
-												<a href="{{ route('kategori_mapel') }}">
-													Kategori Mata Pelajaran
-												</a>
-											</li>
-										</ul>
 									</li>
 								</ul>
 							</nav>

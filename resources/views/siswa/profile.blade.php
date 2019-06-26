@@ -1,4 +1,4 @@
-@extends('admin.base')
+@extends('siswa.base')
 @section('content')
 <section role="main" class="content-body">
         <header class="page-header">
@@ -7,7 +7,7 @@
           <div class="right-wrapper pull-right">
             <ol class="breadcrumbs">
               <li>
-                <a href="{{ route('dashboard') }}">
+                <a href="{{ route('dashboard_siswa') }}">
                   <i class="fa fa-home"></i>
                 </a>
               </li>
@@ -33,6 +33,7 @@
           {{ method_field('put') }}
         @endif
         {{ csrf_field() }}
+		<input value = "{{ $siswa->nis }}" type="hidden" name="hidden">
 				<table class="table table-striped table-bordered table-hover no-footer">
 					<tr>
 						<td colspan="2" align="center">
@@ -55,11 +56,13 @@
 					</tr>
 					<tr>
 					<th><font style="color:red">*</font> Password</th>
-						<td><input type="password" name="password" class="form-control" {{ $pass }} @if($url == "store") {{ "required" }} @endif />
+						<td><input type="password" name="password" class="form-control" @if($url == "store") {{ "required" }} @endif />
                 <!-- <div id="alertpassword"></div> -->
 							<div class="alert alert-info alert-block">
+								<div class="alert alert-info alert-block">
 								<strong>* Format [ Min 6 Char, A-Z, a-z, 1-9 ] contoh : contoH123</strong>
-								@if($url == "update")<br><strong>* Abaikan jika tidak diganti</strong>@endif
+								<br><strong>* Abaikan jika tidak diganti</strong>
+						</div>
 							</div>
 						</td>
 					</tr>
@@ -101,7 +104,7 @@
 						<td>
 							<select name="agama" class="form-control">
 								<option value="">Pilih Agama</option>
-								@foreach($Agama as $r)
+								@foreach($agama as $r)
 									<option {{ $siswa->id_agama == $r->id_agama ? "selected":"" }} value="{{ $r->id_agama }}">{{ $r->agama }}</option>
 								@endforeach
 							</select>
@@ -123,7 +126,7 @@
 					</tr>
 					<tr>
 						<td colspan="2" align="center">
-						<button type="submit" class="btn btn-primary"><span class="fas fa-plus"></span> {{ $button }}</button>
+						<button type="submit" class="btn btn-primary"><span class="fas fa-plus"></span> Perbaharui</button>
 						<a href="{{ route('data_siswa') }}" class="btn btn-default"><span class="fas fa-times-circle"></span> Batal</a>
 						</td>
 					</tr>
@@ -227,7 +230,6 @@
                               icon: "fa fa-check",
                               delay:2100
                             })
-                        window.location.href = "{{ route('data_siswa') }}"
 
                     }else if(res.status == '2'){ //update
 					new PNotify({
@@ -237,7 +239,6 @@
                               icon: "fa fa-check",
                               delay:2100
                             })
-                        window.location.href = "{{ route('data_siswa') }}"
                     }else{
                         if(res.info == ''){ }else{
                             new PNotify({

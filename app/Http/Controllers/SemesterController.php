@@ -42,12 +42,13 @@ class SemesterController extends Controller
 
    public function apiSemesterGuru(Request $request){
        $semester = DB::table('tb_ampu_mapel')
-                   ->select('tb_semester.id_semester as id_semester', 'semester')
+                   ->select('tb_semester.id_semester as id_semester', 'semester', 'thn_ajaran')
                    ->join('tb_semester','tb_semester.id_semester', '=', 'tb_ampu_mapel.id_semester')
                    ->where('nip', $request->nip)
                    ->where('id_kelas', $request->kelas)
                    ->where('id_mapel', $request->mapel)
                    ->groupBy('id_semester')
+				   ->orderBy('id_semester', 'DESC')
                    ->get();
 
        return json_encode($semester);
@@ -55,9 +56,10 @@ class SemesterController extends Controller
 
    public function apiSemesterSiswa(Request $request){
        $semester = DB::table('tb_ampu_mapel')
-                   ->select('tb_ampu_mapel.id_semester', 'tb_semester.semester as semester')
-                   ->join('tb_semester', 'tb_semester.id_semester', '=', 'tb_ampu_mapel.id_semester')
+                   ->select('tb_semester.id_semester as id_semester', 'semester', 'thn_ajaran')
+				   ->join('tb_semester', 'tb_semester.id_semester', '=', 'tb_ampu_mapel.id_semester')
                    ->where('id_kelas', $request->id_kelas)
+				   ->orderBy('tb_semester.id_semester', 'DESC')
                    ->get();
 
        return json_encode($semester);

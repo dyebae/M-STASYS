@@ -125,7 +125,11 @@
 					</tr>
 					<tr>
 						<th><font style="color:red">*</font> Username</th>
-						<td> <input type="text" name="username" class="form-control" required/> </td>
+						<td> <input type="text" name="username" class="form-control" required/> 
+						<div class="alert alert-info alert-block">
+								<strong>* Format [ Min 6 Char, A-Z, a-z, 1-9 ] contoh : contoH123</strong>
+						</div>
+						</td>
 					</tr>
 					<tr>
 						<th><font style="color:red">*</font> Password</th>
@@ -208,7 +212,12 @@
 					</tr>
 					<tr>
 						<th><font style="color:red">*</font> Password</th>
-						<td><input type="password" name="password" class="form-control" /></td>
+						<td><input type="password" name="password" class="form-control" />
+						<div class="alert alert-info alert-block">
+								<strong>* Format [ Min 6 Char, A-Z, a-z, 1-9 ] contoh : contoH123</strong>
+								<br><strong>* Abaikan jika tidak diganti</strong>
+						</div>
+						</td>
 					</tr>
 					<tr>
 						<th><font style="color:red">*</font> Nama</th>

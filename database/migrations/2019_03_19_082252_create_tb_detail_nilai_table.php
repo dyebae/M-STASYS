@@ -16,6 +16,7 @@ class CreateTbDetailNilaiTable extends Migration
         Schema::create('tb_detail_nilai', function (Blueprint $table) {
             $table->string('id_detail', 5)->primary();
             $table->string('jenis_nilai', 30);
+            $table->enum('kategori_nilai', ['ph', 'pts', 'pas']);
             $table->timestamps();
         });
     }

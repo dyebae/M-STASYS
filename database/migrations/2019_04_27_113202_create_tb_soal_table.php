@@ -15,7 +15,7 @@ class CreateTbSoalTable extends Migration
     {
         Schema::create('tb_soal', function (Blueprint $table) {
             $table->increments('id_soal');
-            $table->string('id_ampu', 5)->index();
+            $table->integer('id_ampu', false, true)->index();
             $table->foreign('id_ampu')->references('id_ampu')->on('tb_ampu_mapel');
             $table->text('deskripsi');
             $table->integer('nomer', false, true)->length(5);

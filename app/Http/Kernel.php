@@ -61,6 +61,8 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'cek-sesi-admin' => \App\Http\Middleware\cekSessionAdmin::class,
+        'cek-sesi-guru' => \App\Http\Middleware\cekSesiGuru::class,
+        'cek-sesi-siswa' => \App\Http\Middleware\cekSesiSiswa::class,
     ];
 
     /**
