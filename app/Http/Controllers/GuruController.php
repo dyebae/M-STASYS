@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use DB;
@@ -9,6 +8,7 @@ use App\Guru;
 use App\Kelas;
 use App\Agama;
 use \Illuminate\Database\QueryException;
+use \Session;
 class GuruController extends Controller
 {
 	const path = 'assets/images/Teachers/';
@@ -55,6 +55,7 @@ class GuruController extends Controller
 					return back()->with(['alert'=>$e->errorInfo[2]]);
 				}
 	}
+	
 	public function view_import_data_guru(){
 		$data['active'] = 'import_data_guru';
 		$data['judul'] = 'Import Data Guru';
@@ -68,13 +69,14 @@ class GuruController extends Controller
 				 'jenis_kelamin' => $req->jenis_kelamin,
 				 'alamat' => $req->alamat,
 				 'id_agama' => $req->agama];
-		if(count(trim($req->password) > 0)) $data['password'] = $req->password;
+		if($req->password != null) $data['password'] = $req->password;
 		$uploadedFile = $req->file('foto');
 		if($uploadedFile != ""){
 			$data['foto'] = $req->hidden. '.' . $uploadedFile->getClientOriginalExtension();
 			$uploadedFile->move(self::path, $data['foto']);
 		}
 		$guru = Guru::findOrFail($req->hidden);
+		//dd($data);
 		//dd($data);
 		$guru->update($data);
 		//dd($req);
@@ -83,10 +85,105 @@ class GuruController extends Controller
 	public function ajax_get(Request $req){
 		return json_encode(Guru::findOrFail($req->nip));
 	}
+	
 	public function dashboard_guru(){
 		$data['active'] = 'data_guru';
 		$data['judul'] = 'Data Guru';
+		$data['ampu'] = \App\AmpuMapel::where('nip', Session::get('logged_in')[1])->where('id_semester', \App\Semester::latest()->first()->id_semester)->count();
+		$guru = Guru::findOrFail(Session::get('logged_in')[1]);
+		$data['walikelas'] = null;
+		if($guru->walikelas != null){
+			$kelas = Kelas::findOrFail($guru->walikelas);
+			$data['id_kelas'] = $guru->walikelas;
+			$data['walikelas'] = $kelas->tingkat." ".$kelas->jurusan." ".$kelas->rombel;
+		}
 		return view('guru.dashboard', $data);
+	}
+	public function nilai_siswa(){
+		$data['active'] = 'nilai';
+		$data['judul'] = 'Nilai Siswa';
+		$data['mapel'] = DB::table('tb_ampu_mapel')
+										->select('tb_mapel.id_mapel as id_mapel', 'nama_mapel')
+										->join('tb_mapel','tb_mapel.id_mapel', '=', 'tb_ampu_mapel.id_mapel')
+										->where('nip', \Session::get('logged_in')[1])
+										->groupBy('id_mapel')
+										->get();
+		$mapel = DB::table('tb_ampu_mapel')
+										->select('tb_mapel.id_mapel as id_mapel', 'nama_mapel')
+										->join('tb_mapel','tb_mapel.id_mapel', '=', 'tb_ampu_mapel.id_mapel')
+										->where('nip', \Session::get('logged_in')[1])
+										->groupBy('id_mapel')
+										->first();
+		$kelas = DB::table('tb_ampu_mapel')
+                ->select('tb_kelas.id_kelas as id_kelas', 'tingkat', 'jurusan', 'rombel')
+                ->join('tb_kelas', 'tb_kelas.id_kelas', '=' , 'tb_ampu_mapel.id_kelas')
+                ->where('nip', \Session::get('logged_in')[1])
+                ->where('id_mapel', $mapel->id_mapel)
+                ->groupBy('id_kelas')
+                ->first();
+		$semester = DB::table('tb_ampu_mapel')
+                   ->select('tb_semester.id_semester as id_semester', 'semester', 'thn_ajaran')
+				   ->join('tb_semester', 'tb_semester.id_semester', '=', 'tb_ampu_mapel.id_semester')
+                   ->where('id_kelas', $kelas->id_kelas)
+				   ->orderBy('tb_semester.id_semester', 'DESC')
+                   ->first();
+		$data['siswa'] = DB::table('tb_ampu_mapel')
+                  ->select('tb_siswa.nis as nis', 'tb_siswa.nisn as nisn', 'tb_siswa.nama as nama', 'tb_siswa.foto as foto')
+                  ->join('tb_siswa','tb_siswa.id_kelas', '=', 'tb_ampu_mapel.id_kelas')
+                  ->where('nip', \Session::get('logged_in')[1])
+                  ->where('id_mapel', $kelas->id_kelas)
+                  ->where('tb_ampu_mapel.id_kelas', $kelas->id_kelas)
+                  ->where('id_semester', $semester->id_semester)
+                  ->groupBy('nis')
+                  ->get();
+		$data['selmapel'] = $mapel->id_mapel;
+		$data['selkelas'] = $kelas->id_kelas;
+		$data['selsemester'] = $semester->id_semester;
+		$data['kategori'] = \App\KategoriMapel::all();
+		return view('guru.nilai_siswa', $data);
+	}
+	public function show_nilai_siswa(Request $req){
+		$data['active'] = 'nilai';
+		$data['judul'] = 'Nilai Siswa';
+		$data['mapel'] = DB::table('tb_ampu_mapel')
+										->select('tb_mapel.id_mapel as id_mapel', 'nama_mapel')
+										->join('tb_mapel','tb_mapel.id_mapel', '=', 'tb_ampu_mapel.id_mapel')
+										->where('nip', \Session::get('logged_in')[1])
+										->groupBy('id_mapel')
+										->get();
+		$mapel = DB::table('tb_ampu_mapel')
+										->select('tb_mapel.id_mapel as id_mapel', 'nama_mapel')
+										->join('tb_mapel','tb_mapel.id_mapel', '=', 'tb_ampu_mapel.id_mapel')
+										->where('nip', \Session::get('logged_in')[1])
+										->groupBy('id_mapel')
+										->first();
+		$kelas = DB::table('tb_ampu_mapel')
+                ->select('tb_kelas.id_kelas as id_kelas', 'tingkat', 'jurusan', 'rombel')
+                ->join('tb_kelas', 'tb_kelas.id_kelas', '=' , 'tb_ampu_mapel.id_kelas')
+                ->where('nip', \Session::get('logged_in')[1])
+                ->where('id_mapel', $req->mapel)
+                ->groupBy('id_kelas')
+                ->first();
+		$semester = DB::table('tb_ampu_mapel')
+                   ->select('tb_semester.id_semester as id_semester', 'semester', 'thn_ajaran')
+				   ->join('tb_semester', 'tb_semester.id_semester', '=', 'tb_ampu_mapel.id_semester')
+                   ->where('id_kelas', $req->kelas)
+				   ->orderBy('tb_semester.id_semester', 'DESC')
+                   ->first();
+		$data['siswa'] = DB::table('tb_ampu_mapel')
+                  ->select('tb_siswa.nis as nis', 'tb_siswa.nisn as nisn', 'tb_siswa.nama as nama', 'tb_siswa.foto as foto')
+                  ->join('tb_siswa','tb_siswa.id_kelas', '=', 'tb_ampu_mapel.id_kelas')
+                  ->where('nip', \Session::get('logged_in')[1])
+                  ->where('id_mapel', $req->mapel)
+                  ->where('tb_ampu_mapel.id_kelas', $req->kelas)
+                  ->where('id_semester', $req->semester)
+                  ->groupBy('nis')
+                  ->get();
+		$data['selmapel'] = $mapel->id_mapel;
+		$data['selkelas'] = $kelas->id_kelas;
+		$data['selsemester'] = $semester->id_semester;
+		$data['kategori'] = \App\DetailNilai::all();
+		return view('guru.nilai_siswa', $data);
 	}
 	
 	

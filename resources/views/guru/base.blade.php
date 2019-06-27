@@ -26,6 +26,7 @@ switch($level){
 
 		<!-- Mobile Metas -->
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="csrf-token" content="{{ csrf_token() }}">
 
 		<!-- Web Fonts  -->
 		<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
@@ -35,7 +36,7 @@ switch($level){
 		<link rel="stylesheet" href="{{ URL::asset('assets/vendor/font-awesome/css/font-awesome.css') }}" />
 		<link rel="stylesheet" href="{{ URL::asset('assets/vendor/magnific-popup/magnific-popup.css') }}" />
 		<link rel="stylesheet" href="{{ URL::asset('assets/vendor/bootstrap-datepicker/css/datepicker3.css') }}" />
-
+		
 		<!-- fas fa icon -->
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
@@ -155,6 +156,12 @@ switch($level){
 											<span>Profil Pengguna</span>
 										</a>
 									</li>
+									<li <?php echo $active == 'nilai' ? 'class="nav-active"':''; ?>>
+										<a href="{{ route('guru_nilai') }}">
+											<i class="fa fa-pencil-square" aria-hidden="true"></i>
+											<span>Nilai Siswa</span>
+										</a>
+									</li>
 								</ul>
 							</nav>
 
@@ -246,7 +253,6 @@ switch($level){
 		<script src="{{ URL::asset('assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
 		<script src="{{ URL::asset('assets/vendor/magnific-popup/magnific-popup.js') }}"></script>
 		<script src="{{ URL::asset('assets/vendor/jquery-placeholder/jquery.placeholder.js') }}"></script>
-
 		<!-- Specific Page Vendor -->
 		<!-- <script src="assets/vendor/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
 		<script src="assets/vendor/jquery-ui-touch-punch/jquery.ui.touch-punch.js"></script>
@@ -282,7 +288,16 @@ switch($level){
 
 		<!-- Theme Initialization Files -->
 		<script src="{{ URL::asset('assets/javascripts/theme.init.js') }}"></script>
-		<script> 
+		
+<script type="text/javascript">
+
+			  $(function () {
+				  $.ajaxSetup({
+					  headers: {
+						  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					  }
+				});
+			  });
 			  function previewImage() {
 				document.getElementById("image-preview").style.display = "block";
 				var oFReader = new FileReader();

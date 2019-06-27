@@ -65,6 +65,8 @@ Route::get('/siswa_from_class', ['middleware'=>'cek-sesi-admin', 'uses'=>'SiswaC
 
 //Guru
 Route::get('/dashboard_guru', ['middleware'=>'cek-sesi-guru', 'uses'=>'GuruController@dashboard_guru'])->name('dashboard_guru');
+Route::get('/guru_nilai', ['middleware'=>'cek-sesi-guru', 'uses'=>'GuruController@nilai_siswa'])->name('guru_nilai');
+Route::post('/show_nilai_siswa', ['middleware'=>'cek-sesi-guru', 'uses'=>'GuruController@show_nilai_siswa']);
 
 Route::get('/data_guru', ['middleware'=>'cek-sesi-admin', 'uses'=>'GuruController@index'])->name('data_guru');
 Route::post('/ajax-get', 'GuruController@ajax_get');

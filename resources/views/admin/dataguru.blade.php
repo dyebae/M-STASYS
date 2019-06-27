@@ -17,7 +17,6 @@ $level = Session::get('logged_in')[0];
               <li><span>Guru</span></li>
               <li><span>{{ $judul }}</span></li>
             </ol>
-
             <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
           </div>
         </header>

@@ -45,6 +45,60 @@
 								</div>
 							</section>
 						</div>
+						<div class="col-md-6 col-lg-12 col-xl-6">
+							<div class="row">
+								<div class="col-md-12 col-lg-6 col-xl-6">
+									<section class="panel panel-featured-left panel-featured-primary">
+										<div class="panel-body">
+											<div class="widget-summary">
+												<div class="widget-summary-col widget-summary-col-icon">
+													<div class="summary-icon bg-primary">
+														<i class="fa fa-book"></i>
+													</div>
+												</div>
+												<div class="widget-summary-col">
+													<div class="summary">
+														<h4 class="title">Ampu Mapel</h4>
+														<div class="info">
+															<strong class="amount">{{$ampu}}</strong>
+														</div>
+													</div>
+													<div class="summary-footer">
+														<a href="{{ route('data_siswa') }}" class="text-muted text-uppercase">Lihat</a>
+													</div>
+												</div>
+											</div>
+										</div>
+									</section>
+								</div>
+								@if($walikelas != null)
+								<div class="col-md-12 col-lg-6 col-xl-6">
+									<section class="panel panel-featured-left panel-featured-primary">
+										<div class="panel-body">
+											<div class="widget-summary">
+												<div class="widget-summary-col widget-summary-col-icon">
+													<div class="summary-icon bg-primary">
+														<i class="fas fa-school"></i>
+													</div>
+												</div>
+												<div class="widget-summary-col">
+													<div class="summary">
+														<h4 class="title">Wali Kelas</h4>
+														<div class="info">
+															<strong class="amount">{{$walikelas}}</strong>
+														</div>
+													</div>
+													<div class="summary-footer">
+														<a href="{{ route('data_siswa') }}" class="text-muted text-uppercase">Lihat</a>
+													</div>
+												</div>
+											</div>
+										</div>
+									</section>
+								</div>
+								@endif
+							</div>
+						</div>
 					</div>
 				</section>
 @endsection
