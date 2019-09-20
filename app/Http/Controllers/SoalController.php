@@ -54,6 +54,7 @@ class SoalController extends Controller
     public function apiLihatSoal(Request $request){
         $data = DB::table('tb_soal')
                 ->where('date_create', $request->date_create)
+                ->inRandomOrder()
                 ->get();
 
         return json_encode($data);
