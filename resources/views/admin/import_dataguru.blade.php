@@ -43,6 +43,8 @@
 					<label for="FileExcel">File Excel</label>
 					<input type="file" name="excel" class="form-control">
 					<small class="form-text text-muted">File Harus Berextensi xls atau xlsx dengan ukuran file Kurang dari 2Mb</small>
+					<br>
+					<small class="form-text text-muted">Silahkan Download Template nya <a href="{{ URL::asset('assets/Template-Guru.xlsx') }}">Disni</a></small>
 				 </div>
 				 <div class="form-group">
 					<input type="submit" value="Import Data" class="btn btn-primary">

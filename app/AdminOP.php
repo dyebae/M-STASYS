@@ -13,7 +13,7 @@ class AdminOP extends Authenticatable
     protected $table = 'tb_admin_op';
 
     protected $fillable = [
-        'username','nama','tempat_lahir','tgl_lahir','alamat','agama','password','jenis_kelamin','status','foto'
+        'username','nama','tempat_lahir','tgl_lahir','alamat','id_agama','password','jenis_kelamin','status','foto'
     ];
 
     protected $primaryKey = 'username';

@@ -170,7 +170,7 @@
 						<th>Agama</th>
 						<td>
 							<select name="agama" class="form-control">
-								<option>Pilih Agama</option>
+								<option value="">Pilih Agama</option>
 								@foreach($agama as $r)
 								<option value="{{ $r->id_agama }}">{{ $r->agama }}</option>
 								@endforeach

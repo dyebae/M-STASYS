@@ -64,7 +64,7 @@ class KepsekController extends Controller
 				 'jenis_kelamin' => $req->jenis_kelamin,
 				 'alamat' => $req->alamat,
 				 'id_agama' => $req->agama];
-		if(count(trim($req->password) > 0)) $data['password'] = $req->password;
+		if(trim($req->password) != "") $data['password'] = $req->password;
 		$uploadedFile = $req->file('foto');
 		if($uploadedFile != ""){
 			$data['foto'] = $req->nip. '.' . $uploadedFile->getClientOriginalExtension();

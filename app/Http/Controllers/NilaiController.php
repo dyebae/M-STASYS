@@ -26,7 +26,7 @@ class NilaiController extends Controller
 		return view('admin.dn', $data);
 	}
 	public function store_detail_nilai(Request $req){
-		if(DN::create(['id_detail' =>$req->id_detail, 'jenis_nilai' =>$req->jenis_nilai, 'kategori_nilai' =>"pts"]))
+		if(DN::create(['id_detail' =>$req->id_detail, 'jenis_nilai' =>$req->jenis_nilai, 'kategori_nilai' =>$req->kategori_nilai]))
 			return back()->with(['info' => 'Detail Nilai Berhasil Ditambahkan']);
 		return back()->with(['alert' => 'Terjadi Kesalahan']);
 		//echo $req->kategori_nilai;

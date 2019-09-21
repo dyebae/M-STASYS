@@ -66,7 +66,7 @@ class AdminOPController extends Controller
 				 'jenis_kelamin' => $req->jenis_kelamin,
 				 'alamat' => $req->alamat,
 				 'id_agama' => $req->agama];
-		if(count(trim($req->password) > 0)) $data['password'] = $req->password;
+		if(trim($req->password != "")) $data['password'] = $req->password;
 		$path = 'assets/images/admin/';
 		$uploadedFile = $req->file('foto');
 		if($uploadedFile != ""){
